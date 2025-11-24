@@ -48,3 +48,22 @@
     font-family: var(--font-pretendard);
   }
 }
+
+@layer components {
+  .centralize {
+    @apply flex items-center justify-center;
+  }
+
+  .modal {
+    @apply rounded-lg bg-white p-6 shadow-lg transition-all;
+    width: 90%;
+
+    &.modal-wrapper {
+      @apply overflow-auto p-10;
+    }
+  }
+
+  .container-1440 {
+    @apply w-full max-w-[1440px] min-w-[360px];
+  }
+}
