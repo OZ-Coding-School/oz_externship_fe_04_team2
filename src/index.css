@@ -21,16 +21,16 @@
   --color-primary-800: #854d0e;
   --color-primary-900: #713f12;
 
-  --color-gray-50: #f9fafb;
-  --color-gray-100: #f3f4f6;
-  --color-gray-200: #e5e7eb;
-  --color-gray-300: #d1d5db;
-  --color-gray-400: #9ca3af;
-  --color-gray-500: #6b7280;
-  --color-gray-600: #4b5563;
-  --color-gray-700: #374151;
-  --color-gray-800: #1f2937;
-  --color-gray-900: #111827;
+  --color-custom-gray-50: #f9fafb;
+  --color-custom-gray-100: #f3f4f6;
+  --color-custom-gray-200: #e5e7eb;
+  --color-custom-gray-300: #d1d5db;
+  --color-custom-gray-400: #9ca3af;
+  --color-custom-gray-500: #6b7280;
+  --color-custom-gray-600: #4b5563;
+  --color-custom-gray-700: #374151;
+  --color-custom-gray-800: #1f2937;
+  --color-custom-gray-900: #111827;
 
   --color-success-100: #dcfce7;
   --color-success-500: #22c55e;
@@ -63,7 +63,7 @@
     }
   }
 
-  .container-1440 {
-    @apply w-full max-w-[1440px] min-w-[360px];
+  .container-1280 {
+    @apply w-full max-w-[1280px] min-w-[360px];
   }
 }
