@@ -52,6 +52,7 @@ export default function ScheduleCalendar() {
           toolbar: CustomToolbar,
           event: ScheduleEventItem,
         }}
+        showAllEvents
       />
     </div>
   )
