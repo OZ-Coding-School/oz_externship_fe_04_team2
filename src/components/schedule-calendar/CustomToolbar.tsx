@@ -1,8 +1,12 @@
 import { Button } from '@/components/common'
+import type { ScheduleEvent } from '@/components/schedule-calendar/ScheduleCalendar'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import type { ToolbarProps } from 'react-big-calendar'
 
-export default function CustomToolbar({ label, onNavigate }: ToolbarProps) {
+export default function CustomToolbar({
+  label,
+  onNavigate,
+}: ToolbarProps<ScheduleEvent, object>) {
   return (
     <div className="mb-4 flex items-center justify-between">
       <Button

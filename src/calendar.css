@@ -18,7 +18,7 @@
 }
 
 .rbc-today {
-  background-color: #fefce8;
+  background-color: #ffffff;
 }
 
 .rbc-off-range,
@@ -54,4 +54,17 @@
 .rbc-date-cell {
   text-align: left;
   padding: 6px 8px;
+}
+
+.rbc-event {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  padding: 4px;
+  background-color: #fef9c3;
+  color: #854d0e;
+}
+
+.rbc-row-segment {
+  padding-inline: 8px;
 }
