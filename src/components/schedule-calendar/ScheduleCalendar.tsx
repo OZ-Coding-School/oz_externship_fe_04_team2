@@ -29,14 +29,17 @@ export default function ScheduleCalendar() {
   const [month, setMonth] = useState(new Date())
   const formats = { monthHeaderFormat: 'yyyy년 MM월' }
 
+  // 월 변경 핸들러
+  const handleMonthNavigate = (newDate: Date) => {
+    setMonth(newDate)
+  }
+
   return (
     <div className="h-[600px]">
       <Calendar
         localizer={localizer}
         date={month}
-        onNavigate={(newDate) => {
-          setMonth(newDate)
-        }}
+        onNavigate={handleMonthNavigate}
         formats={formats}
         startAccessor="start"
         endAccessor="end"
