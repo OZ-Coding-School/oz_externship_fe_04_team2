@@ -1,3 +1,4 @@
+import { Button } from '@/components/common/Button'
 import { cn } from '@/lib'
 import { XIcon } from 'lucide-react'
 import type { ReactNode, MouseEvent } from 'react'
@@ -44,17 +45,21 @@ export function Modal({
         role="dialog"
         aria-modal="true"
       >
-        <div className="flex items-start justify-between">
-          <h2 className={cn('mt-2 text-xl font-bold', titleClassName)}>
+        <div
+          className={(cn('flex items-start justify-between'), titleClassName)}
+        >
+          <h2 className="text-custom-gray-900 mt-1 text-xl font-bold">
             {title}
           </h2>
-          <button
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-custom-gray-400 h-8 w-8"
             onClick={onClose}
-            className="text-3xl font-light"
             aria-label="닫기"
           >
-            <XIcon />
-          </button>
+            <XIcon size={20} />
+          </Button>
         </div>
         <div
           className={cn(
