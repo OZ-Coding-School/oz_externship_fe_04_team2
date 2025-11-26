@@ -47,6 +47,18 @@
   body {
     font-family: var(--font-pretendard);
   }
+
+  h1 {
+    @apply text-4xl font-bold;
+  }
+
+  h2 {
+    @apply text-3xl font-semibold;
+  }
+
+  h3 {
+    @apply text-2xl font-medium;
+  }
 }
 
 @layer components {
@@ -69,5 +81,13 @@
 
   .remove-focus-outline {
     @apply focus:ring-0 focus:outline-none;
+  }
+
+  .markdown-content ol {
+    @apply ml-4 list-decimal;
+  }
+
+  .markdown-content ul {
+    @apply ml-4 list-disc;
   }
 }
