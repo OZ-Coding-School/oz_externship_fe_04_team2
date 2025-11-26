@@ -1,5 +1,6 @@
 import { Modal } from '@/components/common'
 import CustomCaptionLabel from '@/components/date-picker/CustomCaptionLabel'
+import { CustomChevron } from '@/components/date-picker/CustomChevron'
 import CustomFooter from '@/components/date-picker/CustomFooter'
 import { ko } from 'date-fns/locale'
 import { DayPicker } from 'react-day-picker'
@@ -32,6 +33,7 @@ export function DatePickerModal({
         showOutsideDays
         components={{
           CaptionLabel: CustomCaptionLabel,
+          Chevron: CustomChevron,
         }}
         footer={
           <CustomFooter
@@ -40,6 +42,9 @@ export function DatePickerModal({
             onConfirm={onConfirm}
           />
         }
+        classNames={{
+          chevron: 'text-custom-gray-600',
+        }}
       />
     </Modal>
   )
