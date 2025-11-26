@@ -9,9 +9,12 @@ import {
 import { Button } from './Button'
 import { useState } from 'react'
 import { editorTabVariants } from '@/constants'
+import { markdownToHtml } from '@/lib/markdown'
 
 export function MarkdownEditor() {
   const [mode, setMode] = useState<'write' | 'preview'>('write')
+  const [value, setValue] = useState('')
+
   return (
     <div className="border-custom-gray-200 rounded-lg border">
       <header className="bg-custom-gray-50 border-custom-gray-200 flex h-12 items-center justify-between border-b px-4">
@@ -54,13 +57,16 @@ export function MarkdownEditor() {
       </header>
       {mode === 'write' ? (
         <textarea
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
           placeholder="스터디 그룹에 대한 설명을 작성하세요. 마크다운 문법을 사용할 수 있습니다."
           className="remove-focus-outline min-h-[200px] w-full resize-none border-0 p-4"
         ></textarea>
       ) : (
-        <div className="text-custom-gray-900 remove-focus-outline min-h-[200px] w-full border-0 p-4">
-          미리보기
-        </div>
+        <div
+          className="text-custom-gray-900 remove-focus-outline min-h-[200px] w-full border-0 p-4"
+          dangerouslySetInnerHTML={{ __html: markdownToHtml(value) }}
+        />
       )}
       <div className="text-custom-gray-600 border-custom-gray-200 bg-custom-gray-50 flex h-8 items-center gap-2 border-t px-4 text-sm font-medium">
         <p className="font-normal">마크다운 문법을 사용할 수 있습니다.</p>
