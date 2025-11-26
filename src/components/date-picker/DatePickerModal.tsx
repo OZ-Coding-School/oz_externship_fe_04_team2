@@ -5,6 +5,8 @@ import CustomFooter from '@/components/date-picker/CustomFooter'
 import { ko } from 'date-fns/locale'
 import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/style.css'
+import '../../date-picker.css'
+import { startOfToday } from 'date-fns'
 
 interface DatePickerModalProps {
   isOpen: boolean
@@ -21,8 +23,21 @@ export function DatePickerModal({
   onChange,
   onConfirm,
 }: DatePickerModalProps) {
+  const handleClickToday = () => {
+    const today = startOfToday()
+    onChange(today)
+  }
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="스터디 시작일 선택">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      title="스터디 시작일 선택"
+      className="p-0"
+      wrapperClassName="w-[448px] h-auto p-0 m-0"
+      innerClassName="p-0 border-t-1 mb-0 border-custom-gray-200"
+      titleClassName="flex justify-between text-lg font-normal p-6 titleClassWrap"
+    >
       <DayPicker
         mode="single"
         locale={ko}
@@ -32,7 +47,12 @@ export function DatePickerModal({
         disabled={{ before: new Date() }}
         showOutsideDays
         components={{
-          CaptionLabel: CustomCaptionLabel,
+          CaptionLabel: (captionProps) => (
+            <CustomCaptionLabel
+              {...captionProps}
+              handleClickToday={handleClickToday}
+            />
+          ),
           Chevron: CustomChevron,
         }}
         footer={

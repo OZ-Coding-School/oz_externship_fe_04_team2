@@ -12,8 +12,8 @@ export default function CustomFooter({
   onConfirm,
 }: CustomFooterProps) {
   return (
-    <div className="flex items-center justify-between">
-      <span>
+    <div className="border-custom-gray-200 flex items-center justify-between border-t-1 p-6">
+      <span className="text-custom-gray-600 text-sm">
         {selected ? `${selected.toLocaleDateString()}` : '날짜를 선택하세요'}
       </span>
 
