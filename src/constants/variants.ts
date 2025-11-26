@@ -84,3 +84,18 @@ export const checkboxVariants = cva(
     },
   }
 )
+
+export const editorTabVariants = cva(
+  'cursor-pointer px-2 py-1 text-sm font-medium transition-colors',
+  {
+    variants: {
+      active: {
+        true: 'text-custom-gray-900 border-b-2 border-custom-gray-900',
+        false: 'text-custom-gray-600 hover:text-custom-gray-800',
+      },
+    },
+    defaultVariants: {
+      active: false,
+    },
+  }
+)
