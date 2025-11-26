@@ -1,3 +1,4 @@
+import { cn } from '@/lib'
 import { XIcon } from 'lucide-react'
 import type { ReactNode, MouseEvent } from 'react'
 
@@ -6,6 +7,9 @@ interface ModalProps {
   onClose: () => void
   children: ReactNode
   className?: string
+  wrapperClassName?: string
+  innerClassName?: string
+  titleClassName?: string
   title: ReactNode
 }
 
@@ -14,6 +18,9 @@ export function Modal({
   onClose,
   children,
   className,
+  wrapperClassName,
+  innerClassName,
+  titleClassName,
   title,
 }: ModalProps) {
   if (!isOpen) return null
@@ -30,12 +37,17 @@ export function Modal({
       onClick={handleBackdropClick}
     >
       <div
-        className="modal modal-wrapper relative m-10 flex h-4/5 w-full flex-col"
+        className={cn(
+          'modal modal-wrapper relative m-10 flex h-4/5 w-full flex-col',
+          wrapperClassName
+        )}
         role="dialog"
         aria-modal="true"
       >
         <div className="flex items-start justify-between">
-          <h2 className="mt-2 text-xl font-bold">{title}</h2>
+          <h2 className={cn('mt-2 text-xl font-bold', titleClassName)}>
+            {title}
+          </h2>
           <button
             onClick={onClose}
             className="text-3xl font-light"
@@ -44,7 +56,12 @@ export function Modal({
             <XIcon />
           </button>
         </div>
-        <div className="centralize mb-8 h-full flex-col gap-6 overflow-y-auto p-4">
+        <div
+          className={cn(
+            'centralize mb-8 h-full flex-col gap-6 overflow-y-auto p-4',
+            innerClassName
+          )}
+        >
           {children}
         </div>
       </div>
