@@ -9,7 +9,7 @@ export interface InputProps
   required?: boolean
 }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
+export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     { className, type, label, error, icon, required, disabled, ...props },
     ref
@@ -38,14 +38,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             className={cn(
               'flex h-11 w-full rounded-md border bg-white px-3 py-2 text-sm transition-colors',
               'file:border-0 file:bg-transparent file:text-sm file:font-medium',
-              'placeholder:text-gray-400 focus-visible:ring-1 focus-visible:outline-none',
-              'disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400 disabled:opacity-100',
+              'placeholder:text-custom-gray-400 focus-visible:ring-1 focus-visible:outline-none',
+              'disabled:bg-custom-gray-50 disabled:text-custom-gray-400 disabled:cursor-not-allowed disabled:opacity-100',
 
               icon ? 'pl-10' : 'pl-3',
 
               error
                 ? 'border-danger-500 focus-visible:ring-danger-500'
-                : 'border-gray-200 focus-visible:border-yellow-500 focus-visible:ring-yellow-500',
+                : 'border-custom-gray-200 focus-visible:border-primary-500 focus-visible:ring-primary-500',
 
               className
             )}
@@ -64,5 +64,3 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 )
 
 Input.displayName = 'Input'
-
-export { Input }
