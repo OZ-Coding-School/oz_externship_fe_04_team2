@@ -17,7 +17,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 
     return (
       <div className="flex items-center gap-3">
-        <div className="relative flex items-center justify-center">
+        <div className="centralize relative">
           <input
             type="checkbox"
             id={uniqueId}

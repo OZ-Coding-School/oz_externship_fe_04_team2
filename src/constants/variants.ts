@@ -1,25 +1,26 @@
 import { cva } from 'class-variance-authority'
 
 export const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ring-offset-white',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 ring-offset-white cursor-pointer',
   {
     variants: {
       variant: {
         primary:
-          'bg-yellow-500 text-white hover:bg-yellow-600 active:bg-yellow-700',
+          'bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700',
         secondary:
-          'bg-gray-100 text-gray-900 hover:bg-gray-200 active:bg-gray-400',
+          'bg-custom-gray-100 text-custom-gray-900 hover:bg-custom-gray-200 active:bg-custom-gray-400',
         outline:
-          'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 active:bg-gray-100',
+          'border border-custom-gray-300 bg-white text-custom-gray-700 hover:bg-custom-gray-50 active:bg-custom-gray-100',
         ghost:
-          'bg-transparent text-gray-700 hover:bg-gray-100 active:bg-gray-200',
-        danger: 'bg-red-500 text-white hover:bg-red-600 active:bg-red-700',
+          'bg-transparent text-custom-gray-700 hover:bg-custom-gray-100 active:bg-custom-gray-200',
+        danger:
+          'bg-danger-500 text-white hover:bg-danger-600 active:bg-danger-700',
       },
       size: {
-        default: 'h-10 px-4 py-2',
-        sm: 'h-9 rounded-lg px-3',
-        lg: 'h-11 rounded-lg px-8 text-base',
-        icon: 'h-10 w-10',
+        default: 'h-10 px-4 py-2.5',
+        sm: 'h-9 px-3 py-2',
+        lg: 'h-12 px-8 py-3 text-base',
+        icon: 'h-5 w-5',
       },
     },
     defaultVariants: {
@@ -30,14 +31,14 @@ export const buttonVariants = cva(
 )
 
 export const cardVariants = cva(
-  'rounded-lg bg-white text-slate-900 w-full p-6',
+  'rounded-lg bg-white text-custom-gray-900 w-full p-6',
   {
     variants: {
       variant: {
         default: 'border border-custom-gray-200',
         outlined: 'border-2 border-custom-gray-300',
         elevated: 'shadow-lg border-none',
-        flat: 'border-none shadow-none bg-custom-gray-50',
+        flat: 'border-none shadow-none bg-white',
       },
     },
     defaultVariants: {
@@ -47,7 +48,7 @@ export const cardVariants = cva(
 )
 
 export const badgeVariants = cva(
-  'inline-flex items-center justify-center rounded-full font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
+  'inline-flex items-center justify-center rounded-full font-medium focus:outline-none',
   {
     variants: {
       variant: {
@@ -58,8 +59,8 @@ export const badgeVariants = cva(
       },
       size: {
         sm: 'text-[10px] px-2 py-0.5 h-5',
-        md: 'text-xs px-2.5 py-0.5 h-7',
-        lg: 'text-sm px-3 py-1 h-9',
+        md: 'text-xs px-2.5 py-1 h-7',
+        lg: 'text-sm px-3 py-1.5 h-9',
       },
     },
     defaultVariants: {

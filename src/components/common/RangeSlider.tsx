@@ -51,4 +51,5 @@ export const RangeSlider = React.forwardRef<HTMLInputElement, RangeSliderProps>(
     )
   }
 )
+
 RangeSlider.displayName = 'RangeSlider'
