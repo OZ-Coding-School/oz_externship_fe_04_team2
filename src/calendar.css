@@ -1,0 +1,70 @@
+.rbc-month-view {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.rbc-header {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 19px;
+  color: #374151;
+  background-color: #f9fafb;
+  padding: 12px;
+}
+
+.rbc-header + .rbc-header {
+  border-left: 1px solid #e5e7eb;
+}
+
+.rbc-today {
+  background-color: #ffffff;
+}
+
+.rbc-off-range,
+.rbc-off-range-bg {
+  color: transparent;
+  background: transparent;
+  pointer-events: none;
+}
+
+.rbc-off-range .rbc-button-link {
+  color: transparent;
+}
+
+.rbc-day-bg {
+  padding: 8px;
+}
+
+.rbc-day-bg + .rbc-day-bg {
+  border-left: 1px solid #e5e7eb;
+}
+
+.rbc-button-link {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #111827;
+}
+
+.rbc-month-row + .rbc-month-row {
+  border-top: 1px solid #e5e7eb;
+}
+
+.rbc-date-cell {
+  text-align: left;
+  padding: 6px 8px;
+}
+
+.rbc-event {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  padding: 4px;
+  background-color: #fef9c3;
+  color: #854d0e;
+}
+
+.rbc-row-segment {
+  padding-inline: 8px;
+}
