@@ -66,4 +66,8 @@
   .container-1280 {
     @apply w-full max-w-[1280px] min-w-[360px];
   }
+
+  .remove-focus-outline {
+    @apply focus:ring-0 focus:outline-none;
+  }
 }

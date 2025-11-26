@@ -22,7 +22,7 @@ export const RangeSlider = React.forwardRef<HTMLInputElement, RangeSliderProps>(
           background: `linear-gradient(to right, #93c5fd ${percentage}%, #e5e7eb ${percentage}%)`,
         }}
         className={cn(
-          'bg-custom-gray-200 h-2 w-full cursor-pointer appearance-none rounded-full focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+          'bg-custom-gray-200 remove-focus-outline h-2 w-full cursor-pointer appearance-none rounded-full disabled:cursor-not-allowed disabled:opacity-50',
 
           '[&::-webkit-slider-thumb]:appearance-none',
           '[&::-webkit-slider-thumb]:h-5',
