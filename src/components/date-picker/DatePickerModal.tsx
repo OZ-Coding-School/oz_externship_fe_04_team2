@@ -5,7 +5,7 @@ import CustomFooter from '@/components/date-picker/CustomFooter'
 import { ko } from 'date-fns/locale'
 import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/style.css'
-import '../../date-picker.css'
+import './date-picker.css'
 import { startOfToday } from 'date-fns'
 
 interface DatePickerModalProps {

@@ -1,5 +1,5 @@
 import 'react-big-calendar/lib/css/react-big-calendar.css'
-import '../../calendar.css'
+import './calendar.css'
 import { localizer } from '@/utils'
 import { useState } from 'react'
 import { Calendar } from 'react-big-calendar'
