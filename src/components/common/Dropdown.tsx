@@ -57,7 +57,7 @@ export function Dropdown({
         onClick={() => !disabled && setIsOpen(!isOpen)}
         disabled={disabled}
         className={cn(
-          'border-custom-gray-200 flex h-11 w-full items-center justify-between rounded-md border bg-white px-3 py-2 text-sm transition-all focus:outline-none',
+          'border-custom-gray-200 remove-focus-outline flex h-11 w-full items-center justify-between rounded-md border bg-white px-3 py-2 text-sm transition-all',
           disabled
             ? 'bg-custom-gray-50 text-custom-gray-400 cursor-not-allowed'
             : 'hover:bg-custom-gray-50',
@@ -82,7 +82,7 @@ export function Dropdown({
       </button>
 
       {isOpen && (
-        <ul className="ring-opacity-5 animate-in fade-in-0 zoom-in-95 border-custom-gray-100 absolute z-50 max-h-60 w-full overflow-auto rounded-lg border bg-white py-1 shadow-lg duration-100 focus:outline-none">
+        <ul className="ring-opacity-5 animate-in fade-in-0 zoom-in-95 border-custom-gray-100 remove-focus-outline absolute z-50 max-h-60 w-full overflow-auto rounded-lg border bg-white py-1 shadow-lg duration-100">
           {options.map((option) => (
             <li
               key={option.value}

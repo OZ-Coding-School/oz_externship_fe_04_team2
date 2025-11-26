@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority'
 
 export const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 ring-offset-white cursor-pointer',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium transition-colors remove-focus-outline disabled:pointer-events-none disabled:opacity-50 ring-offset-white cursor-pointer',
   {
     variants: {
       variant: {
@@ -48,7 +48,7 @@ export const cardVariants = cva(
 )
 
 export const badgeVariants = cva(
-  'inline-flex items-center justify-center rounded-full font-medium focus:outline-none',
+  'inline-flex items-center justify-center rounded-full font-medium remove-focus-outline',
   {
     variants: {
       variant: {
@@ -71,7 +71,7 @@ export const badgeVariants = cva(
 )
 
 export const checkboxVariants = cva(
-  'peer h-5 w-5 cursor-pointer appearance-none border bg-white transition-all focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 border-custom-gray-300 hover:border-primary-400 checked:border-primary-500 checked:bg-primary-500',
+  'peer h-5 w-5 cursor-pointer appearance-none border bg-white transition-all remove-focus-outline disabled:cursor-not-allowed disabled:opacity-50 border-custom-gray-300 hover:border-primary-400 checked:border-primary-500 checked:bg-primary-500',
   {
     variants: {
       shape: {
@@ -81,6 +81,21 @@ export const checkboxVariants = cva(
     },
     defaultVariants: {
       shape: 'square',
+    },
+  }
+)
+
+export const editorTabVariants = cva(
+  'cursor-pointer px-2 py-1 text-sm font-medium transition-colors',
+  {
+    variants: {
+      active: {
+        true: 'text-custom-gray-900 border-b-2 border-custom-gray-900',
+        false: 'text-custom-gray-600 hover:text-custom-gray-800',
+      },
+    },
+    defaultVariants: {
+      active: false,
     },
   }
 )
