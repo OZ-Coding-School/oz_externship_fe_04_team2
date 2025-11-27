@@ -1,6 +1,9 @@
-import { Heading1Icon, ListIcon } from 'lucide-react'
 import { Button } from '@/components/common'
 import { TOOLBAR_BUTTONS } from '@/constants'
+import {
+  ToolbarDropdownHeading,
+  ToolbarDropdownList,
+} from '@/components/markdown'
 
 interface ToolbarProps {
   insertMarkdown: (before: string, after?: string) => void
@@ -19,12 +22,8 @@ export function Toolbar({ insertMarkdown }: ToolbarProps) {
           <Icon size={20} />
         </Button>
       ))}
-      <Button variant="ghost" size="icon">
-        <Heading1Icon size={20} />
-      </Button>
-      <Button variant="ghost" size="icon">
-        <ListIcon size={20} />
-      </Button>
+      <ToolbarDropdownHeading insertMarkdown={insertMarkdown} />
+      <ToolbarDropdownList insertMarkdown={insertMarkdown} />
     </menu>
   )
 }

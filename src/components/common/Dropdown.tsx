@@ -4,8 +4,8 @@ import { cn } from '@/lib'
 
 export type DropdownOption = {
   value: string
-  label: string
-  icon?: React.ReactNode
+  label?: string
+  Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>
 }
 
 interface DropdownProps {
@@ -70,7 +70,7 @@ export function Dropdown({
             !selectedOption && 'text-custom-gray-400'
           )}
         >
-          {selectedOption?.icon}
+          {selectedOption?.Icon && <selectedOption.Icon />}
           {selectedOption ? selectedOption.label : placeholder}
         </span>
         <ChevronDown
@@ -93,8 +93,10 @@ export function Dropdown({
                   'bg-primary-50 text-primary-700 font-medium'
               )}
             >
-              {option.icon && (
-                <span className="text-custom-gray-400">{option.icon}</span>
+              {option.Icon && (
+                <span className="text-custom-gray-400">
+                  <option.Icon />
+                </span>
               )}
               <span>{option.label}</span>
             </li>

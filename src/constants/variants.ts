@@ -99,3 +99,38 @@ export const editorTabVariants = cva(
     },
   }
 )
+
+export const dropdownButtonVariants = cva(
+  'border-custom-gray-200 remove-focus-outline flex h-11 w-full items-center justify-between rounded-md border bg-white px-3 py-2 text-sm transition-all',
+  {
+    variants: {
+      disabled: {
+        true: 'bg-custom-gray-50 text-custom-gray-400 cursor-not-allowed',
+        false: 'hover:bg-custom-gray-50',
+      },
+      open: {
+        true: '',
+        false: '',
+      },
+    },
+    defaultVariants: {
+      disabled: false,
+      open: false,
+    },
+  }
+)
+
+export const dropdownItemVariants = cva(
+  'text-custom-gray-700 hover:bg-custom-gray-100 relative flex cursor-pointer items-center gap-2 px-3 py-2.5 text-sm transition-colors select-none',
+  {
+    variants: {
+      selected: {
+        true: 'bg-primary-50 text-primary-700 font-medium',
+        false: '',
+      },
+    },
+    defaultVariants: {
+      selected: false,
+    },
+  }
+)
