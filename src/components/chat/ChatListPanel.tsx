@@ -2,7 +2,11 @@ import ChatHeader from '@/components/chat/ChatHeader'
 import ChatList from '@/components/chat/ChatList'
 import { useState } from 'react'
 
-export default function ChatListPanel() {
+interface ChatListPanelProps {
+  onClose: () => void
+}
+
+export default function ChatListPanel({ onClose }: ChatListPanelProps) {
   const [activeRoomId, setActiveRoomId] = useState<number | null>(null)
 
   const handleSelectRoom = (roomId: number) => {
@@ -12,7 +16,7 @@ export default function ChatListPanel() {
 
   return (
     <div className="flex h-full flex-col">
-      <ChatHeader title="채팅방" onClose={() => {}} />
+      <ChatHeader title="채팅방" onClose={onClose} />
       <ChatList activeRoomId={activeRoomId} onSelectRoom={handleSelectRoom} />
     </div>
   )

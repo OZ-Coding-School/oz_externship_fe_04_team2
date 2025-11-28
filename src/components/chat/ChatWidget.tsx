@@ -18,7 +18,7 @@ export default function ChatWidget() {
       {/* 채팅 패널 */}
       {isOpen && (
         <div className="mb-2 flex h-[384px] w-[320px] flex-col overflow-hidden rounded-lg bg-white shadow-[0px_25px_50px_-12px_#00000040]">
-          <ChatListPanel />
+          <ChatListPanel onClose={toggleOpen} />
         </div>
       )}
 

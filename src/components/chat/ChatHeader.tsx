@@ -19,8 +19,8 @@ export default function ChatHeader({
   return (
     <header className="bg-custom-gray-50 border-b-custom-gray-200 flex items-center justify-between gap-2 border-b px-4 pt-4 pb-[15px]">
       {showBackButton && (
-        <Button variant="ghost" onClick={onBack} className="px-2.5">
-          <ArrowLeft className="h-[18px] w-[18px]" />
+        <Button variant="ghost" onClick={onBack} className="h-8 w-8 p-0">
+          <ArrowLeft className="text-custom-gray-600 h-[18px] w-[18px]" />
         </Button>
       )}
 
@@ -36,7 +36,7 @@ export default function ChatHeader({
         )}
       </div>
 
-      <Button variant="ghost" onClick={onClose} className="px-2.5">
+      <Button variant="ghost" onClick={onClose} className="h-8 w-8 p-0">
         <X className="text-custom-gray-400 h-[18px] w-[18px]" />
       </Button>
     </header>
