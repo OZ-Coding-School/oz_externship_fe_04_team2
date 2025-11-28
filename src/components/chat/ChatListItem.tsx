@@ -1,11 +1,11 @@
+import { cn } from '@/lib'
 import type { ChatRoomListItem } from '@/types/chat'
 import { formatChatListDate } from '@/utils/format-date'
 
 interface ChatRoomItemProps {
   chatRoom: ChatRoomListItem
-  unreadCount?: number
   isActive?: boolean
-  onClick?: () => void
+  onClick?: (roomId: number) => void
 }
 
 export default function ChatListItem({
@@ -24,11 +24,22 @@ export default function ChatListItem({
     : ''
 
   return (
-    <li>
-      <button type="button" onClick={onClick} className="">
-        <span>{chatRoom.name}</span>
-        <span>{dateLabel}</span>
-        <span>{previewMessage}</span>
+    <li className="border-custom-gray-200 border-t first:border-t-0">
+      <button
+        type="button"
+        onClick={() => onClick?.(chatRoom.id)}
+        className={cn(
+          'flex w-full flex-col gap-1 p-3 pb-4',
+          isActive && 'text-custom-gray-900'
+        )}
+      >
+        <div className="flex items-center justify-between">
+          <span className="text-custom-gray-900 text-sm">{chatRoom.name}</span>
+          <span className="text-custom-gray-500 text-xs">{dateLabel}</span>
+        </div>
+        <span className="text-custom-gray-600 truncate text-start text-xs">
+          {previewMessage}
+        </span>
       </button>
     </li>
   )
