@@ -5,7 +5,7 @@ import { Outlet } from 'react-router'
 export function Layout() {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false)
   return (
-    <div className="flex min-h-screen w-full flex-col">
+    <div className="flex min-h-screen w-full flex-col items-center">
       <Header
         isSideBarOpen={isSideBarOpen}
         setIsSideBarOpen={setIsSideBarOpen}
