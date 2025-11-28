@@ -17,7 +17,7 @@ export default function ChatHeader({
   onClose,
 }: ChatHeaderProps) {
   return (
-    <header className="bg-custom-gray-50 border-b-custom-gray-200 flex items-center justify-between gap-2 border-b p-4">
+    <header className="bg-custom-gray-50 border-b-custom-gray-200 flex items-center justify-between gap-2 border-b px-4 pt-4 pb-[15px]">
       {showBackButton && (
         <Button variant="ghost" onClick={onBack} className="px-2.5">
           <ArrowLeft className="h-[18px] w-[18px]" />
