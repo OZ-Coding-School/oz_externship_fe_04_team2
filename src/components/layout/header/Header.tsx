@@ -1,17 +1,16 @@
-import logoImg from '@/assets/images/logo.svg'
-import LoginStateStore from '@/store/loginStateStore'
-import Guest from '@/components/common/header/Guest'
-import User from '@/components/common/header/User'
-import MobileModal from '@/components/common/header/MobileModal'
+import logoImg from '@/assets/images/ImageLogo.svg'
+import { LoginStateStore } from '@/store'
+import { Guest, MobileModal, User } from '@/components/layout'
 import { Menu } from 'lucide-react'
-
 import { useNavigate } from 'react-router'
 import { ROUTE_PATHS } from '@/constants'
+
 interface HeaderProps {
   isSideBarOpen: boolean
   setIsSideBarOpen: (value: boolean) => void
 }
-function Header({ isSideBarOpen, setIsSideBarOpen }: HeaderProps) {
+
+export function Header({ isSideBarOpen, setIsSideBarOpen }: HeaderProps) {
   const navigate = useNavigate()
   const loginState = LoginStateStore((state) => state.loginState)
   const handleSideBar = () => {
@@ -19,18 +18,15 @@ function Header({ isSideBarOpen, setIsSideBarOpen }: HeaderProps) {
   }
 
   return (
-    <div className="w-full border-b border-solid border-[#E5E7EB]">
-      <div className="mx-auto flex h-[64px] max-w-[1440px] items-center justify-between px-8">
+    <div className="border-custom-gray-200 flex w-full justify-center border-b border-solid bg-white">
+      <div className="container-1280 fixed z-100 flex h-16 w-full items-center justify-between px-8">
         {isSideBarOpen && <MobileModal setIsModalOpen={setIsSideBarOpen} />}
         <div className="flex items-center gap-[15px] md:hidden">
-          <Menu
-            className="h-[24px] w-[24px] cursor-pointer"
-            onClick={handleSideBar}
-          />
+          <Menu className="h-8 w-8 cursor-pointer" onClick={handleSideBar} />
           <img
             src={logoImg}
             alt="logoImg"
-            className="h-[35px] w-[35px] cursor-pointer"
+            className="h-8 w-8 cursor-pointer"
             onClick={() => navigate(ROUTE_PATHS.HOME)}
           />
         </div>
@@ -38,8 +34,8 @@ function Header({ isSideBarOpen, setIsSideBarOpen }: HeaderProps) {
           className="hidden md:flex md:cursor-pointer md:items-center md:gap-2"
           onClick={() => navigate(ROUTE_PATHS.HOME)}
         >
-          <img src={logoImg} alt="logoImg" className="flex h-[35px] w-[35px]" />
-          <h2 className="text-2xl font-bold text-[#CA8A04]">StudyHub</h2>
+          <img src={logoImg} alt="logoImg" className="flex h-8 w-8" />
+          <h2 className="text-primary-500 text-2xl font-bold">StudyHub</h2>
         </div>
         {/* 로그인 하지 않았을때의 UI */}
         {loginState === 'GUEST' && <Guest />}
@@ -49,4 +45,3 @@ function Header({ isSideBarOpen, setIsSideBarOpen }: HeaderProps) {
     </div>
   )
 }
-export default Header

@@ -1,13 +1,11 @@
-import { getUserInformationApi } from '@/api/userInformation'
-import type { UserInformation } from '@/types/userInformation'
+import { getUserInformationApi } from '@/api'
+import type { UserInformation } from '@/types'
 import { useQuery } from '@tanstack/react-query'
 
-const useUserData = () => {
+export const useUserData = () => {
   return useQuery<UserInformation[]>({
     queryKey: ['userData'],
     queryFn: getUserInformationApi,
     initialData: [],
   })
 }
-
-export default useUserData
