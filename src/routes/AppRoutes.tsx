@@ -1,6 +1,7 @@
-import Layout from '@/layout/Layout'
+import { Layout } from '@/components/layout'
 import { Route, Routes } from 'react-router'
-function AppRoutes() {
+
+export function AppRoutes() {
   return (
     <Routes>
       <Route element={<Layout />}>
@@ -10,4 +11,3 @@ function AppRoutes() {
     </Routes>
   )
 }
-export default AppRoutes

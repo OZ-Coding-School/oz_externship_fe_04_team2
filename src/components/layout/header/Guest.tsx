@@ -1,7 +1,7 @@
-function Guest() {
+export function Guest() {
   return (
     <div className="ml-auto flex items-center">
-      <div className="flex items-center gap-8 text-base text-gray-700">
+      <div className="text-custom-gray-700 flex items-center gap-8 text-base">
         <div className="hidden md:flex md:gap-8">
           <a href="" className="hover:text-primary-600 cursor-pointer">
             강의 목록
@@ -21,11 +21,10 @@ function Guest() {
         </span>
         {/* 클릭하면 로그인 페이지 렌더링 */}
       </div>
-      <button className="bg-primary-500 text-basic-white ml-4 h-[40px] w-[90.89px] rounded-lg text-base md:text-lg">
+      <button className="bg-primary-500 text-basic-white ml-4 h-10 w-[90.89px] rounded-lg text-base md:text-lg">
         회원가입
       </button>
       {/* 클릭하면 회원가입 페이지 렌더링 */}
     </div>
   )
 }
-export default Guest
