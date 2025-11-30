@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.tsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { BrowserRouter } from 'react-router'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 async function enableMocking() {
   if (process.env.NODE_ENV !== 'development') {
@@ -27,6 +28,7 @@ enableMocking().then(() => {
         <BrowserRouter>
           <App />
         </BrowserRouter>
+        <ReactQueryDevtools />
       </QueryClientProvider>
     </StrictMode>
   )
