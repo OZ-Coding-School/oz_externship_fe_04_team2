@@ -17,15 +17,15 @@ export default function ChatHeader({
   onClose,
 }: ChatHeaderProps) {
   return (
-    <header className="bg-custom-gray-50 border-b-custom-gray-200 flex items-center justify-between gap-2 border-b px-4 pt-4 pb-[15px]">
+    <header className="bg-custom-gray-50 border-b-custom-gray-200 flex h-16 items-center justify-between gap-2 border-b p-4">
       {showBackButton && (
         <Button variant="ghost" onClick={onBack} className="h-8 w-8 p-0">
-          <ArrowLeft className="text-custom-gray-600 h-[18px] w-[18px]" />
+          <ArrowLeft className="text-custom-gray-600 h-4 w-4" />
         </Button>
       )}
 
       <div className="flex-1">
-        <span className="text-custom-gray-900 text-base font-semibold">
+        <span className="text-custom-gray-900 truncate text-sm font-semibold">
           {title}
         </span>
         {typeof onlineCount === 'number' && (
@@ -37,7 +37,7 @@ export default function ChatHeader({
       </div>
 
       <Button variant="ghost" onClick={onClose} className="h-8 w-8 p-0">
-        <X className="text-custom-gray-400 h-[18px] w-[18px]" />
+        <X className="text-custom-gray-400 h-4 w-4" />
       </Button>
     </header>
   )

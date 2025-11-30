@@ -1,20 +1,21 @@
-import ChatRoomItem from '@/components/chat/ChatListItem'
+import ChatListItem from '@/components/chat/list/ChatListItem'
+import type { ChatRoomListItem } from '@/types/chat'
 
-import { mockChatRooms } from '@/mocks/data/mock-chatrooms'
-
-interface ChatListPanelProps {
+interface ChatListProps {
+  rooms: ChatRoomListItem[]
   activeRoomId: number | null
   onSelectRoom: (roomId: number) => void
 }
 
 export default function ChatList({
+  rooms,
   activeRoomId,
   onSelectRoom,
-}: ChatListPanelProps) {
+}: ChatListProps) {
   return (
-    <ul className="flex-1 overflow-auto">
-      {mockChatRooms.map((chatRoom) => (
-        <ChatRoomItem
+    <ul>
+      {rooms.map((chatRoom) => (
+        <ChatListItem
           key={chatRoom.id}
           chatRoom={chatRoom}
           isActive={activeRoomId === chatRoom.id}

@@ -2,7 +2,7 @@ import { cn } from '@/lib'
 import type { ChatRoomListItem } from '@/types/chat'
 import { formatChatListDate } from '@/utils/format-date'
 
-interface ChatRoomItemProps {
+interface ChatListItemProps {
   chatRoom: ChatRoomListItem
   isActive?: boolean
   onClick?: (roomId: number) => void
@@ -12,7 +12,7 @@ export default function ChatListItem({
   chatRoom,
   isActive = false,
   onClick,
-}: ChatRoomItemProps) {
+}: ChatListItemProps) {
   const latestMessage = chatRoom.last_message
 
   const previewMessage = latestMessage
@@ -24,7 +24,7 @@ export default function ChatListItem({
     : ''
 
   return (
-    <li className="border-custom-gray-200 border-t first:border-t-0">
+    <li className="border-custom-gray-200 group hfirst:border-t-0 border-t">
       <button
         type="button"
         onClick={() => onClick?.(chatRoom.id)}
@@ -34,7 +34,9 @@ export default function ChatListItem({
         )}
       >
         <div className="flex items-center justify-between">
-          <span className="text-custom-gray-900 text-sm">{chatRoom.name}</span>
+          <span className="text-custom-gray-900 group-hover:text-primary-600 text-sm transition-colors duration-150">
+            {chatRoom.name}
+          </span>
           <span className="text-custom-gray-500 text-xs">{dateLabel}</span>
         </div>
         <span className="text-custom-gray-600 truncate text-start text-xs">
