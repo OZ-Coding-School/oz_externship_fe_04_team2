@@ -1,6 +1,6 @@
 import type { ChatRoomListItem } from '@/types/chat'
 
-export const mockChatRooms: ChatRoomListItem[] = [
+export const mockChatList: ChatRoomListItem[] = [
   {
     id: 1,
     name: 'React 실무 프로젝트 스터디',
@@ -15,6 +15,7 @@ export const mockChatRooms: ChatRoomListItem[] = [
   {
     id: 2,
     name: 'Python 데이터 분석 스터디',
+    last_message: null,
   },
   {
     id: 3,
@@ -32,6 +33,17 @@ export const mockChatRooms: ChatRoomListItem[] = [
     name: 'Node.js 백엔드 개발팀',
     last_message: {
       id: 13,
+      sender: { id: 3, nickname: '최서버' },
+      content: '다들 수고하셨습니다!',
+      is_read: true,
+      created_at: '2025-01-14T18:20:00',
+    },
+  },
+  {
+    id: 5,
+    name: '오즈 익스턴십 - 13기',
+    last_message: {
+      id: 20,
       sender: { id: 3, nickname: '최서버' },
       content: '다들 수고하셨습니다!',
       is_read: true,
