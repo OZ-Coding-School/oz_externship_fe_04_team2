@@ -24,7 +24,7 @@ export default function ChatListItem({
     : ''
 
   return (
-    <li className="border-custom-gray-200 group hfirst:border-t-0 border-t">
+    <li className="border-custom-gray-200 group border-t first:border-t-0">
       <button
         type="button"
         onClick={() => onClick?.(chatRoom.id)}

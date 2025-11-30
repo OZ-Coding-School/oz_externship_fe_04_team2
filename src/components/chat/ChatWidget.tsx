@@ -55,7 +55,7 @@ export default function ChatWidget() {
   const canRenderRoom =
     currentView === 'room' && selectedRoom && currentUserId !== null
 
-  // 메세지 전송 핸들러 (추후 웹 소캣 연동 예정)
+  // 메세지 전송 핸들러 (추후 웹 소켓 연동 예정)
   const handleSendMessage = (message: string) => {
     return console.log(message) // eslint-disable-line no-console
   }
