@@ -5,4 +5,11 @@ export const API_PATHS = {
     // 유저 정보를 가져오는 api
     GET: '/api/v1/accounts/me',
   },
+  CHAT: {
+    ROOMS: '/api/v1/chatrooms',
+    MESSAGES: (group_id: number | string) =>
+      `/api/v1/chatrooms/${group_id}/messages`,
+    READ: (group_id: number | string, member_id: number | string) =>
+      `/api/v1/chatroom/${group_id}/members/${member_id}/read`,
+  },
 } as const
