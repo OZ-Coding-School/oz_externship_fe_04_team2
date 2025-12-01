@@ -1,8 +1,10 @@
 import { API_BASE_URL } from '@/constants'
 import axios from 'axios'
 
+const IS_DEV = import.meta.env.MODE === 'development'
+
 export const axiosInstance = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: IS_DEV ? '' : API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
