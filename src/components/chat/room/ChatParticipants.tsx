@@ -5,7 +5,7 @@ interface ChatParticipantsProps {
   members: ChatParticipant[]
 }
 
-export default function ChatParticipants({ members }: ChatParticipantsProps) {
+export function ChatParticipants({ members }: ChatParticipantsProps) {
   const participants = members
   return (
     <div className="border-custom-gray-200 scrollbar-hide h-auto min-h-fit w-full overflow-x-scroll border-b">

@@ -1,6 +1,5 @@
-import ChatHeader from '@/components/chat/common/ChatHeader'
-import ChatList from '@/components/chat/list/ChatList'
-
+import { ChatHeader } from '@/components/chat/common'
+import { ChatList } from '@/components/chat/list/ChatList'
 import type { ChatRoomListItem } from '@/types/chat'
 import { useState } from 'react'
 
@@ -10,7 +9,7 @@ interface ChatListPanelProps {
   onSelectRoom: (roomId: number) => void
 }
 
-export default function ChatListPanel({
+export function ChatListPanel({
   rooms,
   onClose,
   onSelectRoom,

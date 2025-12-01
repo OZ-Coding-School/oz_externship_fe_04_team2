@@ -9,7 +9,7 @@ interface ChatHeaderProps {
   onClose: () => void
 }
 
-export default function ChatHeader({
+export function ChatHeader({
   title,
   onlineCount,
   showBackButton,

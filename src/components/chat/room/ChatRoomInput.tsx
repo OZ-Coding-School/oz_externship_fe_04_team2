@@ -5,7 +5,7 @@ interface ChatRoomInputProps {
   onSend: (message: string) => void
 }
 
-export default function ChatRoomInput({ onSend }: ChatRoomInputProps) {
+export function ChatRoomInput({ onSend }: ChatRoomInputProps) {
   const { message, handleChange, handleKeyDown, handleSend } =
     useChatInput(onSend)
 

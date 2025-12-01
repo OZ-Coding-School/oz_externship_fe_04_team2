@@ -1,4 +1,4 @@
-import ChatListItem from '@/components/chat/list/ChatListItem'
+import { ChatListItem } from '@/components/chat/list/ChatListItem'
 import type { ChatRoomListItem } from '@/types/chat'
 
 interface ChatListProps {
@@ -7,11 +7,7 @@ interface ChatListProps {
   onSelectRoom: (roomId: number) => void
 }
 
-export default function ChatList({
-  rooms,
-  activeRoomId,
-  onSelectRoom,
-}: ChatListProps) {
+export function ChatList({ rooms, activeRoomId, onSelectRoom }: ChatListProps) {
   return (
     <ul>
       {rooms.map((chatRoom) => (

@@ -1,4 +1,4 @@
-import ChatWidget from '@/components/chat/ChatWidget'
+import { ChatWidget } from '@/components/chat/ChatWidget'
 import { Footer, Header } from '@/components/layout'
 import { LoginStateStore } from '@/store'
 import { useState } from 'react'

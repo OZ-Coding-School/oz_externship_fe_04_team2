@@ -1,7 +1,7 @@
-import ChatHeader from '@/components/chat/common/ChatHeader'
-import ChatMessageList from '@/components/chat/room/ChatMessageList'
-import ChatParticipants from '@/components/chat/room/ChatParticipants'
-import ChatRoomInput from '@/components/chat/room/ChatRoomInput'
+import { ChatHeader } from '@/components/chat/common'
+import { ChatMessageList } from '@/components/chat/room/ChatMessageList'
+import { ChatParticipants } from '@/components/chat/room/ChatParticipants'
+import { ChatRoomInput } from '@/components/chat/room/ChatRoomInput'
 import type { ChatMessage, ChatParticipant } from '@/types/chat'
 
 interface ChatRoomPanelProps {
@@ -14,7 +14,7 @@ interface ChatRoomPanelProps {
   onBack: () => void
 }
 
-export default function ChatRoomPanel({
+export function ChatRoomPanel({
   roomName,
   participants,
   messages,

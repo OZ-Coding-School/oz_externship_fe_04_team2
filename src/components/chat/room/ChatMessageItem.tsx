@@ -7,7 +7,7 @@ interface ChatMessageItemProps {
   currentUserId: number
 }
 
-export default function ChatMessageItem({
+export function ChatMessageItem({
   message,
   currentUserId,
 }: ChatMessageItemProps) {

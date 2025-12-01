@@ -8,7 +8,7 @@ interface ChatListItemProps {
   onClick?: (roomId: number) => void
 }
 
-export default function ChatListItem({
+export function ChatListItem({
   chatRoom,
   isActive = false,
   onClick,

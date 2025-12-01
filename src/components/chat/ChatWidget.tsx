@@ -1,13 +1,13 @@
 import { ChatBadge } from '@/components/chat/common/ChatBadge'
-import ChatListPanel from '@/components/chat/list/ChatListPanel'
-import ChatRoomPanel from '@/components/chat/room/ChatRoomPanel'
+import { ChatListPanel } from '@/components/chat/list'
+import { ChatRoomPanel } from '@/components/chat/room'
 import { useChatMessages, useChatRooms } from '@/hooks/chat'
 import { useChatParticipants } from '@/hooks/chat/useChatParticipants'
 import useBodyScrollLock from '@/hooks/common/useBodyScrollLock'
 import { useChatStore } from '@/store/useChatStore'
 import { MessageCircle, X } from 'lucide-react'
 
-export default function ChatWidget() {
+export function ChatWidget() {
   const {
     isOpen,
     currentView,

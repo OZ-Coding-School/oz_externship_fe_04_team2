@@ -1,4 +1,4 @@
-import ChatMessageItem from '@/components/chat/room/ChatMessageItem'
+import { ChatMessageItem } from '@/components/chat/room/ChatMessageItem'
 import type { ChatMessage } from '@/types/chat'
 
 interface ChatMessageListProps {
@@ -6,7 +6,7 @@ interface ChatMessageListProps {
   currentUserId: number
 }
 
-export default function ChatMessageList({
+export function ChatMessageList({
   messages,
   currentUserId,
 }: ChatMessageListProps) {
