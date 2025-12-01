@@ -2,7 +2,7 @@ import { Badge, Card } from '@/components/common'
 
 export function StudyDetailInfo() {
   return (
-    <Card className="max-w-[384px] rounded-xl">
+    <Card className="rounded-xl">
       <p className="pb-4 text-lg font-semibold">스터디 정보</p>
       <ul className="flex flex-col gap-3">
         <li className="flex justify-between">

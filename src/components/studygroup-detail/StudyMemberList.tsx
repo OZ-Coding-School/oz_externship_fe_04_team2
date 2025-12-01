@@ -3,7 +3,7 @@ import { UserRound } from 'lucide-react'
 
 export function StudyMemberList() {
   return (
-    <Card className="max-w-[384px]">
+    <Card>
       <div className="flex items-center justify-between pb-4">
         <p className="text-lg font-semibold">멤버 목록</p>
         <span className="text-custom-gray-500 text-sm">8명</span>
