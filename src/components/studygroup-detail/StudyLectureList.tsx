@@ -7,7 +7,11 @@ export function StudyLectureList() {
       <p className="text-lg font-semibold">스터디 강의</p>
       <Card className="overflow-hidden p-0">
         <div className="h-[186px] w-full">
-          <img src="" alt="" className="h-full w-full object-cover" />
+          <img
+            src="https://cdn.inflearn.com/public/files/courses/328340/cover/01jx9xv8sprqfcjdkhy723nw9y?f=avif&w=420"
+            alt="강의 썸네일"
+            className="h-full w-full overflow-hidden object-cover"
+          />
         </div>
         <ul className="p-4 pb-5">
           <li className="pb-1 font-medium">React 완벽 마스터 강의</li>
