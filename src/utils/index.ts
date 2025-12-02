@@ -1,2 +1,2 @@
 export * from './calendar-localizer'
-export * from './format-date'
+export * from './format'
