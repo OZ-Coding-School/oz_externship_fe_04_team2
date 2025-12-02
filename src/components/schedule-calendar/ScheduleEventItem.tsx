@@ -1,9 +1,7 @@
-import type { ScheduleEvent } from '@/components/schedule-calendar/ScheduleCalendar'
+import type { ScheduleEvent } from '@/components/schedule-calendar'
 import type { EventProps } from 'react-big-calendar'
 
-export default function ScheduleEventItem({
-  event,
-}: EventProps<ScheduleEvent>) {
+export function ScheduleEventItem({ event }: EventProps<ScheduleEvent>) {
   return (
     <>
       <p>{event.title}</p>

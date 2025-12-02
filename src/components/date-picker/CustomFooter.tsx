@@ -6,7 +6,7 @@ interface CustomFooterProps {
   onConfirm: () => void
 }
 
-export default function CustomFooter({
+export function CustomFooter({
   selected,
   onClose,
   onConfirm,

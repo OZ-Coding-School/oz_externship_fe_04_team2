@@ -1,4 +1,4 @@
-import type { ChatParticipant } from '@/types/chat'
+import type { ChatParticipant } from '@/types'
 
 export const mockChatParticipants: Record<number, ChatParticipant[]> = {
   1: [

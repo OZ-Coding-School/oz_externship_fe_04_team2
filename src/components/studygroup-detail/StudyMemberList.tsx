@@ -10,7 +10,7 @@ export function StudyMemberList() {
       </div>
       <ul className="flex max-h-[384px] flex-col gap-3 overflow-y-auto">
         <li className="flex items-center gap-3">
-          <span className="bg-primary-100 flex h-10 w-10 items-center justify-center rounded-full">
+          <span className="bg-primary-100 centralize h-10 w-10 rounded-full">
             <UserRound className="text-primary-600 h-5 w-5" />
           </span>
           <span>김개발</span>

@@ -1,10 +1,11 @@
-import { ChatBadge } from '@/components/chat/common/ChatBadge'
-import { ChatListPanel } from '@/components/chat/list'
-import { ChatRoomPanel } from '@/components/chat/room'
-import { useChatMessages, useChatRooms } from '@/hooks/chat'
-import { useChatParticipants } from '@/hooks/chat/useChatParticipants'
-import useBodyScrollLock from '@/hooks/common/useBodyScrollLock'
-import { useChatStore } from '@/store/useChatStore'
+import { ChatBadge, ChatListPanel, ChatRoomPanel } from '@/components/chat'
+import {
+  useBodyScrollLock,
+  useChatMessages,
+  useChatParticipants,
+  useChatRooms,
+} from '@/hooks'
+import { useChatStore } from '@/store'
 import { MessageCircle, X } from 'lucide-react'
 
 export function ChatWidget() {
@@ -66,7 +67,7 @@ export function ChatWidget() {
   return (
     <div className="fixed right-6 bottom-6 z-50 flex flex-col items-end">
       {isOpen && (
-        <div className="mb-2 flex h-[384px] w-[320px] flex-col overflow-hidden rounded-lg bg-white shadow-[0px_25px_50px_-12px_#00000040]">
+        <div className="mb-2 flex h-96 w-80 flex-col overflow-hidden rounded-lg bg-white shadow-[0px_25px_50px_-12px_#00000040]">
           {/* 채팅 리스트 View */}
           {currentView === 'list' && (
             <ChatListPanel
@@ -94,7 +95,7 @@ export function ChatWidget() {
       {/* 위젯 버튼 */}
       <button
         onClick={handleClickWidget}
-        className="bg-primary-500 relative flex h-16 w-16 items-center justify-center rounded-full shadow-[0px_10px_15px_-3px_#0000001A,0px_4px_6px_-4px_#0000001A]"
+        className="bg-primary-500 centralize relative h-16 w-16 rounded-full shadow-[0px_10px_15px_-3px_#0000001A,0px_4px_6px_-4px_#0000001A]"
       >
         {isOpen ? (
           <X className="h-6 w-6 text-white" />

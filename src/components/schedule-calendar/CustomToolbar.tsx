@@ -1,9 +1,9 @@
 import { Button } from '@/components/common'
-import type { ScheduleEvent } from '@/components/schedule-calendar/ScheduleCalendar'
+import type { ScheduleEvent } from '@/components/schedule-calendar'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import type { ToolbarProps } from 'react-big-calendar'
 
-export default function CustomToolbar({
+export function CustomToolbar({
   label,
   onNavigate,
 }: ToolbarProps<ScheduleEvent, object>) {
@@ -18,7 +18,7 @@ export default function CustomToolbar({
       >
         <ChevronLeft className="h-4 w-4" />
       </Button>
-      <div className="text-lg font-semibold text-gray-900">{label}</div>
+      <div className="text-custom-gray-900 text-lg font-semibold">{label}</div>
       <Button
         variant="ghost"
         size="icon"

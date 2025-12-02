@@ -1,5 +1,5 @@
-import { fetchChatRooms } from '@/api/chat'
-import { useChatStore } from '@/store/useChatStore'
+import { fetchChatRooms } from '@/api'
+import { useChatStore } from '@/store'
 import { useQuery } from '@tanstack/react-query'
 
 export function useChatRooms() {

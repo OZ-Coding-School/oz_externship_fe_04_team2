@@ -6,7 +6,7 @@ interface CustomCaptionLabelProps extends CaptionLabelProps {
   handleClickToday: () => void
 }
 
-export default function CustomCaptionLabel(props: CustomCaptionLabelProps) {
+export function CustomCaptionLabel(props: CustomCaptionLabelProps) {
   const { children, className, handleClickToday, ...rest } = props
 
   return (

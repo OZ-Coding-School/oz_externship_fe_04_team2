@@ -1,5 +1,5 @@
 import { ArrowRight, Star } from 'lucide-react'
-import type { StudyCardProps } from './StudyCard'
+import type { StudyCardProps } from '@/components/studygroup'
 import { Button } from '@/components/common'
 import { cn } from '@/lib'
 

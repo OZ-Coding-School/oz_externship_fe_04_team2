@@ -1,6 +1,6 @@
 import { CHAT_BUBBLE } from '@/constants'
-import type { ChatMessage } from '@/types/chat'
-import { formatChatTime } from '@/utils/format-date'
+import type { ChatMessage } from '@/types'
+import { formatChatTime } from '@/utils'
 
 interface ChatMessageItemProps {
   message: ChatMessage

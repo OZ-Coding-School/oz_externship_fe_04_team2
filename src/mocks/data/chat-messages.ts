@@ -1,4 +1,4 @@
-import type { ChatMessage } from '@/types/chat'
+import type { ChatMessage } from '@/types'
 
 export const mockChatMessages: Record<number, ChatMessage[]> = {
   1: [

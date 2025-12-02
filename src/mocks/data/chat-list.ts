@@ -1,4 +1,4 @@
-import type { ChatRoomListItem } from '@/types/chat'
+import type { ChatRoomListItem } from '@/types'
 
 export const mockChatList: ChatRoomListItem[] = [
   {

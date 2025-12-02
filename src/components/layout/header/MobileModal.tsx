@@ -1,6 +1,6 @@
 import { LoginStateStore } from '@/store'
 import logoImg from '@/assets/images/ImageLogo.svg'
-import { useUserData } from '@/hooks/queries'
+import { useUserData } from '@/hooks'
 import {
   BookIcon,
   LogOutIcon,
@@ -68,13 +68,13 @@ export function MobileModal({ setIsModalOpen }: MobileModalProps) {
               {/* 추후 api 연동으로 이름 및 이메일 불러오게 */}
             </div>
           </div>
-          <button className="bg-primary-100 flex cursor-pointer items-center justify-center gap-[13px] rounded-lg px-4 py-2">
+          <button className="bg-primary-100 centralize cursor-pointer gap-[13px] rounded-lg px-4 py-2">
             <UserRound className="text-primary-600 h-5 w-5" />
             <span className="text- text-primary-600 text-base font-medium">
               마이페이지
             </span>
           </button>
-          <button className="bg-custom-gray-100 flex cursor-pointer items-center justify-center gap-[13px] rounded-lg px-4 py-2">
+          <button className="bg-custom-gray-100 centralize cursor-pointer gap-[13px] rounded-lg px-4 py-2">
             <LogOutIcon className="text-custom-gray-600 h-5 w-5" />
             <span className="text-custom-gray-700 text-base font-medium">
               로그아웃

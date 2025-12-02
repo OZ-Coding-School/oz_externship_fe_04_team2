@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-export default function useBodyScrollLock(isOpen: boolean) {
+export function useBodyScrollLock(isOpen: boolean) {
   useEffect(() => {
     const previousOverflow = document.body.style.overflow
 
