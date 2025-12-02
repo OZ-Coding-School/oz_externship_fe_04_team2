@@ -9,8 +9,8 @@ export interface StudyGroupLectureType {
   id: number
   title: string
   instructor: string
-  thumbnail_img_url: string
-  url_link: string
+  thumbnail_img_url?: string
+  url_link?: string
 }
 
 // 스터디 그룹 멤버 정보

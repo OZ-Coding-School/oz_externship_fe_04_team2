@@ -18,8 +18,8 @@ export function Header({ isSideBarOpen, setIsSideBarOpen }: HeaderProps) {
   }
 
   return (
-    <div className="border-custom-gray-200 flex w-full justify-center border-b border-solid bg-white">
-      <div className="container-1280 fixed z-100 flex h-16 w-full items-center justify-between px-8">
+    <div className="border-custom-gray-200 z-100 flex w-full justify-center border-b border-solid bg-white">
+      <div className="container-1280 fixed flex h-16 w-full items-center justify-between bg-white px-8">
         {isSideBarOpen && <MobileModal setIsModalOpen={setIsSideBarOpen} />}
         <div className="flex items-center gap-[15px] md:hidden">
           <Menu className="h-8 w-8 cursor-pointer" onClick={handleSideBar} />
