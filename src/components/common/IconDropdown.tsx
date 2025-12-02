@@ -45,7 +45,7 @@ export function IconDropdown({
         onClick={toggle}
         disabled={disabled}
         className={cn(
-          'remove-focus-outline hover:bg-custom-gray-100 flex h-7 w-7 items-center justify-center rounded transition',
+          'remove-focus-outline hover:bg-custom-gray-100 centralize h-7 w-7 rounded transition',
           disabled && 'cursor-not-allowed opacity-50'
         )}
       >

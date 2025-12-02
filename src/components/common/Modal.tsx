@@ -1,4 +1,4 @@
-import { Button } from '@/components/common/Button'
+import { Button } from '@/components/common'
 import { cn } from '@/lib'
 import { XIcon } from 'lucide-react'
 import type { ReactNode, MouseEvent } from 'react'
