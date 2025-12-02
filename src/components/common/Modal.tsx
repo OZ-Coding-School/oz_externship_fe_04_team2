@@ -45,9 +45,7 @@ export function Modal({
         role="dialog"
         aria-modal="true"
       >
-        <div
-          className={(cn('flex items-start justify-between'), titleClassName)}
-        >
+        <div className={cn('flex items-start justify-between', titleClassName)}>
           <h2 className="text-custom-gray-900 mt-1 text-xl font-bold">
             {title}
           </h2>
