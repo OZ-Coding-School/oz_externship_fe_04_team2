@@ -7,7 +7,7 @@ import {
   StudyScheduleCalendar,
 } from '@/components/studygroup-detail'
 
-export default function StudyDetailPage() {
+export function StudyDetailPage() {
   return (
     <div className="flex flex-col gap-8 px-8 pb-20">
       {/* 상단 히어로 */}
