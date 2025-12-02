@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { fetchChatMessages } from '@/api/chat'
+import { fetchChatMessages } from '@/api'
 
 export function useChatMessages(groupId: number | string | null) {
   const { data, isLoading, isError, error, refetch } = useQuery({

@@ -3,8 +3,10 @@ import './calendar.css'
 import { localizer } from '@/utils'
 import { useState } from 'react'
 import { Calendar } from 'react-big-calendar'
-import CustomToolbar from '@/components/schedule-calendar/CustomToolbar'
-import ScheduleEventItem from '@/components/schedule-calendar/ScheduleEventItem'
+import {
+  CustomToolbar,
+  ScheduleEventItem,
+} from '@/components/schedule-calendar'
 
 // 임시 데이터
 export interface ScheduleEvent {
@@ -25,7 +27,7 @@ const mockEvents: ScheduleEvent[] = [
   },
 ]
 
-export default function ScheduleCalendar() {
+export function ScheduleCalendar() {
   const [month, setMonth] = useState(new Date())
   const formats = { monthHeaderFormat: 'yyyy년 MM월' }
 

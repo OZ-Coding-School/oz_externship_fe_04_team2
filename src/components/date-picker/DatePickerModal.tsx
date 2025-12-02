@@ -1,12 +1,14 @@
 import { Modal } from '@/components/common'
-import CustomCaptionLabel from '@/components/date-picker/CustomCaptionLabel'
-import { CustomChevron } from '@/components/date-picker/CustomChevron'
-import CustomFooter from '@/components/date-picker/CustomFooter'
+import {
+  CustomCaptionLabel,
+  CustomChevron,
+  CustomFooter,
+} from '@/components/date-picker'
 import { ko } from 'date-fns/locale'
 import { DayPicker } from 'react-day-picker'
+import { startOfToday } from 'date-fns'
 import 'react-day-picker/style.css'
 import './date-picker.css'
-import { startOfToday } from 'date-fns'
 
 interface DatePickerModalProps {
   isOpen: boolean

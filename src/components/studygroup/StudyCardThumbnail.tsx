@@ -1,5 +1,5 @@
 import { cn } from '@/lib'
-import type { StudyCardProps } from './StudyCard'
+import type { StudyCardProps } from '@/components/studygroup'
 
 export function StudyCardThumbnail({
   image,

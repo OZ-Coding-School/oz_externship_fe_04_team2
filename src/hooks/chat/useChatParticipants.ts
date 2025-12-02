@@ -1,5 +1,5 @@
-import { mockChatParticipants } from '@/mocks/data/chat-participants'
-import type { ChatParticipant } from '@/types/chat'
+import { mockChatParticipants } from '@/mocks/data'
+import type { ChatParticipant } from '@/types'
 
 export function useChatParticipants(groupId: number | null): {
   participants: ChatParticipant[]

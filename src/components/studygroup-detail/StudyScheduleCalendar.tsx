@@ -1,5 +1,5 @@
 import { Button } from '@/components/common'
-import ScheduleCalendar from '@/components/schedule-calendar/ScheduleCalendar'
+import { ScheduleCalendar } from '@/components/schedule-calendar'
 import { Plus } from 'lucide-react'
 
 export function StudyScheduleCalendar() {
