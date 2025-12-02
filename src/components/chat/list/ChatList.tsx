@@ -1,5 +1,5 @@
-import { ChatListItem } from '@/components/chat/list/ChatListItem'
-import type { ChatRoomListItem } from '@/types/chat'
+import { ChatListItem } from '@/components/chat'
+import type { ChatRoomListItem } from '@/types'
 
 interface ChatListProps {
   rooms: ChatRoomListItem[]

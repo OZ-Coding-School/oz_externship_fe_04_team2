@@ -1,6 +1,6 @@
 import { cn } from '@/lib'
-import type { ChatRoomListItem } from '@/types/chat'
-import { formatChatListDate } from '@/utils/format-date'
+import type { ChatRoomListItem } from '@/types'
+import { formatChatListDate } from '@/utils'
 
 interface ChatListItemProps {
   chatRoom: ChatRoomListItem

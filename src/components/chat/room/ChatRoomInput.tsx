@@ -1,4 +1,4 @@
-import { useChatInput } from '@/hooks/chat'
+import { useChatInput } from '@/hooks'
 import { Send } from 'lucide-react'
 
 interface ChatRoomInputProps {

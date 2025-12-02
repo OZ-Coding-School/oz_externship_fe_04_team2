@@ -1,5 +1,5 @@
 import { PARTICIPANT_NAME, STATUS_INDICATOR } from '@/constants'
-import type { ChatParticipant } from '@/types/chat'
+import type { ChatParticipant } from '@/types'
 
 interface ChatParticipantsProps {
   members: ChatParticipant[]

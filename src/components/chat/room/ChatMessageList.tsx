@@ -1,5 +1,5 @@
-import { ChatMessageItem } from '@/components/chat/room/ChatMessageItem'
-import type { ChatMessage } from '@/types/chat'
+import { ChatMessageItem } from '@/components/chat'
+import type { ChatMessage } from '@/types'
 
 interface ChatMessageListProps {
   messages: ChatMessage[]

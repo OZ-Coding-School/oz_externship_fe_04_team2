@@ -1,8 +1,10 @@
-import { ChatHeader } from '@/components/chat/common'
-import { ChatMessageList } from '@/components/chat/room/ChatMessageList'
-import { ChatParticipants } from '@/components/chat/room/ChatParticipants'
-import { ChatRoomInput } from '@/components/chat/room/ChatRoomInput'
-import type { ChatMessage, ChatParticipant } from '@/types/chat'
+import {
+  ChatHeader,
+  ChatMessageList,
+  ChatParticipants,
+  ChatRoomInput,
+} from '@/components/chat'
+import type { ChatMessage, ChatParticipant } from '@/types'
 
 interface ChatRoomPanelProps {
   roomName: string
