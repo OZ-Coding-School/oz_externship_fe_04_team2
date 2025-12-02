@@ -1,5 +1,6 @@
 import defaultImg from '@/assets/images/defaultProfileImg.svg'
-import type { UserInformation } from '@/types/userInformation'
+import type { UserInformation } from '@/types'
+
 export const userInformation: UserInformation[] = [
   {
     id: 1,
