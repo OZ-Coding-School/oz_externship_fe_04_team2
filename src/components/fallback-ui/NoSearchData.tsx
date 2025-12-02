@@ -4,10 +4,10 @@ import { SearchIcon } from 'lucide-react'
 export const NoSearchResult = () => {
   return (
     <div className="border-custom-gray-200 bg-custom-gray-50 m-6 flex h-[382px] justify-center rounded-2xl border text-center">
-      <div className="flex h-full w-full flex-col items-center justify-center p-6 text-center">
+      <div className="centralize h-full w-full flex-col p-6 text-center">
         <div className="mb-6">
-          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gray-100">
-            <SearchIcon className="text-custom-gray-400 flex h-8 w-8 items-center justify-center" />
+          <div className="bg-custom-gray-100 centralize h-20 w-20 rounded-full">
+            <SearchIcon className="text-custom-gray-400 centralize h-8 w-8" />
           </div>
         </div>
 

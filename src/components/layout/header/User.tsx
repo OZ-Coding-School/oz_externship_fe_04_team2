@@ -1,5 +1,5 @@
 import { UserModal } from '@/components/layout'
-import { useUserData } from '@/hooks/queries'
+import { useUserData } from '@/hooks'
 import { BellIcon, ChevronDown, ChevronUp, UserRound } from 'lucide-react'
 import { useState } from 'react'
 
@@ -36,7 +36,7 @@ export function User() {
         className="relative ml-4 flex cursor-pointer items-center gap-2"
         onClick={handleUserModal}
       >
-        <div className="bg-primary-100 flex h-8 w-8 items-center justify-center rounded-full">
+        <div className="bg-primary-100 centralize h-8 w-8 rounded-full">
           <UserRound className="text-primary-600 h-5 w-5" />
         </div>
         <div className="text-primary-600 text-base">{data[0]?.name}</div>

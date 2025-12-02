@@ -1,4 +1,4 @@
-import { ChatWidget } from '@/components/chat/ChatWidget'
+import { ChatWidget } from '@/components/chat'
 import { Footer, Header } from '@/components/layout'
 import { LoginStateStore } from '@/store'
 import { useState } from 'react'
@@ -15,7 +15,7 @@ export function Layout() {
         isSideBarOpen={isSideBarOpen}
         setIsSideBarOpen={setIsSideBarOpen}
       />
-      <main className="container-1280 min-h-screen grow pt-16">
+      <main className="container-1280 mt-16 min-h-screen grow">
         <Outlet />
       </main>
       <Footer />

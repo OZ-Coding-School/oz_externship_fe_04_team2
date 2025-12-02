@@ -1,13 +1,13 @@
 import { Inbox, Plus } from 'lucide-react'
-import { Button } from '../common'
+import { Button } from '@/components/common'
 
 export const NoData = () => {
   return (
     <div className="border-custom-gray-200 bg-custom-gray-50 m-6 h-[382px] justify-center rounded-2xl border text-center">
-      <div className="flex h-full w-full flex-col items-center justify-center p-6 text-center">
+      <div className="centralize h-full w-full flex-col p-6 text-center">
         <div className="mb-6">
-          <div className="bg-primary-50 flex h-20 w-20 items-center justify-center rounded-full">
-            <Inbox className="text-primary-500 flex h-8 w-8 items-center justify-center" />
+          <div className="bg-primary-50 centralize h-20 w-20 rounded-full">
+            <Inbox className="text-primary-500 centralize h-8 w-8" />
           </div>
         </div>
 

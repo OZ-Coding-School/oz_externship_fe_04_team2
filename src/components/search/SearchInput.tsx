@@ -18,7 +18,7 @@ export function SearchInput() {
   }, [debouncedSearchTerm, navigate, location.search])
 
   return (
-    <div className="relative mx-6 flex max-w-md">
+    <div className="relative flex max-w-md">
       <SearchIcon
         className="text-custom-gray-400 absolute top-3 left-3"
         size={16}

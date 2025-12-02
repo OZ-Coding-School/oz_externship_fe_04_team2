@@ -24,7 +24,7 @@ export function StudyNoteList() {
                 </span>
               </div>
               <div className="flex items-center gap-3 py-[2px]">
-                <span className="bg-primary-100 flex h-8 w-8 items-center justify-center rounded-full">
+                <span className="bg-primary-100 centralize h-8 w-8 rounded-full">
                   <UserRound className="text-primary-600 h-5 w-5" />
                 </span>
                 <span className="text-custom-gray-700 text-sm font-medium">
