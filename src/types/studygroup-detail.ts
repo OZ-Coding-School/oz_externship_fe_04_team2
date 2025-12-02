@@ -5,7 +5,7 @@
 export type StudyGroupStatus = 'PENDING' | 'ONGOING' | 'ENDED'
 
 // 스터디 그룹 강의 정보
-export interface StudyGroupLecture {
+export interface StudyGroupLectureType {
   id: number
   title: string
   instructor: string
@@ -14,7 +14,7 @@ export interface StudyGroupLecture {
 }
 
 // 스터디 그룹 멤버 정보
-export interface StudyGroupMember {
+export interface StudyGroupMemberType {
   id: number
   nickname: string
   is_leader: boolean
@@ -22,7 +22,7 @@ export interface StudyGroupMember {
 }
 
 // 스터디 그룹 상세 조회 응답
-export interface StudyGroupDetail {
+export interface StudyGroupDetailType {
   id: number
   name: string
   introduction: string
@@ -32,6 +32,6 @@ export interface StudyGroupDetail {
   current_headcount: number
   profile_img_url: string
   status: StudyGroupStatus
-  lectures: StudyGroupLecture[]
-  members: StudyGroupMember[]
+  lectures: StudyGroupLectureType[]
+  members: StudyGroupMemberType[]
 }
