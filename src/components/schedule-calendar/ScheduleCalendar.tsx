@@ -35,7 +35,7 @@ export default function ScheduleCalendar() {
   }
 
   return (
-    <div className="h-[600px]">
+    <div className="h-[50vh] max-h-[600px] min-h-[320px]">
       <Calendar
         localizer={localizer}
         date={month}
