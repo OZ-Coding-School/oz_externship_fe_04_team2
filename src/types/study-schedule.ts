@@ -28,3 +28,23 @@ export interface StudyScheduleDetailType {
 export interface ScheduleSuccessResponseType {
   detail: string
 }
+
+// 스케줄 생성 요청
+export interface CreateStudyScheduleRequestType {
+  title: string
+  objective: string
+  session_date: string
+  start_time: string
+  end_time: string
+  participants: number[]
+}
+
+// 스케줄 수정 요청
+export interface UpdateStudyScheduleRequestType {
+  title?: string
+  objective?: string
+  session_date?: string
+  start_time?: string
+  end_time?: string
+  participants?: number[]
+}
