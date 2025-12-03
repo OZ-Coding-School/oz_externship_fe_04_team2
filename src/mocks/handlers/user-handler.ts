@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw'
-import { userInformation } from '@/mocks/data/user/user'
+import { userInformation } from '@/mocks/data'
 import { API_PATHS } from '@/constants'
 
 export const userInformationHandler = [
