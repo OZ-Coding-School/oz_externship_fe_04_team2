@@ -3,10 +3,11 @@ import { CustomChevron } from '@/components/date-picker/CustomChevron'
 import { format } from 'date-fns'
 import { ko } from 'date-fns/locale'
 import { Calendar } from 'lucide-react'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { DayPicker } from 'react-day-picker'
 import 'react-day-picker/style.css'
 import './date-picker.css'
+import { useOutsideClick } from '@/hooks/common/useOutsideClick'
 
 interface DatePickerInputProps {
   label?: string
@@ -28,9 +29,10 @@ export function DatePickerInput({
   onChange,
 }: DatePickerInputProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
 
-  const handleOpen = () => {
-    setIsOpen(true)
+  const handleToggle = () => {
+    setIsOpen((prev) => !prev)
   }
 
   const handleSelect = (date: Date | undefined) => {
@@ -38,10 +40,12 @@ export function DatePickerInput({
     setIsOpen(false)
   }
 
+  useOutsideClick(containerRef, () => setIsOpen(false), isOpen)
+
   const displayValue = value ? format(value, 'yyyy.MM.dd') : ''
 
   return (
-    <div className="relative">
+    <div ref={containerRef} className="relative">
       <Input
         label={label}
         error={error}
@@ -49,14 +53,14 @@ export function DatePickerInput({
         placeholder={placeholder}
         value={displayValue}
         name={name}
-        onClick={handleOpen}
+        onClick={handleToggle}
         className="cursor-pointer"
         icon={<Calendar className="h-4 w-4" />}
         readOnly
       />
 
       {isOpen && (
-        <div className="border-custom-gray-200 absolute top-full left-0 z-50 mt-1 rounded-lg border bg-white shadow-lg">
+        <div className="border-custom-gray-200 datepicker-input absolute top-full left-0 z-50 mt-1 h-[280px] w-[280px] rounded-lg border bg-white shadow-lg">
           <DayPicker
             mode="single"
             locale={ko}
