@@ -27,6 +27,6 @@ export const API_PATHS = {
     SCHEDULE_DETAIL: (
       group_id: number | string,
       schedule_id: number | string
-    ) => `api/v1/study-groups/${group_id}/schedules/${schedule_id}`,
+    ) => `/api/v1/study-groups/${group_id}/schedules/${schedule_id}`,
   },
 } as const
