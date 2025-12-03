@@ -6,7 +6,7 @@ function App() {
     <>
       <AppRoutes />
       <ToastContainer
-        position="top-center"
+        position="top-right"
         autoClose={3000}
         icon={false}
         closeButton={false}
