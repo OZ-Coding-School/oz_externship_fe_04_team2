@@ -91,3 +91,42 @@
 .rdp-today .rdp-day_button {
   color: #ca8a04;
 }
+
+/* 스케줄 생성 모달 전용 datepicker */
+.datepicker-input .rdp-button_previous,
+.datepicker-input .rdp-button_next {
+  width: 24px;
+}
+
+.datepicker-input .rdp-root[data-nav-layout='around'] .rdp-button_previous,
+.datepicker-input .rdp-root[data-nav-layout='around'] .rdp-button_next {
+  height: 24px;
+}
+
+.datepicker-input .rdp-months {
+  padding: 12px;
+  height: auto;
+}
+
+.datepicker-input .rdp-root[data-nav-layout='around'] .rdp-month_caption {
+  height: 24px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.datepicker-input .rdp-month_grid {
+  margin-top: 8px;
+}
+
+.datepicker-input .rdp-day_button {
+  height: 36px;
+}
+
+.datepicker-input .rdp-selected .rdp-day_button::after {
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  border: 2px solid #eab308;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}

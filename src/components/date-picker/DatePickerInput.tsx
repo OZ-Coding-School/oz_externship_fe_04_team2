@@ -60,7 +60,7 @@ export function DatePickerInput({
       />
 
       {isOpen && (
-        <div className="border-custom-gray-200 datepicker-input absolute top-full left-0 z-50 mt-1 h-[280px] w-[280px] rounded-lg border bg-white shadow-lg">
+        <div className="border-custom-gray-200 datepicker-input absolute top-full left-0 z-50 mt-1 h-auto w-[280px] rounded-lg border bg-white shadow-lg">
           <DayPicker
             mode="single"
             locale={ko}
