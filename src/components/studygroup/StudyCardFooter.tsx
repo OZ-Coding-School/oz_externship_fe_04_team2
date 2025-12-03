@@ -8,9 +8,10 @@ export function StudyCardFooter({
   rating,
   reviewStatus,
   onActionClick,
+  onDetailClick,
 }: Pick<
   StudyCardProps,
-  'variant' | 'rating' | 'reviewStatus' | 'onActionClick'
+  'variant' | 'rating' | 'reviewStatus' | 'onActionClick' | 'onDetailClick'
 >) {
   if (variant === 'default') {
     return (
@@ -44,7 +45,10 @@ export function StudyCardFooter({
           </div>
           <span className="text-custom-gray-400 text-xs">({rating})</span>
         </div>
-        <button className="text-custom-gray-400 hover:text-custom-gray-600 text-xs underline">
+        <button
+          className="text-custom-gray-400 hover:text-custom-gray-600 text-xs underline"
+          onClick={onDetailClick}
+        >
           상세보기
         </button>
       </div>

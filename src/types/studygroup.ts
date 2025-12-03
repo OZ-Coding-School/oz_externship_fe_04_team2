@@ -19,4 +19,5 @@ export interface StudyGroupReviewType {
   is_mine: boolean
   star_rating: number
   content: string
+  created_at?: string
 }

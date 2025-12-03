@@ -19,6 +19,7 @@ export interface StudyCardProps {
   rating?: number
   reviewStatus?: 'none' | 'done'
   onActionClick?: () => void
+  onDetailClick?: () => void
 }
 
 export function StudyCard({
@@ -34,6 +35,7 @@ export function StudyCard({
   rating = 0,
   reviewStatus = 'none',
   onActionClick,
+  onDetailClick,
 }: StudyCardProps) {
   return (
     <div className="border-custom-gray-200 flex h-[600px] flex-col overflow-hidden rounded-xl border bg-white shadow-sm transition-all hover:shadow-md">
@@ -56,6 +58,7 @@ export function StudyCard({
           rating={rating}
           reviewStatus={reviewStatus}
           onActionClick={onActionClick}
+          onDetailClick={onDetailClick}
         />
       </div>
     </div>
