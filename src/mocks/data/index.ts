@@ -1,3 +1,4 @@
-export * from './chat-list'
-export * from './chat-messages'
-export * from './chat-participants'
+export * from './chat'
+export * from './review'
+export * from './studygroup'
+export * from './user'

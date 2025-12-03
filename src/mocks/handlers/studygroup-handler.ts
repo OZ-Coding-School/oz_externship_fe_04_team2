@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw'
-import { mockStudyList } from '@/mocks/handlers/studygroup'
+import { mockStudyList } from '@/mocks/data/studygroup'
 
-export const studygroupHandlers = [
+export const studygroupHandler = [
   http.get('/api/v1/study-groups', () => {
     return HttpResponse.json(mockStudyList)
   }),
