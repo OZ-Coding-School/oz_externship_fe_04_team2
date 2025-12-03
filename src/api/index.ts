@@ -1,3 +1,4 @@
 export * from './axios'
 export * from './chat'
+export * from './schedule'
 export * from './userInformation'
