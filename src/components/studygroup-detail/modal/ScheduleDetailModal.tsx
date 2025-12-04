@@ -1,4 +1,5 @@
 import { Badge, Button, Modal } from '@/components/common'
+import { useBodyScrollLock } from '@/hooks'
 import type { StudyScheduleDetailType } from '@/types'
 import { Calendar, Clock3, UserRound } from 'lucide-react'
 
@@ -17,6 +18,8 @@ export function ScheduleDetailModal({
   onEdit,
   onDelete,
 }: ScheduleDetailModalProps) {
+  useBodyScrollLock(isOpen)
+
   const handleClickEdit = () => {
     onEdit(schedule)
   }
