@@ -48,3 +48,21 @@ export interface UpdateStudyScheduleRequestType {
   end_time?: string
   participants?: number[]
 }
+
+// 스케줄 Form 타입
+export enum ScheduleFormModeType {
+  CREATE = 'create',
+  EDIT = 'edit',
+}
+
+// 공통 폼에서 사용하는 값 타입
+export interface ScheduleFormValuesType {
+  // DatePicker는 Date 객체를 사용하므로 UI 폼에서는 Date 유지
+  // API 호출 시 yyyy-MM-dd 문자열(session_date)로 변환 예정
+  title: string
+  objective: string
+  date: Date | null
+  start_time: string
+  end_time: string
+  participants: number[]
+}
