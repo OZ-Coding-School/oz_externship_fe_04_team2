@@ -3,62 +3,57 @@ import {
   StudyCardFooter,
   StudyCardThumbnail,
 } from '@/components/studygroup'
+import { useStudyGroupStore } from '@/store'
+import type { StudyGroupResponseType, StudyGroupReviewType } from '@/types'
 
 export interface StudyCardProps {
-  image: string
-  statusBadge: string
-  statusColor?: string
-  roleBadge?: string
-  memberCount: string
-  name: string
-  dateRange: string
-  lectures: { title: string; instructor: string }[]
-
-  variant?: 'default' | 'completed'
-
-  rating?: number
-  reviewStatus?: 'none' | 'done'
-  onActionClick?: () => void
-  onDetailClick?: () => void
+  study: StudyGroupResponseType
 }
 
-export function StudyCard({
-  image,
-  statusBadge,
-  statusColor = 'bg-success-500',
-  roleBadge,
-  memberCount,
-  name,
-  dateRange,
-  lectures,
-  variant = 'default',
-  rating = 0,
-  reviewStatus = 'none',
-  onActionClick,
-  onDetailClick,
-}: StudyCardProps) {
+export function StudyCard({ study }: StudyCardProps) {
+  const { openReviewCreate, openReviewEdit, openReviewList } =
+    useStudyGroupStore()
+
+  const myReview = study.reviews.find((r: StudyGroupReviewType) => r.is_mine)
+
   return (
     <div className="border-custom-gray-200 flex h-[600px] flex-col overflow-hidden rounded-xl border bg-white shadow-sm transition-all hover:shadow-md">
       <StudyCardThumbnail
-        image={image}
-        name={name}
-        statusBadge={statusBadge}
-        statusColor={statusColor}
-        roleBadge={roleBadge}
-        memberCount={memberCount}
+        image={study.profile_img_url || '/placeholder.png'}
+        name={study.name}
+        statusBadge={
+          study.status === 'PENDING'
+            ? '대기중'
+            : study.status === 'ONGOING'
+              ? '진행중'
+              : '종료됨'
+        }
+        statusColor={
+          study.status === 'ONGOING'
+            ? 'bg-success-500'
+            : study.status === 'ENDED'
+              ? 'bg-danger-500'
+              : 'bg-custom-gray-500'
+        }
+        roleBadge={study.is_leader ? '리더' : undefined}
+        memberCount={`${study.current_headcount}/${study.max_headcount}명`}
       />
       <div className="flex flex-1 flex-col p-5">
         <StudyCardContent
-          name={name}
-          dateRange={dateRange}
-          lectures={lectures}
+          name={study.name}
+          dateRange={`${study.start_at} ~ ${study.end_at}`}
+          lectures={study.lectures}
         />
         <StudyCardFooter
-          variant={variant}
-          rating={rating}
-          reviewStatus={reviewStatus}
-          onActionClick={onActionClick}
-          onDetailClick={onDetailClick}
+          groupId={study.id}
+          variant={study.status === 'ENDED' ? 'completed' : 'default'}
+          rating={myReview?.star_rating || 0}
+          reviewStatus={myReview ? 'done' : 'none'}
+          onActionClick={() => {
+            if (myReview) openReviewEdit(study, myReview)
+            else openReviewCreate(study)
+          }}
+          onDetailClick={() => openReviewList(study)}
         />
       </div>
     </div>

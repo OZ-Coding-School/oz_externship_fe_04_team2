@@ -1,44 +1,46 @@
 import { Button, Modal } from '@/components/common'
 import { StarRating } from '@/components/review'
-import type { StudyGroupReviewType } from '@/types'
+import { useStudyGroupStore } from '@/store'
 
-interface ReviewListModalProps {
-  isOpen: boolean
-  onClose: () => void
-  studyName: string
-  reviews: StudyGroupReviewType[]
-  averageRating: number
-  totalCount: number
-}
+export function ReviewListModal() {
+  const {
+    selectedStudy,
+    reviews,
+    reviewStats,
+    modal,
+    openReviewCreate,
+    openReviewEdit,
+    closeModal,
+  } = useStudyGroupStore()
 
-export function ReviewListModal({
-  isOpen,
-  onClose,
-  studyName,
-  reviews,
-  averageRating,
-  totalCount,
-}: ReviewListModalProps) {
+  if (!selectedStudy) return null
+
+  const myReview = reviews.find((r) => r.is_mine)
+
   return (
     <Modal
-      isOpen={isOpen}
-      onClose={onClose}
+      isOpen={modal === 'list'}
+      onClose={closeModal}
       title="스터디 리뷰"
       wrapperClassName="max-w-[600px] h-[80vh] bg-white rounded-xl"
       innerClassName="items-stretch justify-start p-0 gap-0 overflow-hidden"
       titleClassName="flex items-center justify-between px-6 pt-6 pb-2"
     >
       <div className="border-custom-gray-100 px-6 pb-6">
-        <p className="text-custom-gray-500 text-xs">{studyName}</p>
+        <p className="text-custom-gray-500 text-xs">{selectedStudy.name}</p>
         <div className="mt-6 flex flex-col items-center justify-center gap-2">
           <div className="flex gap-2">
-            <StarRating rating={Math.round(averageRating)} readonly size={24} />
+            <StarRating
+              rating={Math.round(reviewStats.average)}
+              readonly
+              size={24}
+            />
             <span className="text-custom-gray-900 text-2xl font-bold">
-              {averageRating}
+              {reviewStats.average}
             </span>
           </div>
           <div className="text-custom-gray-400 text-sm">
-            총 {totalCount}개의 리뷰
+            총 {reviewStats.total}개의 리뷰
           </div>
         </div>
       </div>
@@ -73,7 +75,14 @@ export function ReviewListModal({
         </div>
       </div>
       <div className="border-custom-gray-100 border-t p-4">
-        <Button variant="primary" className="w-full font-bold">
+        <Button
+          variant="primary"
+          className="w-full font-bold"
+          onClick={() => {
+            if (myReview) openReviewEdit(selectedStudy, myReview)
+            else if (selectedStudy) openReviewCreate(selectedStudy)
+          }}
+        >
           내 리뷰 수정하기
         </Button>
       </div>

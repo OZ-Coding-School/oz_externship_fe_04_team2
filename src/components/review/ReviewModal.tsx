@@ -1,27 +1,50 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button, Modal } from '@/components/common'
 import { StarRating } from '@/components/review'
+import { useStudyGroupStore } from '@/store'
+import { API_PATHS } from '@/constants'
 
-interface ReviewEditModalProps {
-  isOpen: boolean
-  onClose: () => void
-  studyName: string
-  studyDate: string
-}
+export function ReviewModal() {
+  const { selectedStudy, selectedReview, modal, closeModal, openReviewList } =
+    useStudyGroupStore()
 
-export function ReviewEditModal({
-  isOpen,
-  onClose,
-  studyName,
-  studyDate,
-}: ReviewEditModalProps) {
   const [rating, setRating] = useState(0)
   const [content, setContent] = useState('')
 
+  useEffect(() => {
+    if (modal !== 'edit') return
+    if (selectedReview) {
+      setRating(selectedReview.star_rating ?? 0)
+      setContent(selectedReview.content ?? '')
+    } else {
+      setRating(0)
+      setContent('')
+    }
+  }, [selectedReview, modal])
+
+  if (!selectedStudy) return null
+
+  const handleSubmit = async () => {
+    const isEdit = Boolean(selectedReview)
+    const url = isEdit
+      ? API_PATHS.REVIEW.DETAIL(selectedStudy.id, selectedReview!.id)
+      : API_PATHS.REVIEW.LIST(selectedStudy.id)
+    const method = isEdit ? 'PATCH' : 'POST'
+
+    await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ star_rating: rating, content }),
+    })
+
+    closeModal()
+    openReviewList(selectedStudy)
+  }
+
   return (
     <Modal
-      isOpen={isOpen}
-      onClose={onClose}
+      isOpen={modal === 'edit'}
+      onClose={closeModal}
       title="리뷰 작성"
       wrapperClassName="h-auto max-w-[600px] bg-white rounded-xl"
       innerClassName="justify-start items-stretch p-6 gap-4"
@@ -29,9 +52,11 @@ export function ReviewEditModal({
     >
       <div className="pb-4">
         <h1 className="text-custom-gray-900 text-base font-medium">
-          {studyName}
+          {selectedStudy.name}
         </h1>
-        <p className="text-custom-gray-500 mt-2 text-sm">{studyDate}</p>
+        <p className="text-custom-gray-500 mt-2 text-sm">
+          {selectedStudy.start_at} ~ {selectedStudy.end_at}
+        </p>
       </div>
       <div className="py-2">
         <label className="text-custom-gray-900 mb-2 block text-sm font-medium">
@@ -60,15 +85,16 @@ export function ReviewEditModal({
         </div>
       </div>
       <div className="mt-4 flex gap-3">
-        <Button variant="outline" className="flex-1" onClick={onClose}>
+        <Button variant="outline" className="flex-1" onClick={closeModal}>
           취소
         </Button>
         <Button
           variant="primary"
           className="flex-1"
           disabled={rating === 0 || content.length === 0}
+          onClick={handleSubmit}
         >
-          작성 완료
+          {selectedReview ? '수정 완료' : '작성 완료'}
         </Button>
       </div>
     </Modal>

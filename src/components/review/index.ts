@@ -1,3 +1,3 @@
-export * from './ReviewEditModal'
+export * from './ReviewModal'
 export * from './ReviewListModal'
 export * from './StarRating'
