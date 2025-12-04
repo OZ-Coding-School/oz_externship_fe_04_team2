@@ -3,8 +3,8 @@ import { ScheduleCalendar } from '@/components/schedule-calendar'
 import {
   ScheduleCreateModal,
   ScheduleDetailModal,
+  ScheduleEditModal,
 } from '@/components/studygroup-detail/modal'
-import { ScheduleEditModal } from '@/components/studygroup-detail/modal/ScheduleEditModal'
 import type { StudyScheduleDetailType } from '@/types'
 import { Plus } from 'lucide-react'
 import { useState } from 'react'
