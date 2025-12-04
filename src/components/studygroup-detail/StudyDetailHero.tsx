@@ -7,7 +7,7 @@ export function StudyDetailHero() {
       <div className="relative aspect-[16/9] w-full md:h-[480px] lg:h-[608px]">
         {/* 배경 이미지 */}
         <img
-          src=""
+          src="https://randomuser.me/api/portraits/lego/1.jpg"
           alt=""
           className="absolute inset-0 h-full w-full object-cover"
         />
