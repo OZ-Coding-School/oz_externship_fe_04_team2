@@ -1,17 +1,24 @@
 import { ArrowRight, Star } from 'lucide-react'
-import type { StudyCardProps } from '@/components/studygroup'
 import { Button } from '@/components/common'
 import { cn } from '@/lib'
 
+interface StudyCardFooterProps {
+  groupId: number
+  variant: 'completed' | 'default'
+  rating: number
+  reviewStatus: string
+  onActionClick: (groupId: number) => void
+  onDetailClick: (groupId: number) => void
+}
+
 export function StudyCardFooter({
+  groupId,
   variant,
   rating,
   reviewStatus,
   onActionClick,
-}: Pick<
-  StudyCardProps,
-  'variant' | 'rating' | 'reviewStatus' | 'onActionClick'
->) {
+  onDetailClick,
+}: StudyCardFooterProps) {
   if (variant === 'default') {
     return (
       <div className="border-custom-gray-100 mt-auto flex justify-end border-t pt-3">
@@ -44,7 +51,10 @@ export function StudyCardFooter({
           </div>
           <span className="text-custom-gray-400 text-xs">({rating})</span>
         </div>
-        <button className="text-custom-gray-400 hover:text-custom-gray-600 text-xs underline">
+        <button
+          className="text-custom-gray-400 hover:text-custom-gray-600 text-xs underline"
+          onClick={() => onDetailClick(groupId)}
+        >
           상세보기
         </button>
       </div>
@@ -55,7 +65,9 @@ export function StudyCardFooter({
           'w-full font-bold',
           reviewStatus === 'done' && 'text-custom-gray-500 bg-custom-gray-100'
         )}
-        onClick={onActionClick}
+        onClick={() => {
+          onActionClick(groupId)
+        }}
       >
         {reviewStatus === 'done' ? '리뷰 수정하기' : '리뷰 작성하기'}
       </Button>

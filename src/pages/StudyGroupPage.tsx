@@ -1,54 +1,21 @@
 import { Button } from '@/components/common'
+import { ReviewListModal, ReviewModal } from '@/components/review'
 import { SearchInput } from '@/components/search'
 import { StudyCard, StudySection } from '@/components/studygroup'
-import type { StudyGroupResponseType } from '@/types'
+import { useStudyGroupStore } from '@/store'
 import { Plus } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 export function StudyGroupPage() {
-  const [studies, setStudies] = useState<StudyGroupResponseType[]>([])
+  const { studies, selectedStudy, modal, fetchStudies } = useStudyGroupStore()
 
   useEffect(() => {
-    fetch('/api/v1/study-groups')
-      .then((res) => res.json())
-      .then((data) => setStudies(data))
-  }, [])
+    fetchStudies()
+  }, [fetchStudies])
 
   const ongoingStudies = studies.filter((s) => s.status === 'ONGOING')
   const pendingStudies = studies.filter((s) => s.status === 'PENDING')
   const endedStudies = studies.filter((s) => s.status === 'ENDED')
-
-  const mapToCardProps = (study: StudyGroupResponseType) => {
-    const myReview = study.reviews.find((r) => r.is_mine)
-    return {
-      image: study.profile_img_url || '/placeholder.png',
-      name: study.name,
-      statusBadge:
-        study.status === 'PENDING'
-          ? '대기중'
-          : study.status === 'ONGOING'
-            ? '진행중'
-            : '종료됨',
-      statusColor:
-        study.status === 'ONGOING'
-          ? 'bg-success-500'
-          : study.status === 'ENDED'
-            ? 'bg-danger-500'
-            : 'bg-custom-gray-500',
-      roleBadge: study.is_leader ? '리더' : undefined,
-      memberCount: `${study.current_headcount}/${study.max_headcount}명`,
-      dateRange: `${study.start_at} ~ ${study.end_at}`,
-      lectures: study.lectures.map((l) => ({
-        title: l.title,
-        instructor: l.instructor,
-      })),
-      variant: (study.status === 'ENDED' ? 'completed' : 'default') as
-        | 'default'
-        | 'completed',
-      rating: myReview ? myReview.star_rating : 0,
-      reviewStatus: (myReview ? 'done' : 'none') as 'none' | 'done',
-    }
-  }
 
   return (
     <div className="flex flex-col gap-8 p-8">
@@ -74,7 +41,7 @@ export function StudyGroupPage() {
             badgeColor="bg-success-100 text-success-700"
           >
             {ongoingStudies.map((study) => (
-              <StudyCard key={study.id} {...mapToCardProps(study)} />
+              <StudyCard key={study.id} study={study} />
             ))}
           </StudySection>
         )}
@@ -86,7 +53,7 @@ export function StudyGroupPage() {
             badgeColor="bg-custom-gray-100 text-custom-gray-600"
           >
             {pendingStudies.map((study) => (
-              <StudyCard key={study.id} {...mapToCardProps(study)} />
+              <StudyCard key={study.id} study={study} />
             ))}
           </StudySection>
         )}
@@ -98,11 +65,13 @@ export function StudyGroupPage() {
             badgeColor="bg-danger-100 text-danger-600"
           >
             {endedStudies.map((study) => (
-              <StudyCard key={study.id} {...mapToCardProps(study)} />
+              <StudyCard key={study.id} study={study} />
             ))}
           </StudySection>
         )}
       </section>
+      {selectedStudy && modal === 'list' && <ReviewListModal />}
+      {selectedStudy && modal === 'edit' && <ReviewModal />}
     </div>
   )
 }

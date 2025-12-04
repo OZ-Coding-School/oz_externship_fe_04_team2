@@ -12,4 +12,15 @@ export const API_PATHS = {
     READ: (group_id: number | string, member_id: number | string) =>
       `/api/v1/chatroom/${group_id}/members/${member_id}/read`,
   },
+  REVIEW: {
+    MSW_LIST: '/api/v1/study-groups/:groupId/reviews',
+    MSW_DETAIL: '/api/v1/study-groups/:groupId/reviews/:reviewId',
+    LIST: (groupId: number | string) =>
+      `/api/v1/study-groups/${groupId}/reviews`,
+    DETAIL: (groupId: number | string, reviewId: number | string) =>
+      `/api/v1/study-groups/${groupId}/reviews/${reviewId}`,
+  },
+  STUDYGROUP: {
+    LIST: `/api/v1/study-groups`,
+  },
 } as const
