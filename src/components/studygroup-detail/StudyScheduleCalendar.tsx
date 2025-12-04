@@ -4,6 +4,7 @@ import {
   ScheduleCreateModal,
   ScheduleDetailModal,
 } from '@/components/studygroup-detail/modal'
+import { ScheduleEditModal } from '@/components/studygroup-detail/modal/ScheduleEditModal'
 import type { StudyScheduleDetailType } from '@/types'
 import { Plus } from 'lucide-react'
 import { useState } from 'react'
@@ -11,13 +12,13 @@ import { useState } from 'react'
 export function StudyScheduleCalendar() {
   const [isCreateOpen, setIsCreateOpen] = useState(false)
   const [isDetailOpen, setIsDetailOpen] = useState(false)
+  const [isEditOpen, setIsEditOpen] = useState(false)
   const [selectedSchedule, setSelectedSchedule] =
     useState<StudyScheduleDetailType | null>(null)
 
   const handleOpenCreateModal = () => {
     setIsCreateOpen(true)
   }
-
   const handleCloseCreateModal = () => {
     setIsCreateOpen(false)
   }
@@ -29,17 +30,31 @@ export function StudyScheduleCalendar() {
 
   const handleCloseDetailModal = () => {
     setIsDetailOpen(false)
+  }
+
+  const handleEditSchedule = (schedule: StudyScheduleDetailType) => {
+    setSelectedSchedule(schedule)
+    setIsDetailOpen(false)
+    setIsEditOpen(true)
+  }
+
+  const handleDeleteSchedule = (scheduleId: number) => {
+    // 삭제 API 연동 예정
+    // eslint-disable-next-line no-console
+    console.log(scheduleId)
+    setIsDetailOpen(false)
     setSelectedSchedule(null)
   }
 
-  const handleEditSchedule = () => {
-    // 수정 예정
-    handleCloseDetailModal()
+  const handleCloseEditModal = () => {
+    setIsEditOpen(false)
+    setIsDetailOpen(true)
   }
 
-  const handleDeleteSchedule = () => {
-    // 수정 예정
-    handleCloseDetailModal()
+  const handleSaveEditedSchedule = (updated: StudyScheduleDetailType) => {
+    setSelectedSchedule(updated)
+    setIsEditOpen(false)
+    setIsDetailOpen(true)
   }
 
   return (
@@ -56,7 +71,7 @@ export function StudyScheduleCalendar() {
         </Button>
       </div>
 
-      {/* 스케줄 상세 모달 */}
+      {/* 스케줄 캘린더 */}
       <ScheduleCalendar onScheduleClick={handleScheduleClick} />
 
       {/* 새 스케줄 추가 모달 */}
@@ -72,6 +87,15 @@ export function StudyScheduleCalendar() {
           schedule={selectedSchedule}
           onEdit={handleEditSchedule}
           onDelete={handleDeleteSchedule}
+        />
+      )}
+
+      {selectedSchedule && (
+        <ScheduleEditModal
+          isOpen={isEditOpen}
+          onClose={handleCloseEditModal}
+          schedule={selectedSchedule}
+          onSave={handleSaveEditedSchedule}
         />
       )}
     </section>
