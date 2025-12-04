@@ -7,6 +7,8 @@ import {
   CustomToolbar,
   ScheduleEventItem,
 } from '@/components/schedule-calendar'
+import { mockSchedules } from '@/mocks/data/studygroup/schedule'
+import type { StudyScheduleDetailType } from '@/types'
 
 // 임시 데이터
 export interface ScheduleEvent {
@@ -27,13 +29,25 @@ const mockEvents: ScheduleEvent[] = [
   },
 ]
 
-export function ScheduleCalendar() {
+interface ScheduleCalendarProps {
+  onScheduleClick?: (schedule: StudyScheduleDetailType) => void
+}
+
+export function ScheduleCalendar({ onScheduleClick }: ScheduleCalendarProps) {
   const [month, setMonth] = useState(new Date())
   const formats = { monthHeaderFormat: 'yyyy년 MM월' }
 
   // 월 변경 핸들러
   const handleMonthNavigate = (newDate: Date) => {
     setMonth(newDate)
+  }
+
+  // 스케줄 일정 클릭 시 상세 mock 데이터 조회 및 전달
+  const handleSelectScheduleDetail = (event: ScheduleEvent) => {
+    const detail = mockSchedules.find((schedule) => schedule.id === event.id)
+    if (detail && onScheduleClick) {
+      onScheduleClick(detail)
+    }
   }
 
   return (
@@ -55,6 +69,7 @@ export function ScheduleCalendar() {
           event: ScheduleEventItem,
         }}
         showAllEvents
+        onSelectEvent={handleSelectScheduleDetail}
       />
     </div>
   )
