@@ -1,5 +1,13 @@
 import { cn } from '@/lib'
-import type { StudyCardProps } from '@/components/studygroup'
+
+interface StudyCardThumbnailProps {
+  image: string
+  name: string
+  statusBadge: string
+  statusColor: string
+  roleBadge: string | undefined
+  memberCount: string
+}
 
 export function StudyCardThumbnail({
   image,
@@ -8,10 +16,7 @@ export function StudyCardThumbnail({
   statusColor,
   roleBadge,
   memberCount,
-}: Pick<
-  StudyCardProps,
-  'image' | 'name' | 'statusBadge' | 'statusColor' | 'roleBadge' | 'memberCount'
->) {
+}: StudyCardThumbnailProps) {
   return (
     <div className="bg-custom-gray-100 relative w-full overflow-hidden">
       <img
