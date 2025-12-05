@@ -5,7 +5,10 @@ import {
   ScheduleDetailModal,
   ScheduleEditModal,
 } from '@/components/studygroup-detail/modal'
-import { useStudySchedules } from '@/hooks/study-schedule'
+import {
+  useDeleteStudySchedule,
+  useStudySchedules,
+} from '@/hooks/study-schedule'
 import type { StudyScheduleDetailType } from '@/types'
 import { Plus } from 'lucide-react'
 import { useState } from 'react'
@@ -22,6 +25,7 @@ export function StudyScheduleCalendar({ groupId }: StudyScheduleCalendarProps) {
     useState<StudyScheduleDetailType | null>(null)
 
   const { data: schedules } = useStudySchedules(groupId)
+  const { mutate: deleteSchedule } = useDeleteStudySchedule(groupId)
 
   const handleOpenCreateModal = () => {
     setIsCreateOpen(true)
@@ -46,11 +50,12 @@ export function StudyScheduleCalendar({ groupId }: StudyScheduleCalendarProps) {
   }
 
   const handleDeleteSchedule = (scheduleId: number) => {
-    // 삭제 API 연동 예정
-    // eslint-disable-next-line no-console
-    console.log(scheduleId)
-    setIsDetailOpen(false)
-    setSelectedSchedule(null)
+    deleteSchedule(scheduleId, {
+      onSuccess: () => {
+        setIsDetailOpen(false)
+        setSelectedSchedule(null)
+      },
+    })
   }
 
   const handleCloseEditModal = () => {
