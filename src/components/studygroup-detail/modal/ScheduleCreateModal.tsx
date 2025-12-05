@@ -1,18 +1,28 @@
 import { useBodyScrollLock } from '@/hooks'
-import { ScheduleFormModeType, type ScheduleFormValuesType } from '@/types'
+import {
+  ScheduleFormModeType,
+  type CreateStudyScheduleRequestType,
+  type ScheduleFormValuesType,
+} from '@/types'
 import { ScheduleForm } from '@/components/studygroup-detail/modal/ScheduleForm'
 import { Modal } from '@/components/common'
+import { useCreateStudySchedule } from '@/hooks/study-schedule'
+import { format } from 'date-fns'
 
 interface ScheduleCreateModalProps {
   isOpen: boolean
   onClose: () => void
+  groupId: number
 }
 
 export function ScheduleCreateModal({
   isOpen,
   onClose,
+  groupId,
 }: ScheduleCreateModalProps) {
   useBodyScrollLock(isOpen)
+
+  const { mutate } = useCreateStudySchedule(groupId)
 
   const defaultValues: ScheduleFormValuesType = {
     title: '',
@@ -24,10 +34,18 @@ export function ScheduleCreateModal({
   }
 
   const handleSubmit = (data: ScheduleFormValuesType) => {
-    // MSW 연결 후 제거 예정
-    // eslint-disable-next-line no-console
-    console.log(data)
-    onClose()
+    const payload: CreateStudyScheduleRequestType = {
+      title: data.title,
+      objective: data.objective,
+      session_date: data.date ? format(data.date, 'yyyy-MM-dd') : '',
+      start_time: data.start_time,
+      end_time: data.end_time,
+      participants: data.participants,
+    }
+
+    mutate(payload, {
+      onSuccess: onClose,
+    })
   }
 
   return (

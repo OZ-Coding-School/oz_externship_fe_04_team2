@@ -6,8 +6,12 @@ import {
   StudyNoteList,
   StudyScheduleCalendar,
 } from '@/components/studygroup-detail'
+import { useParams } from 'react-router'
 
 export function StudyDetailPage() {
+  const { groupId } = useParams<{ groupId: string }>()
+  const numericGroupId = Number(groupId)
+
   return (
     <div className="flex flex-col gap-8 px-8 pb-20">
       {/* 상단 히어로 */}
@@ -16,7 +20,7 @@ export function StudyDetailPage() {
       {/* 좌측 메인 콘텐츠 */}
       <div className="flex flex-col gap-8 lg:flex-row">
         <div className="flex flex-1 flex-col gap-6">
-          <StudyScheduleCalendar />
+          <StudyScheduleCalendar groupId={numericGroupId} />
           <StudyNoteList />
         </div>
 

@@ -5,16 +5,27 @@ import {
   ScheduleDetailModal,
   ScheduleEditModal,
 } from '@/components/studygroup-detail/modal'
+import {
+  useDeleteStudySchedule,
+  useStudySchedules,
+} from '@/hooks/study-schedule'
 import type { StudyScheduleDetailType } from '@/types'
 import { Plus } from 'lucide-react'
 import { useState } from 'react'
 
-export function StudyScheduleCalendar() {
+interface StudyScheduleCalendarProps {
+  groupId: number
+}
+
+export function StudyScheduleCalendar({ groupId }: StudyScheduleCalendarProps) {
   const [isCreateOpen, setIsCreateOpen] = useState(false)
   const [isDetailOpen, setIsDetailOpen] = useState(false)
   const [isEditOpen, setIsEditOpen] = useState(false)
   const [selectedSchedule, setSelectedSchedule] =
     useState<StudyScheduleDetailType | null>(null)
+
+  const { data: schedules } = useStudySchedules(groupId)
+  const { mutate: deleteSchedule } = useDeleteStudySchedule(groupId)
 
   const handleOpenCreateModal = () => {
     setIsCreateOpen(true)
@@ -39,11 +50,12 @@ export function StudyScheduleCalendar() {
   }
 
   const handleDeleteSchedule = (scheduleId: number) => {
-    // 삭제 API 연동 예정
-    // eslint-disable-next-line no-console
-    console.log(scheduleId)
-    setIsDetailOpen(false)
-    setSelectedSchedule(null)
+    deleteSchedule(scheduleId, {
+      onSuccess: () => {
+        setIsDetailOpen(false)
+        setSelectedSchedule(null)
+      },
+    })
   }
 
   const handleCloseEditModal = () => {
@@ -72,12 +84,16 @@ export function StudyScheduleCalendar() {
       </div>
 
       {/* 스케줄 캘린더 */}
-      <ScheduleCalendar onScheduleClick={handleScheduleClick} />
+      <ScheduleCalendar
+        schedules={schedules ?? []}
+        onScheduleClick={handleScheduleClick}
+      />
 
       {/* 새 스케줄 추가 모달 */}
       <ScheduleCreateModal
         isOpen={isCreateOpen}
         onClose={handleCloseCreateModal}
+        groupId={groupId}
       />
 
       {selectedSchedule && (
@@ -96,6 +112,7 @@ export function StudyScheduleCalendar() {
           onClose={handleCloseEditModal}
           schedule={selectedSchedule}
           onSave={handleSaveEditedSchedule}
+          groupId={groupId}
         />
       )}
     </section>
