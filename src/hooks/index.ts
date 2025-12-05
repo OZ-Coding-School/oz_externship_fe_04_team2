@@ -1,4 +1,5 @@
 export * from './useDebounce'
+export * from './useMarkdownEditor'
 export * from './chat'
 export * from './common'
 export * from './queries'
