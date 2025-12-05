@@ -1,3 +1,5 @@
 export * from './chat-handlers'
 export * from './studygroup-handler'
 export * from './user-handler'
+export * from './review-handlers'
+export * from './schedule-handlers'

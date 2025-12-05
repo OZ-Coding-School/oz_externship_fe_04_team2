@@ -1,6 +1,7 @@
 import { MSW_BASE_URL } from '@/constants'
 import {
   chatHandlers,
+  scheduleHandlers,
   studygroupHandler,
   userInformationHandler,
 } from '@/mocks/handlers'
@@ -17,4 +18,5 @@ export const handlers = [
   ...chatHandlers,
   ...reviewHandlers,
   ...studygroupHandler,
+  ...scheduleHandlers,
 ]
