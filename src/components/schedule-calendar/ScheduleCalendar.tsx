@@ -8,9 +8,12 @@ import {
   ScheduleEventItem,
 } from '@/components/schedule-calendar'
 import { mockSchedules } from '@/mocks/data/studygroup/schedule'
-import type { StudyScheduleDetailType } from '@/types'
+import type {
+  StudyScheduleDetailType,
+  StudyScheduleListItemType,
+} from '@/types'
+import { parseISO } from 'date-fns'
 
-// 임시 데이터
 export interface ScheduleEvent {
   id: number
   title: string
@@ -19,23 +22,32 @@ export interface ScheduleEvent {
   end: Date
 }
 
-const mockEvents: ScheduleEvent[] = [
-  {
-    id: 1,
-    title: '스터디 일정',
-    timeLabel: '18:30 ~ 20:30',
-    start: new Date(2025, 10, 25, 18, 30),
-    end: new Date(2025, 10, 25, 20, 30),
-  },
-]
-
 interface ScheduleCalendarProps {
+  schedules: StudyScheduleListItemType[]
   onScheduleClick?: (schedule: StudyScheduleDetailType) => void
 }
 
-export function ScheduleCalendar({ onScheduleClick }: ScheduleCalendarProps) {
+export function ScheduleCalendar({
+  schedules,
+  onScheduleClick,
+}: ScheduleCalendarProps) {
   const [month, setMonth] = useState(new Date())
   const formats = { monthHeaderFormat: 'yyyy년 MM월' }
+
+  // react-big-calendar는 start/end가 Date 객체인 이벤트 배열 요구
+  const toEvent = (schedule: StudyScheduleListItemType): ScheduleEvent => {
+    return {
+      id: schedule.id,
+      title: schedule.title,
+      timeLabel: `${schedule.start_time} ~ ${schedule.end_time}`,
+      // ISO 문자열(yyyy-MM-ddTHH:mm) → Date 변환
+      start: parseISO(`${schedule.session_date}T${schedule.start_time}`),
+      end: parseISO(`${schedule.session_date}T${schedule.end_time}`),
+    }
+  }
+
+  // API 스케줄 목록을 캘린더 이벤트 배열로 변환
+  const events = (schedules ?? []).map(toEvent)
 
   // 월 변경 핸들러
   const handleMonthNavigate = (newDate: Date) => {
@@ -59,7 +71,7 @@ export function ScheduleCalendar({ onScheduleClick }: ScheduleCalendarProps) {
         formats={formats}
         startAccessor="start"
         endAccessor="end"
-        events={mockEvents}
+        events={events}
         defaultView="month"
         views={['month']}
         selectable
