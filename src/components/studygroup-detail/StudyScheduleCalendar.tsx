@@ -5,6 +5,7 @@ import {
   ScheduleDetailModal,
   ScheduleEditModal,
 } from '@/components/studygroup-detail/modal'
+import { useStudySchedules } from '@/hooks/study-schedule'
 import type { StudyScheduleDetailType } from '@/types'
 import { Plus } from 'lucide-react'
 import { useState } from 'react'
@@ -19,6 +20,8 @@ export function StudyScheduleCalendar({ groupId }: StudyScheduleCalendarProps) {
   const [isEditOpen, setIsEditOpen] = useState(false)
   const [selectedSchedule, setSelectedSchedule] =
     useState<StudyScheduleDetailType | null>(null)
+
+  const { data: schedules } = useStudySchedules(groupId)
 
   const handleOpenCreateModal = () => {
     setIsCreateOpen(true)
@@ -76,7 +79,10 @@ export function StudyScheduleCalendar({ groupId }: StudyScheduleCalendarProps) {
       </div>
 
       {/* 스케줄 캘린더 */}
-      <ScheduleCalendar onScheduleClick={handleScheduleClick} />
+      <ScheduleCalendar
+        schedules={schedules ?? []}
+        onScheduleClick={handleScheduleClick}
+      />
 
       {/* 새 스케줄 추가 모달 */}
       <ScheduleCreateModal
