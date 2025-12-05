@@ -107,6 +107,7 @@ export function StudyScheduleCalendar({ groupId }: StudyScheduleCalendarProps) {
           onClose={handleCloseEditModal}
           schedule={selectedSchedule}
           onSave={handleSaveEditedSchedule}
+          groupId={groupId}
         />
       )}
     </section>

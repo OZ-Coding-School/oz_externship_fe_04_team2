@@ -1,10 +1,12 @@
 import { Modal } from '@/components/common'
 import { ScheduleForm } from '@/components/studygroup-detail/modal/ScheduleForm'
 import { useBodyScrollLock } from '@/hooks'
+import { useUpdateStudySchedule } from '@/hooks/study-schedule'
 import {
   ScheduleFormModeType,
   type ScheduleFormValuesType,
   type StudyScheduleDetailType,
+  type UpdateStudyScheduleRequestType,
 } from '@/types'
 import { format, parseISO } from 'date-fns'
 
@@ -13,6 +15,7 @@ interface ScheduleEditModalProps {
   onClose: () => void
   onSave: (updated: StudyScheduleDetailType) => void
   schedule: StudyScheduleDetailType
+  groupId: number
 }
 
 export function ScheduleEditModal({
@@ -20,8 +23,11 @@ export function ScheduleEditModal({
   onClose,
   onSave,
   schedule,
+  groupId,
 }: ScheduleEditModalProps) {
   useBodyScrollLock(isOpen)
+
+  const { mutate } = useUpdateStudySchedule(groupId, schedule.id)
 
   const defaultValues: ScheduleFormValuesType = {
     title: schedule.title,
@@ -33,8 +39,7 @@ export function ScheduleEditModal({
   }
 
   const handleSubmit = (data: ScheduleFormValuesType) => {
-    const updated: StudyScheduleDetailType = {
-      ...schedule,
+    const payload: UpdateStudyScheduleRequestType = {
       title: data.title,
       objective: data.objective,
       session_date: data.date
@@ -42,9 +47,15 @@ export function ScheduleEditModal({
         : schedule.session_date,
       start_time: data.start_time,
       end_time: data.end_time,
-      participants: schedule.participants,
+      participants: data.participants,
     }
-    onSave(updated)
+
+    mutate(payload, {
+      onSuccess: (updated) => {
+        onSave(updated)
+        onClose()
+      },
+    })
   }
 
   return (
