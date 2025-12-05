@@ -9,7 +9,11 @@ import type { StudyScheduleDetailType } from '@/types'
 import { Plus } from 'lucide-react'
 import { useState } from 'react'
 
-export function StudyScheduleCalendar() {
+interface StudyScheduleCalendarProps {
+  groupId: number
+}
+
+export function StudyScheduleCalendar({ groupId }: StudyScheduleCalendarProps) {
   const [isCreateOpen, setIsCreateOpen] = useState(false)
   const [isDetailOpen, setIsDetailOpen] = useState(false)
   const [isEditOpen, setIsEditOpen] = useState(false)
@@ -78,6 +82,7 @@ export function StudyScheduleCalendar() {
       <ScheduleCreateModal
         isOpen={isCreateOpen}
         onClose={handleCloseCreateModal}
+        groupId={groupId}
       />
 
       {selectedSchedule && (
