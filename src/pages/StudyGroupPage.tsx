@@ -5,6 +5,7 @@ import { StudyCard, StudySection } from '@/components/studygroup'
 import { useStudyGroupStore } from '@/store'
 import { Plus } from 'lucide-react'
 import { useEffect } from 'react'
+import { Link } from 'react-router'
 
 export function StudyGroupPage() {
   const { studies, selectedStudy, modal, fetchStudies } = useStudyGroupStore()
@@ -27,9 +28,11 @@ export function StudyGroupPage() {
             <p>참여해보세요</p>
           </div>
         </div>
-        <Button variant="primary" className="mt-4 w-fit md:mt-0">
-          <Plus size={16} className="mr-2" />새 스터디 만들기
-        </Button>
+        <Link to="/create">
+          <Button variant="primary" className="mt-4 w-fit md:mt-0">
+            <Plus size={16} className="mr-2" />새 스터디 만들기
+          </Button>
+        </Link>
       </header>
       <SearchInput />
       <section className="flex flex-col gap-8">
