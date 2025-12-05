@@ -1,5 +1,5 @@
 import { IconDropdown } from '@/components/common'
-import { headingOptions, ListOptions } from '@/constants'
+import { headingOptions, listOptions } from '@/constants'
 import { Heading1Icon, ListIcon } from 'lucide-react'
 
 interface ToolbarDropdownProps {
@@ -14,17 +14,8 @@ export function ToolbarDropdownHeading({
       options={headingOptions}
       triggerIcon={<Heading1Icon />}
       onChange={(value) => {
-        switch (value) {
-          case 'h1':
-            insertMarkdown('# ')
-            break
-          case 'h2':
-            insertMarkdown('## ')
-            break
-          case 'h3':
-            insertMarkdown('### ')
-            break
-        }
+        const option = headingOptions.find((o) => o.value === value)
+        if (option) insertMarkdown(option.before)
       }}
     />
   )
@@ -33,17 +24,11 @@ export function ToolbarDropdownHeading({
 export function ToolbarDropdownList({ insertMarkdown }: ToolbarDropdownProps) {
   return (
     <IconDropdown
-      options={ListOptions}
+      options={listOptions}
       triggerIcon={<ListIcon />}
       onChange={(value) => {
-        switch (value) {
-          case 'unordered list':
-            insertMarkdown('- ')
-            break
-          case 'ordered list':
-            insertMarkdown('1. ')
-            break
-        }
+        const option = listOptions.find((o) => o.value === value)
+        if (option) insertMarkdown(option.before)
       }}
     />
   )
