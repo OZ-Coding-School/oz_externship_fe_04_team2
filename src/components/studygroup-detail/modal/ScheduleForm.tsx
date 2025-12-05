@@ -48,24 +48,22 @@ export function ScheduleForm({
       <Input
         label="스케줄명"
         placeholder="스케줄 제목을 입력하세요"
+        required
+        error={errors.title?.message}
         {...register('title', {
           required: '스케줄명을 입력해주세요.',
         })}
       />
-      {errors.title && (
-        <p className="text-danger-500 text-xs">{errors.title.message}</p>
-      )}
 
       <Textarea
         label="스터디 목표"
         placeholder="이번 스터디에서 달성하고자 하는 목표를 입력하세요"
+        required
+        error={errors.objective?.message}
         {...register('objective', {
           required: '스터디 목표를 입력해주세요.',
         })}
       />
-      {errors.objective && (
-        <p className="text-danger-500 text-xs">{errors.objective.message}</p>
-      )}
 
       <Controller
         control={control}
