@@ -1,3 +1,9 @@
-export default function CreateStudyNotePage() {
-  return <div>CreateStudyNotePage</div>
+import { StudyNoteBreadcrumb } from '@/components/studygroup-note'
+
+export function CreateStudyNotePage() {
+  return (
+    <div>
+      <StudyNoteBreadcrumb />
+    </div>
+  )
 }

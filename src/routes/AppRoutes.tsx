@@ -1,6 +1,11 @@
 import { Layout } from '@/components/layout'
-import { CreateStudyGroupPage, StudyDetailPage, StudyGroupPage } from '@/pages'
-import CreateStudyNotePage from '@/pages/CreateStudyNotePage'
+import {
+  CreateStudyGroupPage,
+  CreateStudyNotePage,
+  StudyDetailPage,
+  StudyGroupPage,
+} from '@/pages'
+
 import { Route, Routes } from 'react-router'
 
 export function AppRoutes() {
