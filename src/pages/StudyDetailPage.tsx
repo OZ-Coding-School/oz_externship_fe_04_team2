@@ -21,7 +21,7 @@ export function StudyDetailPage() {
       <div className="flex flex-col gap-8 lg:flex-row">
         <div className="flex flex-1 flex-col gap-6">
           <StudyScheduleCalendar groupId={numericGroupId} />
-          <StudyNoteList />
+          <StudyNoteList groupId={numericGroupId} />
         </div>
 
         {/* 우측 사이드 정보 */}
