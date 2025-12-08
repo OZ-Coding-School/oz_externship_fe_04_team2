@@ -1,5 +1,6 @@
-import { Input, ImageUploader } from '@/components/common'
+import { Input } from '@/components/common'
 import { MarkdownEditor } from '@/components/markdown'
+import { ImageUploader } from '@/components/studygroup'
 
 export function StudyGroupInfo() {
   return (
