@@ -13,6 +13,10 @@ export function StudyNoteList({ groupId }: StudyNoteListProps) {
     navigate(`/study-groups/${groupId}/notes/create`)
   }
 
+  const handleNoteDetail = (noteId: number) => {
+    navigate(`/study-groups/${groupId}/notes/${noteId}`)
+  }
+
   return (
     <section className="border-custom-gray-200 flex flex-col gap-4 rounded-xl border p-6">
       <div className="flex items-center justify-between pb-6">
@@ -26,9 +30,14 @@ export function StudyNoteList({ groupId }: StudyNoteListProps) {
           <span>작성하기</span>
         </Button>
       </div>
-      <div>
-        <ul>
-          <li>
+      <ul>
+        <li>
+          <button
+            type="button"
+            // API 연동 시 note.id로 변경
+            onClick={() => handleNoteDetail(1)}
+            className="w-full"
+          >
             <Card className="p-4">
               <div className="flex justify-between pb-3">
                 <p className="text-custom-gray-900 text-lg">
@@ -47,9 +56,9 @@ export function StudyNoteList({ groupId }: StudyNoteListProps) {
                 </span>
               </div>
             </Card>
-          </li>
-        </ul>
-      </div>
+          </button>
+        </li>
+      </ul>
     </section>
   )
 }

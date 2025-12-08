@@ -2,6 +2,7 @@ import { Layout } from '@/components/layout'
 import {
   CreateStudyGroupPage,
   CreateStudyNotePage,
+  DetailStudyNotePage,
   StudyDetailPage,
   StudyGroupPage,
 } from '@/pages'
@@ -18,6 +19,10 @@ export function AppRoutes() {
         <Route
           path="study-groups/:groupId/notes/create"
           element={<CreateStudyNotePage />}
+        />
+        <Route
+          path="study-groups/:groupId/notes/:noteId"
+          element={<DetailStudyNotePage />}
         />
       </Route>
     </Routes>

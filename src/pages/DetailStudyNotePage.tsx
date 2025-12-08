@@ -1,0 +1,100 @@
+import { Button } from '@/components/common'
+import {
+  BackToStudyGroupButton,
+  StudyNoteAttachmentItem,
+  StudyNoteBreadcrumb,
+} from '@/components/studygroup-note'
+import { StudyNoteToggle } from '@/components/studygroup-note/StudyNoteToggle'
+import { Bot, Paperclip, UserRound } from 'lucide-react'
+import { useState } from 'react'
+
+// MSW 연동 후 mockFiles 제거 예정
+const mockFiles = [
+  {
+    id: 1,
+    file_name: 'hooks-practice.zip',
+    file_url: '#',
+  },
+  {
+    id: 2,
+    file_name: 'study-notes.pdf',
+    file_url: '#',
+  },
+]
+
+export function DetailStudyNotePage() {
+  const [isSummaryOpen, setIsSummaryOpen] = useState(true)
+  const toggleSummary = () => setIsSummaryOpen((prev) => !prev)
+
+  return (
+    <div className="flex flex-col gap-6 p-8">
+      <StudyNoteBreadcrumb mode="detail" />
+      <div className="border-custom-gray-200 rounded-xl border">
+        <header className="border-b-custom-gray-200 flex flex-col gap-4 border-b p-6">
+          <div className="flex justify-between">
+            <h1 className="text-custom-gray-900 text-2xl font-bold">
+              React Hooks 실습 정리
+            </h1>
+            <div className="flex gap-2">
+              <Button variant="secondary" className="h-8">
+                수정하기
+              </Button>
+              <Button
+                variant="danger"
+                className="text-danger-800 h-8 bg-[#FEE2E2]"
+              >
+                삭제하기
+              </Button>
+            </div>
+          </div>
+          <p className="text-custom-gray-600 flex items-center gap-2 text-sm">
+            <span className="bg-primary-100 centralize h-8 w-8 rounded-full">
+              <UserRound className="text-primary-600 h-5 w-5" />
+            </span>
+            <span>김개발</span>
+            <span>&bull;</span>
+            <span>작성일: 2024. 02. 16. 오전 05:30</span>
+          </p>
+        </header>
+
+        {/* AI 요약 */}
+        <section className="border-b-custom-gray-200 border-b p-6">
+          <div className="flex items-center justify-between pb-4">
+            <h2 className="flex items-center gap-2">
+              <Bot className="text-primary-600 h-5 w-5" />
+              <span className="text-custom-gray-900 text-lg font-semibold">
+                AI 학습 내용 요약
+              </span>
+            </h2>
+            <StudyNoteToggle isOpen={isSummaryOpen} onToggle={toggleSummary} />
+          </div>
+          {isSummaryOpen && (
+            <div className="text-custom-gray-900 bg-amber-50 p-4">
+              <p>AI 요약 내용</p>
+            </div>
+          )}
+        </section>
+
+        {/* 본문 */}
+        <section className="border-b-custom-gray-200 border-b p-6">
+          <p>Markdown 본문 렌더</p>
+        </section>
+
+        {/* 첨부 파일 */}
+        <section className="p-6">
+          <h3 className="text-custom-gray-900 flex items-center gap-2 pb-4">
+            <Paperclip className='w-5" h-5' />
+            <span className="text-lg font-normal">첨부 파일 (2개)</span>
+          </h3>
+          <ul className="grid grid-cols-2 gap-2">
+            {mockFiles.map((file) => (
+              <StudyNoteAttachmentItem key={file.id} file={file} />
+            ))}
+          </ul>
+        </section>
+      </div>
+
+      <BackToStudyGroupButton />
+    </div>
+  )
+}
