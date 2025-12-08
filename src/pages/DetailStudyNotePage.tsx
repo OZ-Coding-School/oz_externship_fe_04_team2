@@ -7,6 +7,7 @@ import {
 import { StudyNoteToggle } from '@/components/studygroup-note/StudyNoteToggle'
 import { Bot, Paperclip, UserRound } from 'lucide-react'
 import { useState } from 'react'
+import { useNavigate, useParams } from 'react-router'
 
 // MSW 연동 후 mockFiles 제거 예정
 const mockFiles = [
@@ -24,7 +25,14 @@ const mockFiles = [
 
 export function DetailStudyNotePage() {
   const [isSummaryOpen, setIsSummaryOpen] = useState(true)
+  const { groupId, noteId } = useParams<{ groupId: string; noteId: string }>()
+  const navigate = useNavigate()
+
   const toggleSummary = () => setIsSummaryOpen((prev) => !prev)
+
+  const handleEdit = () => {
+    navigate(`/study-groups/${groupId}/notes/${noteId}/edit`)
+  }
 
   return (
     <div className="flex flex-col gap-6 p-8">
@@ -36,7 +44,7 @@ export function DetailStudyNotePage() {
               React Hooks 실습 정리
             </h1>
             <div className="flex gap-2">
-              <Button variant="secondary" className="h-8">
+              <Button variant="secondary" className="h-8" onClick={handleEdit}>
                 수정하기
               </Button>
               <Button
@@ -83,7 +91,7 @@ export function DetailStudyNotePage() {
         {/* 첨부 파일 */}
         <section className="p-6">
           <h3 className="text-custom-gray-900 flex items-center gap-2 pb-4">
-            <Paperclip className='w-5" h-5' />
+            <Paperclip className="h-5 w-5" />
             <span className="text-lg font-normal">첨부 파일 (2개)</span>
           </h3>
           <ul className="grid grid-cols-2 gap-2">
