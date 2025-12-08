@@ -3,6 +3,7 @@ import {
   CreateStudyGroupPage,
   CreateStudyNotePage,
   DetailStudyNotePage,
+  EditStudyNotePage,
   StudyDetailPage,
   StudyGroupPage,
 } from '@/pages'
@@ -23,6 +24,10 @@ export function AppRoutes() {
         <Route
           path="study-groups/:groupId/notes/:noteId"
           element={<DetailStudyNotePage />}
+        />
+        <Route
+          path="study-groups/:groupId/notes/:noteId/edit"
+          element={<EditStudyNotePage />}
         />
       </Route>
     </Routes>
