@@ -1,5 +1,11 @@
 import { Layout } from '@/components/layout'
-import { CreateStudyGroupPage, StudyDetailPage, StudyGroupPage } from '@/pages'
+import {
+  CreateStudyGroupPage,
+  CreateStudyNotePage,
+  StudyDetailPage,
+  StudyGroupPage,
+} from '@/pages'
+
 import { Route, Routes } from 'react-router'
 
 export function AppRoutes() {
@@ -9,6 +15,10 @@ export function AppRoutes() {
         <Route index element={<StudyGroupPage />} />
         <Route path="/create" element={<CreateStudyGroupPage />} />
         <Route path="study-groups/:groupId" element={<StudyDetailPage />} />
+        <Route
+          path="study-groups/:groupId/notes/create"
+          element={<CreateStudyNotePage />}
+        />
       </Route>
     </Routes>
   )
