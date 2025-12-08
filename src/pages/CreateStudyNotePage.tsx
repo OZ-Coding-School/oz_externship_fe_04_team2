@@ -1,5 +1,6 @@
-import { Button, ImageUploader, Input } from '@/components/common'
+import { Button, Input } from '@/components/common'
 import { MarkdownEditor } from '@/components/markdown'
+import { ImageUploader } from '@/components/studygroup'
 import { StudyNoteBreadcrumb } from '@/components/studygroup-note'
 
 export function CreateStudyNotePage() {
