@@ -5,8 +5,8 @@ import { StudyNoteBreadcrumb } from '@/components/studygroup-note'
 export function CreateStudyNotePage() {
   return (
     <div className="flex flex-col p-8">
-      <StudyNoteBreadcrumb />
-      <header className="pt-2 pb-6">
+      <StudyNoteBreadcrumb mode="create" />
+      <header className="pt-4 pb-6">
         <h1 className="text-custom-gray-900 text-3xl font-bold">
           스터디 기록 작성
         </h1>

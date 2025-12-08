@@ -6,8 +6,21 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/common'
+import type { StudyNoteMode } from '@/types'
 
-export function StudyNoteBreadcrumb() {
+interface StudyNoteBreadcrumbProps {
+  mode: StudyNoteMode
+}
+
+const NOTE_BREADCRUMB_LABEL: Record<StudyNoteMode, string> = {
+  create: '기록 작성',
+  edit: '기록 수정',
+  detail: '기록 상세',
+}
+
+export function StudyNoteBreadcrumb({ mode }: StudyNoteBreadcrumbProps) {
+  const breadcrumbLabel = NOTE_BREADCRUMB_LABEL[mode]
+
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -29,7 +42,7 @@ export function StudyNoteBreadcrumb() {
         <BreadcrumbSeparator />
 
         <BreadcrumbItem>
-          <BreadcrumbPage>기록 작성</BreadcrumbPage>
+          <BreadcrumbPage>{breadcrumbLabel}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
