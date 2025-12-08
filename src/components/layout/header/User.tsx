@@ -18,7 +18,7 @@ export function User() {
             강의 목록
           </a>
           {/* 클릭하면 강의목록 페이지 렌더링 */}
-          <a href="" className="hover:text-primary-600 cursor-pointer">
+          <a href="/" className="hover:text-primary-600 cursor-pointer">
             스터디 그룹
           </a>
           {/* 클릭하면 스터디그룹 페이지로 렌더링 */}
