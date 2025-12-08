@@ -1,3 +1,5 @@
+export * from './FilePreview'
+export * from './FileUploader'
 export * from './StudyDetailHero'
 export * from './StudyDetailInfo'
 export * from './StudyLectureList'
