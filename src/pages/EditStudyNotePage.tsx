@@ -2,16 +2,54 @@ import { Button, Input } from '@/components/common'
 import { MarkdownEditor } from '@/components/markdown'
 import { FileUploader } from '@/components/studygroup-detail'
 import { StudyNoteBreadcrumb } from '@/components/studygroup-note'
-import { useState } from 'react'
-
-const mockNote = {
-  title: 'React Hooks 실습 정리',
-  content: '기존 학습 내용 본문',
-  files: [{ id: 1, file_name: 'hooks-practice.zip', file_url: '#' }],
-}
+import { useStudyNoteDetail, useUpdateStudyNote } from '@/hooks/study-note'
+import type { UpdateStudyNoteRequestType } from '@/types'
+import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router'
+import { toast } from 'react-toastify'
 
 export function EditStudyNotePage() {
-  const [title, setTitle] = useState(mockNote.title)
+  const { groupId, noteId } = useParams<{ groupId: string; noteId: string }>()
+  const navigate = useNavigate()
+  const [title, setTitle] = useState('')
+
+  const isInvalidParams = !groupId || !noteId
+
+  useEffect(() => {
+    if (isInvalidParams) {
+      toast.error('잘못된 접근입니다.')
+      navigate(-1)
+    }
+  }, [isInvalidParams, navigate])
+
+  const { data } = useStudyNoteDetail(groupId ?? '', noteId ?? '')
+  const { mutate: updateNote } = useUpdateStudyNote(groupId ?? '', noteId ?? '')
+
+  // 기존 데이터로 폼 초기화
+  useEffect(() => {
+    if (data) {
+      setTitle(data.title)
+    }
+  }, [data])
+
+  if (isInvalidParams) return null
+
+  const handleSubmit = () => {
+    // content, files는 아직 연동되지 않음
+    const payload: UpdateStudyNoteRequestType = {
+      title,
+    }
+
+    updateNote(payload, {
+      onSuccess: () => {
+        navigate(`/study-groups/${groupId}/notes/${noteId}`)
+      },
+    })
+  }
+
+  const handleCancel = () => {
+    navigate(-1)
+  }
 
   return (
     <div className="flex flex-col p-8">
@@ -49,8 +87,10 @@ export function EditStudyNotePage() {
       </div>
 
       <div className="flex w-full justify-between gap-4 pt-6">
-        <Button variant="outline">취소</Button>
-        <Button variant="primary" className="px-8">
+        <Button variant="outline" onClick={handleCancel}>
+          취소
+        </Button>
+        <Button variant="primary" className="px-8" onClick={handleSubmit}>
           수정 사항 저장
         </Button>
       </div>

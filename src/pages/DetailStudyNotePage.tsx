@@ -5,34 +5,35 @@ import {
   StudyNoteBreadcrumb,
 } from '@/components/studygroup-note'
 import { StudyNoteToggle } from '@/components/studygroup-note/StudyNoteToggle'
+import { useDeleteStudyNote, useStudyNoteDetail } from '@/hooks/study-note'
+import { format } from 'date-fns'
 import { Bot, Paperclip, UserRound } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
-
-// MSW 연동 후 mockFiles 제거 예정
-const mockFiles = [
-  {
-    id: 1,
-    file_name: 'hooks-practice.zip',
-    file_url: '#',
-  },
-  {
-    id: 2,
-    file_name: 'study-notes.pdf',
-    file_url: '#',
-  },
-]
 
 export function DetailStudyNotePage() {
   const [isSummaryOpen, setIsSummaryOpen] = useState(true)
   const { groupId, noteId } = useParams<{ groupId: string; noteId: string }>()
   const navigate = useNavigate()
 
+  const { data } = useStudyNoteDetail(groupId ?? '', noteId ?? '')
+  const { mutate: deleteNote } = useDeleteStudyNote(groupId ?? '')
+
   const toggleSummary = () => setIsSummaryOpen((prev) => !prev)
 
   const handleEdit = () => {
     navigate(`/study-groups/${groupId}/notes/${noteId}/edit`)
   }
+
+  const handleDelete = () => {
+    deleteNote(Number(noteId), {
+      onSuccess: () => {
+        navigate(`/study-groups/${groupId}`)
+      },
+    })
+  }
+
+  if (!data) return null
 
   return (
     <div className="flex flex-col gap-6 p-8">
@@ -41,7 +42,7 @@ export function DetailStudyNotePage() {
         <header className="border-b-custom-gray-200 flex flex-col gap-4 border-b p-6">
           <div className="flex justify-between">
             <h1 className="text-custom-gray-900 text-2xl font-bold">
-              React Hooks 실습 정리
+              {data.title}
             </h1>
             <div className="flex gap-2">
               <Button variant="secondary" className="h-8" onClick={handleEdit}>
@@ -50,6 +51,7 @@ export function DetailStudyNotePage() {
               <Button
                 variant="danger"
                 className="text-danger-800 h-8 bg-[#FEE2E2]"
+                onClick={handleDelete}
               >
                 삭제하기
               </Button>
@@ -59,9 +61,12 @@ export function DetailStudyNotePage() {
             <span className="bg-primary-100 centralize h-8 w-8 rounded-full">
               <UserRound className="text-primary-600 h-5 w-5" />
             </span>
-            <span>김개발</span>
+            <span>{data.author.nickname}</span>
             <span>&bull;</span>
-            <span>작성일: 2024. 02. 16. 오전 05:30</span>
+            <span>
+              작성일:{' '}
+              {format(new Date(data.created_at), 'yyyy. MM. dd. a h:mm')}
+            </span>
           </p>
         </header>
 
@@ -78,24 +83,26 @@ export function DetailStudyNotePage() {
           </div>
           {isSummaryOpen && (
             <div className="text-custom-gray-900 bg-amber-50 p-4">
-              <p>AI 요약 내용</p>
+              <p>{data.ai_summary}</p>
             </div>
           )}
         </section>
 
         {/* 본문 */}
         <section className="border-b-custom-gray-200 border-b p-6">
-          <p>Markdown 본문 렌더</p>
+          <p>{data.content}</p>
         </section>
 
         {/* 첨부 파일 */}
         <section className="p-6">
           <h3 className="text-custom-gray-900 flex items-center gap-2 pb-4">
             <Paperclip className="h-5 w-5" />
-            <span className="text-lg font-normal">첨부 파일 (2개)</span>
+            <span className="text-lg font-normal">
+              첨부 파일 ({data.files.length}개)
+            </span>
           </h3>
           <ul className="grid grid-cols-2 gap-2">
-            {mockFiles.map((file) => (
+            {data.files.map((file) => (
               <StudyNoteAttachmentItem key={file.id} file={file} />
             ))}
           </ul>

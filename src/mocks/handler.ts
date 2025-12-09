@@ -1,6 +1,7 @@
 import { MSW_BASE_URL } from '@/constants'
 import {
   chatHandlers,
+  noteHandlers,
   scheduleHandlers,
   studygroupHandler,
   userInformationHandler,
@@ -19,4 +20,5 @@ export const handlers = [
   ...reviewHandlers,
   ...studygroupHandler,
   ...scheduleHandlers,
+  ...noteHandlers,
 ]
