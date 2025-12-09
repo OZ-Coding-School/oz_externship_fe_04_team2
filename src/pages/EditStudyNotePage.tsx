@@ -6,21 +6,23 @@ import { useStudyNoteDetail, useUpdateStudyNote } from '@/hooks/study-note'
 import type { UpdateStudyNoteRequestType } from '@/types'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
+import { toast } from 'react-toastify'
 
 export function EditStudyNotePage() {
   const { groupId, noteId } = useParams<{ groupId: string; noteId: string }>()
   const navigate = useNavigate()
-
   const [title, setTitle] = useState('')
 
-  const hasParams = !!groupId && !!noteId
+  const isInvalidParams = !groupId || !noteId
 
-  const { data } = useStudyNoteDetail(
-    groupId ?? '',
-    noteId ?? '',
-    hasParams // 둘 다 있을 때만 API 호출
-  )
+  useEffect(() => {
+    if (isInvalidParams) {
+      toast.error('잘못된 접근입니다.')
+      navigate(-1)
+    }
+  }, [isInvalidParams, navigate])
 
+  const { data } = useStudyNoteDetail(groupId ?? '', noteId ?? '')
   const { mutate: updateNote } = useUpdateStudyNote(groupId ?? '', noteId ?? '')
 
   // 기존 데이터로 폼 초기화
@@ -29,6 +31,8 @@ export function EditStudyNotePage() {
       setTitle(data.title)
     }
   }, [data])
+
+  if (isInvalidParams) return null
 
   const handleSubmit = () => {
     // content, files는 아직 연동되지 않음
