@@ -16,8 +16,7 @@ export function DetailStudyNotePage() {
   const { groupId, noteId } = useParams<{ groupId: string; noteId: string }>()
   const navigate = useNavigate()
 
-  const enabled = !!groupId && !!noteId
-  const { data } = useStudyNoteDetail(groupId ?? '', noteId ?? '', enabled)
+  const { data } = useStudyNoteDetail(groupId ?? '', noteId ?? '')
   const { mutate: deleteNote } = useDeleteStudyNote(groupId ?? '')
 
   const toggleSummary = () => setIsSummaryOpen((prev) => !prev)
