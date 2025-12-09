@@ -11,5 +11,6 @@ export const useStudyNotes = (
   return useQuery<StudyNoteListResponseType>({
     queryKey: ['study-notes', groupId, page, pageSize],
     queryFn: () => getStudyNotes(groupId, page, pageSize),
+    enabled: !!groupId,
   })
 }

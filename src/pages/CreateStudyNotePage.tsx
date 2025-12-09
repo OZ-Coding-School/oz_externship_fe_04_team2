@@ -4,15 +4,27 @@ import { FileUploader } from '@/components/studygroup-detail'
 import { StudyNoteBreadcrumb } from '@/components/studygroup-note'
 import { useCreateStudyNote } from '@/hooks/study-note'
 import type { CreateStudyNoteRequestType } from '@/types'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
+import { toast } from 'react-toastify'
 
 export function CreateStudyNotePage() {
   const { groupId } = useParams<{ groupId: string }>()
   const navigate = useNavigate()
   const [title, setTitle] = useState('')
 
-  const { mutate: createNote } = useCreateStudyNote(groupId!)
+  const isInvalidParams = !groupId
+
+  useEffect(() => {
+    if (isInvalidParams) {
+      toast.error('잘못된 접근입니다.')
+      navigate(-1)
+    }
+  }, [isInvalidParams, navigate])
+
+  const { mutate: createNote } = useCreateStudyNote(groupId ?? '')
+
+  if (isInvalidParams) return null
 
   const handleSubmit = () => {
     // content, files, images는 아직 MarkdownEditor, FileUploader와 연동되지 않음
