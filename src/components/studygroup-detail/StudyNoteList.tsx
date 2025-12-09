@@ -23,7 +23,7 @@ export function StudyNoteList({ groupId }: StudyNoteListProps) {
   const notes = data?.results ?? []
 
   return (
-    <section className="border-custom-gray-200 flex flex-col gap-4 rounded-xl border p-6">
+    <section className="border-custom-gray-200 flex flex-col rounded-xl border p-6">
       <div className="flex items-center justify-between pb-6">
         <p className="text-lg font-semibold">스터디 기록</p>
         <Button
@@ -37,7 +37,7 @@ export function StudyNoteList({ groupId }: StudyNoteListProps) {
       </div>
 
       {notes.length > 0 ? (
-        <ul>
+        <ul className="flex flex-col gap-4">
           {notes.map((note) => (
             <li key={note.id}>
               <button

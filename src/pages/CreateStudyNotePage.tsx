@@ -1,9 +1,40 @@
 import { Button, Input } from '@/components/common'
 import { MarkdownEditor } from '@/components/markdown'
-import { ImageUploader } from '@/components/studygroup'
+import { FileUploader } from '@/components/studygroup-detail'
 import { StudyNoteBreadcrumb } from '@/components/studygroup-note'
+import { useCreateStudyNote } from '@/hooks/study-note'
+import type { CreateStudyNoteRequestType } from '@/types'
+import { useState } from 'react'
+import { useNavigate, useParams } from 'react-router'
 
 export function CreateStudyNotePage() {
+  const { groupId } = useParams<{ groupId: string }>()
+  const navigate = useNavigate()
+  const [title, setTitle] = useState('')
+
+  const { mutate: createNote } = useCreateStudyNote(groupId!)
+
+  const handleSubmit = () => {
+    // content, files, images는 아직 MarkdownEditor, FileUploader와 연동되지 않음
+    // API 형태에 맞추기 위해 빈 값으로 payload 생성
+    const payload: CreateStudyNoteRequestType = {
+      title,
+      content: '',
+      files: [],
+      images: [],
+    }
+
+    createNote(payload, {
+      onSuccess: () => {
+        navigate(`/study-groups/${groupId}`)
+      },
+    })
+  }
+
+  const handleCancel = () => {
+    navigate(-1)
+  }
+
   return (
     <div className="flex flex-col p-8">
       <StudyNoteBreadcrumb mode="create" />
@@ -20,6 +51,8 @@ export function CreateStudyNotePage() {
         <Input
           label="제목"
           placeholder="스터디 기록의 제목을 입력하세요."
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
           required
         />
         <div>
@@ -33,13 +66,15 @@ export function CreateStudyNotePage() {
           <label className="text-custom-gray-700 text-sm font-medium">
             첨부 파일
           </label>
-          <ImageUploader />
+          <FileUploader />
         </div>
       </div>
 
       <div className="flex w-full justify-between gap-4 pt-6">
-        <Button variant="outline">취소</Button>
-        <Button variant="primary" className="px-8">
+        <Button variant="outline" onClick={handleCancel}>
+          취소
+        </Button>
+        <Button variant="primary" className="px-8" onClick={handleSubmit}>
           기록 저장
         </Button>
       </div>

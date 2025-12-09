@@ -65,7 +65,7 @@ export function DetailStudyNotePage() {
             <span>{data.author.nickname}</span>
             <span>&bull;</span>
             <span>
-              작성일:
+              작성일:{' '}
               {format(new Date(data.created_at), 'yyyy. MM. dd. a h:mm')}
             </span>
           </p>
