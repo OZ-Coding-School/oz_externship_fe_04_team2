@@ -39,7 +39,7 @@ export function Modal({
     >
       <div
         className={cn(
-          'modal modal-wrapper relative m-10 flex h-4/5 w-full flex-col',
+          'modal modal-wrapper relative m-10 flex max-h-[80vh] w-full flex-col',
           wrapperClassName
         )}
         role="dialog"
@@ -61,7 +61,7 @@ export function Modal({
         </div>
         <div
           className={cn(
-            'centralize mb-8 h-full flex-col gap-6 overflow-y-auto p-4',
+            'mb-8 flex flex-col gap-6 overflow-y-auto p-4',
             innerClassName
           )}
         >
