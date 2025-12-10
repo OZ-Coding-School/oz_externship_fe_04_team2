@@ -21,7 +21,7 @@ export function SelectableLectureCard({
     <div
       onClick={onToggle}
       className={cn(
-        'flex h-28 w-full cursor-pointer items-center gap-4 overflow-hidden rounded-xl border-2 bg-white p-4 transition-all duration-200',
+        'xs:h-28 flex w-full cursor-pointer items-center gap-4 overflow-hidden rounded-xl border-2 bg-white p-4 transition-all duration-200',
         isSelected
           ? 'border-primary-400 bg-primary-50/10 ring-primary-400 ring-1'
           : 'border-custom-gray-200 hover:border-custom-gray-300'
@@ -37,7 +37,7 @@ export function SelectableLectureCard({
           <h3 className="text-base font-normal">{results.title}</h3>
           <p className="text-custom-gray-600 text-xs">{results.instructor}</p>
         </div>
-        <div className="mt-2 flex items-center gap-3">
+        <div className="xs:flex-row xs:items-center xs:gap-3 mt-2 flex flex-col gap-1">
           <div
             className={cn(
               'rounded px-1.5 py-0.5 text-[10px] font-bold',

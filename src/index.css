@@ -10,6 +10,8 @@
 @theme {
   --font-pretendard: Pretendard, sans-serif;
 
+  --breakpoint-xs: 420px;
+
   --color-primary-50: #fefce8;
   --color-primary-100: #fef9c3;
   --color-primary-200: #fef08a;
