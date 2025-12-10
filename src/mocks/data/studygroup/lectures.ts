@@ -3,7 +3,7 @@ export const mockLectures = [
     id: 1,
     title: 'React 완벽 마스터 강의 - 기초부터 고급까지',
     instructor: '김개발',
-    total_class_time: 750, // 12:30
+    total_class_time: 750,
     original_price: 120000,
     discounted_price: 89000,
     difficulty: 'NORMAL',
@@ -19,7 +19,7 @@ export const mockLectures = [
     id: 2,
     title: 'Node.js 백엔드 개발 완주 - 실무 프로젝트까지',
     instructor: '박서버',
-    total_class_time: 1125, // 18:45
+    total_class_time: 1125,
     original_price: 150000,
     discounted_price: 120000,
     difficulty: 'HARD',
@@ -35,7 +35,7 @@ export const mockLectures = [
     id: 3,
     title: 'Python 데이터 사이언스 마스터클래스',
     instructor: '이데이터',
-    total_class_time: 1515, // 25:15
+    total_class_time: 1515,
     original_price: 200000,
     discounted_price: 150000,
     difficulty: 'NORMAL',
@@ -51,7 +51,7 @@ export const mockLectures = [
     id: 4,
     title: 'JavaScript ES6+ 완벽 가이드 - 모던 자바스크립트',
     instructor: '최자바',
-    total_class_time: 920, // 15:20
+    total_class_time: 920,
     original_price: 80000,
     discounted_price: 75000,
     difficulty: 'EASY',
@@ -67,7 +67,7 @@ export const mockLectures = [
     id: 5,
     title: 'Vue.js 실전 프로젝트 - SPA 개발 완성',
     instructor: '정뷰',
-    total_class_time: 1210, // 20:10
+    total_class_time: 1210,
     original_price: 110000,
     discounted_price: 95000,
     difficulty: 'NORMAL',
