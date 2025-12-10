@@ -10,7 +10,7 @@ export const API_PATHS = {
     MESSAGES: (group_id: number | string) =>
       `/api/v1/chatrooms/${group_id}/messages`,
     READ: (group_id: number | string, member_id: number | string) =>
-      `/api/v1/chatroom/${group_id}/members/${member_id}/read`,
+      `/api/v1/chatrooms/${group_id}/members/${member_id}/read`,
   },
   REVIEW: {
     MSW_LIST: '/api/v1/study-groups/:groupId/reviews',

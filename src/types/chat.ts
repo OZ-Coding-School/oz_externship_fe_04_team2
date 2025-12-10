@@ -1,4 +1,3 @@
-// GET /api/v1/chatrooms
 // 채팅방 목록 응답
 export interface ChatRoomListResponse {
   next: string | null
@@ -10,6 +9,7 @@ export interface ChatRoomListResponse {
 export interface ChatRoomListItem {
   id: number
   name: string
+  unread_message: number | null
   last_message: ChatRoomPreview | null
 }
 
@@ -23,10 +23,8 @@ export interface ChatRoomPreview {
   content: string
   is_read: boolean
   created_at: string
-  unread_count?: number // 추후 기획 업데이트 시 확인 필요
 }
 
-// GET /api/v1/chatrooms/{group_id}/messages
 // 특정 채팅방 메시지 목록 응답
 export interface ChatMessageResponse {
   next: string | null
