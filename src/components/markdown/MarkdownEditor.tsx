@@ -7,8 +7,16 @@ import {
 } from '@/components/markdown'
 import { useMarkdownEditor } from '@/hooks'
 
-export function MarkdownEditor() {
-  const { value, setValue, textareaRef, insertMarkdown } = useMarkdownEditor()
+interface MarkdownEditorProps {
+  value: string
+  onChange: (v: string) => void
+}
+
+export function MarkdownEditor({
+  value,
+  onChange: setValue,
+}: MarkdownEditorProps) {
+  const { textareaRef, insertMarkdown } = useMarkdownEditor({ value, setValue })
   const [mode, setMode] = useState<'write' | 'preview'>('write')
 
   return (

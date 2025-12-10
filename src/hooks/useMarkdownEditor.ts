@@ -1,7 +1,11 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useRef } from 'react'
 
-export function useMarkdownEditor() {
-  const [value, setValue] = useState('')
+interface UseMarkdownEditorProps {
+  value: string
+  setValue: (v: string) => void
+}
+
+export function useMarkdownEditor({ value, setValue }: UseMarkdownEditorProps) {
   const textareaRef = useRef<HTMLTextAreaElement | null>(null)
 
   const insertMarkdown = useCallback(
@@ -25,12 +29,10 @@ export function useMarkdownEditor() {
         textareaRef.current.selectionEnd = next
       })
     },
-    [value]
+    [value, setValue]
   )
 
   return {
-    value,
-    setValue,
     textareaRef,
     insertMarkdown,
   }
