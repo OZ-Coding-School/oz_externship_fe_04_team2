@@ -8,7 +8,7 @@ export const mockLectures = [
     discounted_price: 89000,
     difficulty: 'NORMAL',
     thumbnail_img_url:
-      'https://cdn.inflearn.com/public/courses/326905/cover/7123992f-5984-4809-847e-2632d43aa5c7/326905-eng.png',
+      'https://plus.unsplash.com/premium_photo-1685086785131-e65690faa5bb?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     average_rating: 4.7,
     platform: 'Inflearn',
     url_link: '',
@@ -24,7 +24,7 @@ export const mockLectures = [
     discounted_price: 120000,
     difficulty: 'HARD',
     thumbnail_img_url:
-      'https://img-c.udemycdn.com/course/750x422/4128562_1672_3.jpg',
+      'https://plus.unsplash.com/premium_photo-1685086785131-e65690faa5bb?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     average_rating: 4.8,
     platform: 'Udemy',
     url_link: '',
@@ -40,7 +40,7 @@ export const mockLectures = [
     discounted_price: 150000,
     difficulty: 'NORMAL',
     thumbnail_img_url:
-      'https://cdn.inflearn.com/public/courses/324151/cover/6c6d0537-8e6d-4958-9413-5688523df856/324151-eng.png',
+      'https://plus.unsplash.com/premium_photo-1685086785131-e65690faa5bb?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     average_rating: 4.9,
     platform: 'Inflearn',
     url_link: '',
@@ -56,7 +56,7 @@ export const mockLectures = [
     discounted_price: 75000,
     difficulty: 'EASY',
     thumbnail_img_url:
-      'https://img-c.udemycdn.com/course/750x422/3676442_11e2_3.jpg',
+      'https://plus.unsplash.com/premium_photo-1685086785131-e65690faa5bb?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     average_rating: 4.6,
     platform: 'Udemy',
     url_link: '',
@@ -72,7 +72,7 @@ export const mockLectures = [
     discounted_price: 95000,
     difficulty: 'NORMAL',
     thumbnail_img_url:
-      'https://cdn.inflearn.com/public/courses/325637/cover/5f58356c-097c-4034-8c83-4a1876535359/325637-eng.png',
+      'https://plus.unsplash.com/premium_photo-1685086785131-e65690faa5bb?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     average_rating: 4.5,
     platform: 'Inflearn',
     url_link: '',
@@ -87,7 +87,8 @@ export const mockLectures = [
     original_price: 220000,
     discounted_price: 180000,
     difficulty: 'HARD',
-    thumbnail_img_url: 'https://via.placeholder.com/150',
+    thumbnail_img_url:
+      'https://plus.unsplash.com/premium_photo-1685086785131-e65690faa5bb?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     average_rating: 4.8,
     platform: 'Inflearn',
     url_link: '',
