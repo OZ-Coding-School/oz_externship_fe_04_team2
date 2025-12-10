@@ -21,3 +21,13 @@ export interface StudyGroupReviewType {
   content: string
   created_at?: string
 }
+
+export interface StudyGroupLectureSelectionType {
+  id: number
+  title: string
+  instructor: string
+  total_class_time: number
+  discounted_price: number
+  thumbnail_img_url: string
+  platform: string
+}
