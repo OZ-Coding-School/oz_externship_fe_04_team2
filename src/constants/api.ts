@@ -22,12 +22,19 @@ export const API_PATHS = {
   },
   STUDYGROUP: {
     LIST: `/api/v1/study-groups`,
-    SCHEDULES: (group_id: number | string) =>
+    DETAIL: (groupId: number | string) => `/api/v1/study-groups/${groupId}`,
+    DELEGATE_LEADER: (groupId: number | string) =>
+      `/api/v1/study-groups/${groupId}/delegate-leader`,
+    LEAVE: (groupId: number | string) =>
+      `/api/v1/study-groups/${groupId}/members/me`,
+    KICK_MEMBER: (groupId: number | string, memberId: number | string) =>
+      `/api/v1/study-groups/${groupId}/members/${memberId}`,
+  },
+  SCHEDULE: {
+    LIST: (group_id: number | string) =>
       `/api/v1/study-groups/${group_id}/schedules`,
-    SCHEDULE_DETAIL: (
-      group_id: number | string,
-      schedule_id: number | string
-    ) => `/api/v1/study-groups/${group_id}/schedules/${schedule_id}`,
+    DETAIL: (group_id: number | string, schedule_id: number | string) =>
+      `/api/v1/study-groups/${group_id}/schedules/${schedule_id}`,
   },
   STUDYNOTE: {
     LIST: (groupId: number | string) => `/api/v1/study-groups/${groupId}/notes`,

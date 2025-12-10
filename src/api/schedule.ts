@@ -15,7 +15,7 @@ export const createStudySchedule = async (
   body: CreateStudyScheduleRequestType
 ) => {
   const { data } = await axiosInstance.post<ScheduleSuccessResponseType>(
-    API_PATHS.STUDYGROUP.SCHEDULES(groupId),
+    API_PATHS.SCHEDULE.LIST(groupId),
     body
   )
   return data
@@ -25,7 +25,7 @@ export const createStudySchedule = async (
 // GET /api/v1/study-groups/{group_id}/schedules
 export const getStudySchedules = async (groupId: number | string) => {
   const { data } = await axiosInstance.get<StudyScheduleListItemType[]>(
-    API_PATHS.STUDYGROUP.SCHEDULES(groupId)
+    API_PATHS.SCHEDULE.LIST(groupId)
   )
   return data
 }
@@ -37,7 +37,7 @@ export const getStudyScheduleDetail = async (
   scheduleId: number | string
 ) => {
   const { data } = await axiosInstance.get<StudyScheduleDetailType>(
-    API_PATHS.STUDYGROUP.SCHEDULE_DETAIL(groupId, scheduleId)
+    API_PATHS.SCHEDULE.DETAIL(groupId, scheduleId)
   )
   return data
 }
@@ -50,7 +50,7 @@ export const updateStudySchedule = async (
   body: UpdateStudyScheduleRequestType
 ) => {
   const { data } = await axiosInstance.patch<StudyScheduleDetailType>(
-    API_PATHS.STUDYGROUP.SCHEDULE_DETAIL(groupId, scheduleId),
+    API_PATHS.SCHEDULE.DETAIL(groupId, scheduleId),
     body
   )
   return data
@@ -63,7 +63,7 @@ export const deleteStudySchedule = async (
   scheduleId: number | string
 ) => {
   const { data } = await axiosInstance.delete<ScheduleSuccessResponseType>(
-    API_PATHS.STUDYGROUP.SCHEDULE_DETAIL(groupId, scheduleId)
+    API_PATHS.SCHEDULE.DETAIL(groupId, scheduleId)
   )
   return data
 }
