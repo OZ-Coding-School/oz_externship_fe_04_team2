@@ -1,10 +1,13 @@
 import { ChatWidget } from '@/components/chat'
 import { Footer, Header } from '@/components/layout'
+import { useScrollToTopOnRouteChange } from '@/hooks/common/useScrollToTopOnRouteChange'
 import { LoginStateStore } from '@/store'
 import { useState } from 'react'
 import { Outlet } from 'react-router'
 
 export function Layout() {
+  useScrollToTopOnRouteChange()
+
   const [isSideBarOpen, setIsSideBarOpen] = useState(false)
   const loginState = LoginStateStore((state) => state.loginState)
   const isLoggedIn = loginState === 'USER'
