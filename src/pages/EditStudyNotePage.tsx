@@ -12,6 +12,7 @@ export function EditStudyNotePage() {
   const { groupId, noteId } = useParams<{ groupId: string; noteId: string }>()
   const navigate = useNavigate()
   const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
 
   const isInvalidParams = !groupId || !noteId
 
@@ -29,15 +30,17 @@ export function EditStudyNotePage() {
   useEffect(() => {
     if (data) {
       setTitle(data.title)
+      setContent(data.content ?? '')
     }
   }, [data])
 
   if (isInvalidParams) return null
 
   const handleSubmit = () => {
-    // content, files는 아직 연동되지 않음
+    // files는 아직 연동되지 않음
     const payload: UpdateStudyNoteRequestType = {
       title,
+      content,
     }
 
     updateNote(payload, {
@@ -75,7 +78,7 @@ export function EditStudyNotePage() {
           <label className="text-custom-gray-700 text-sm font-medium">
             내용 <span className="text-red-500">*</span>
           </label>
-          <MarkdownEditor />
+          <MarkdownEditor value={content} onChange={setContent} />
         </div>
 
         <div>
