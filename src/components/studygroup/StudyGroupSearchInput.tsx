@@ -4,7 +4,7 @@ import { SearchIcon } from 'lucide-react'
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 
-export function SearchInput() {
+export function StudyGroupSearchInput() {
   const { searchTerm, setSearchTerm } = useSearchStore()
   const navigate = useNavigate()
   const location = useLocation()

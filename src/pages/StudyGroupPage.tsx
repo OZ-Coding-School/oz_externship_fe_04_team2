@@ -1,7 +1,10 @@
 import { Button } from '@/components/common'
 import { ReviewListModal, ReviewModal } from '@/components/review'
-import { SearchInput } from '@/components/search'
-import { StudyCard, StudySection } from '@/components/studygroup'
+import {
+  StudyCard,
+  StudyGroupSearchInput,
+  StudySection,
+} from '@/components/studygroup'
 import { useStudyGroupStore } from '@/store'
 import { Plus } from 'lucide-react'
 import { useEffect } from 'react'
@@ -34,7 +37,7 @@ export function StudyGroupPage() {
           </Button>
         </Link>
       </header>
-      <SearchInput />
+      <StudyGroupSearchInput />
       <section className="flex flex-col gap-8">
         {ongoingStudies.length > 0 && (
           <StudySection
