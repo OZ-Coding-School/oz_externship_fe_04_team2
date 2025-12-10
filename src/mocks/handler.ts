@@ -1,13 +1,14 @@
 import { MSW_BASE_URL } from '@/constants'
 import {
   chatHandlers,
+  lectureHandlers,
   noteHandlers,
+  reviewHandlers,
   scheduleHandlers,
   studygroupHandler,
   userInformationHandler,
 } from '@/mocks/handlers'
 import { http, HttpResponse } from 'msw'
-import { reviewHandlers } from './handlers/review-handlers'
 
 const getTestMSW = http.get(`${MSW_BASE_URL}/get-test`, () => {
   return HttpResponse.text('msw is working!')
@@ -15,10 +16,11 @@ const getTestMSW = http.get(`${MSW_BASE_URL}/get-test`, () => {
 
 export const handlers = [
   getTestMSW,
-  ...userInformationHandler,
   ...chatHandlers,
-  ...reviewHandlers,
-  ...studygroupHandler,
-  ...scheduleHandlers,
+  ...lectureHandlers,
   ...noteHandlers,
+  ...reviewHandlers,
+  ...scheduleHandlers,
+  ...studygroupHandler,
+  ...userInformationHandler,
 ]
