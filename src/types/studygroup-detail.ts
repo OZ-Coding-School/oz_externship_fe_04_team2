@@ -46,6 +46,12 @@ export interface UpdateStudyGroupRequestType {
   lectures?: number[]
 }
 
+// 스터디 그룹 수정 응답
+export type UpdateStudyGroupResponseType = Omit<
+  StudyGroupDetailType,
+  'current_headcount' | 'members'
+>
+
 // 리더 위임 요청
 export interface DelegateLeaderRequestType {
   target_member_id: number

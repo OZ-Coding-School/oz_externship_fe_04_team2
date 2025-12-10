@@ -8,6 +8,7 @@ import {
   studygroupHandler,
   userInformationHandler,
 } from '@/mocks/handlers'
+import { studygroupDetailHandlers } from '@/mocks/handlers/studygroup-details-handler'
 import { http, HttpResponse } from 'msw'
 
 const getTestMSW = http.get(`${MSW_BASE_URL}/get-test`, () => {
@@ -22,5 +23,6 @@ export const handlers = [
   ...reviewHandlers,
   ...scheduleHandlers,
   ...studygroupHandler,
+  ...studygroupDetailHandlers,
   ...userInformationHandler,
 ]
