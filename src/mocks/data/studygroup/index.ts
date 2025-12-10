@@ -1,3 +1,4 @@
-export * from './studygroup'
-export * from './schedule'
+export * from './lectures'
 export * from './note'
+export * from './schedule'
+export * from './studygroup'
