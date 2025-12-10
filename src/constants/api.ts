@@ -22,6 +22,7 @@ export const API_PATHS = {
   },
   STUDYGROUP: {
     LIST: `/api/v1/study-groups`,
+    LECTURES: `api/v1/lectures`,
     DETAIL: (groupId: number | string) => `/api/v1/study-groups/${groupId}`,
     DELEGATE_LEADER: (groupId: number | string) =>
       `/api/v1/study-groups/${groupId}/delegate-leader`,

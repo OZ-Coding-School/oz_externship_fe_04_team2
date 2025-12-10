@@ -1,5 +1,6 @@
 export * from './api'
 export * from './chat'
+export * from './pagination'
 export * from './route'
 export * from './toolbar'
 export * from './url-constants'

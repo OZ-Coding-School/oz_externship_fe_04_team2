@@ -33,3 +33,12 @@ export function createTimeOptions(step = 10) {
     label: format(date, 'a h:mm'),
   }))
 }
+
+export function formatMinutesToHHMM(minutes: number): string {
+  const hours = Math.floor(minutes / 60)
+  const mins = minutes % 60
+  const paddedHours = String(hours).padStart(2, '0')
+  const paddedMinutes = String(mins).padStart(2, '0')
+
+  return `${paddedHours}:${paddedMinutes}`
+}
