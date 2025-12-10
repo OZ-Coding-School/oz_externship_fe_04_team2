@@ -1,5 +1,4 @@
-// api/v1/study-groups/{group_id}
-// 스터디 그룹 상세 조회 응답 타입
+// api/v1/study-groups/{group_id} 관련 타입들
 
 // 스터디 그룹 진행 상태
 export type StudyGroupStatus = 'PENDING' | 'ONGOING' | 'ENDED'
@@ -34,4 +33,25 @@ export interface StudyGroupDetailType {
   status: StudyGroupStatus
   lectures: StudyGroupLectureType[]
   members: StudyGroupMemberType[]
+}
+
+// 스터디 그룹 수정 요청
+export interface UpdateStudyGroupRequestType {
+  name?: string
+  introduction?: string
+  start_at?: string
+  end_at?: string
+  max_headcount?: number
+  profile_img_url?: string
+  lectures?: number[]
+}
+
+// 리더 위임 요청
+export interface DelegateLeaderRequestType {
+  target_member_id: number
+}
+
+// 공통 성공 응답
+export interface StudyGroupSuccessResponseType {
+  detail: string
 }
