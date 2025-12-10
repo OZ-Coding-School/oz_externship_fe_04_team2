@@ -68,7 +68,7 @@ export function LectureSelectionModal({
         />
       </div>
       <div className="border-custom-gray-200 border-t bg-white p-6">
-        <div className="flex min-w-80 items-center justify-between">
+        <div className="flex min-w-72 items-center justify-between">
           <span className="text-custom-gray-600 text-sm font-medium">
             {selectedIds.length}개 강의 선택됨
           </span>
