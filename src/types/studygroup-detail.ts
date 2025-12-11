@@ -17,7 +17,7 @@ export interface StudyGroupMemberType {
   id: number
   nickname: string
   is_leader: boolean
-  profile_img_url: string
+  profile_img_url: string | null
 }
 
 // 스터디 그룹 상세 조회 응답
@@ -29,7 +29,7 @@ export interface StudyGroupDetailType {
   end_at: string
   max_headcount: number
   current_headcount: number
-  profile_img_url: string
+  profile_img_url: string | null
   status: StudyGroupStatus
   lectures: StudyGroupLectureType[]
   members: StudyGroupMemberType[]
@@ -45,6 +45,12 @@ export interface UpdateStudyGroupRequestType {
   profile_img_url?: string
   lectures?: number[]
 }
+
+// 스터디 그룹 수정 응답
+export type UpdateStudyGroupResponseType = Omit<
+  StudyGroupDetailType,
+  'current_headcount' | 'members'
+>
 
 // 리더 위임 요청
 export interface DelegateLeaderRequestType {
