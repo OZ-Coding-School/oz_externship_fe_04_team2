@@ -1,4 +1,5 @@
 import { Button } from '@/components/common'
+import { Preview } from '@/components/markdown'
 import {
   BackToStudyGroupButton,
   StudyNoteAttachmentItem,
@@ -89,8 +90,8 @@ export function DetailStudyNotePage() {
         </section>
 
         {/* 본문 */}
-        <section className="border-b-custom-gray-200 border-b p-6">
-          <p>{data.content}</p>
+        <section className="border-b-custom-gray-200 border-b p-2">
+          <Preview value={data.content ?? ''} />
         </section>
 
         {/* 첨부 파일 */}

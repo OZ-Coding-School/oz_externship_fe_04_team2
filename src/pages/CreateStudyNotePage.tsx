@@ -12,6 +12,7 @@ export function CreateStudyNotePage() {
   const { groupId } = useParams<{ groupId: string }>()
   const navigate = useNavigate()
   const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
 
   const isInvalidParams = !groupId
 
@@ -27,11 +28,11 @@ export function CreateStudyNotePage() {
   if (isInvalidParams) return null
 
   const handleSubmit = () => {
-    // content, files, images는 아직 MarkdownEditor, FileUploader와 연동되지 않음
+    // files는 FileUploader와 연동되지 않음
     // API 형태에 맞추기 위해 빈 값으로 payload 생성
     const payload: CreateStudyNoteRequestType = {
       title,
-      content: '',
+      content,
       files: [],
       images: [],
     }
@@ -71,7 +72,7 @@ export function CreateStudyNotePage() {
           <label className="text-custom-gray-700 text-sm font-medium">
             내용 <span className="text-red-500">*</span>
           </label>
-          <MarkdownEditor />
+          <MarkdownEditor value={content} onChange={setContent} />
         </div>
 
         <div>
