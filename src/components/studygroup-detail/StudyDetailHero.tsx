@@ -1,14 +1,28 @@
-import { Badge, Button } from '@/components/common'
+import { Button } from '@/components/common'
+import { StudyStatusBadge } from '@/components/studygroup-detail/StudyStatusBadge'
+import type { StudyGroupDetailType } from '@/types'
+import { formatDotDate } from '@/utils'
 import { Calendar, LogOutIcon, Pencil, UsersRound } from 'lucide-react'
 
-export function StudyDetailHero() {
+interface StudyDetailHeroProps {
+  group: StudyGroupDetailType
+  onClickEdit: () => void
+  onClickLeave: () => void
+}
+
+export function StudyDetailHero({
+  group,
+  onClickEdit,
+  onClickLeave,
+}: StudyDetailHeroProps) {
   return (
     <section className="border-custom-gray-200 overflow-hidden rounded-xl border">
       <div className="relative aspect-[16/9] w-full md:h-[480px] lg:h-[608px]">
         {/* 배경 이미지 */}
         <img
-          src="https://randomuser.me/api/portraits/lego/1.jpg"
-          alt=""
+          // 스터디 그룹 대표 이미지 없을 경우 디폴트 이미지 필요
+          src={group.profile_img_url ?? ''}
+          alt={group.name}
           className="absolute inset-0 h-full w-full object-cover"
         />
 
@@ -18,11 +32,19 @@ export function StudyDetailHero() {
         <div className="absolute inset-0 flex flex-col justify-between p-6">
           {/* 상단 버튼 */}
           <div className="flex justify-end gap-3">
-            <Button variant="secondary" className="gap-2 text-base">
+            <Button
+              variant="secondary"
+              className="gap-2 text-base"
+              onClick={onClickEdit}
+            >
               <Pencil className="h-4 w-4" />
               <span>수정하기</span>
             </Button>
-            <Button variant="danger" className="gap-2 text-base">
+            <Button
+              variant="danger"
+              className="gap-2 text-base"
+              onClick={onClickLeave}
+            >
               <LogOutIcon className="h-4 w-4" />
               <span>나가기</span>
             </Button>
@@ -31,17 +53,19 @@ export function StudyDetailHero() {
           {/* 스터디 정보 */}
           <div className="flex flex-col gap-2">
             <h1 className="text-custom-gray-50 text-xl sm:text-2xl md:text-3xl">
-              React 실무 프로젝트 스터디
+              {group.name}
             </h1>
-            <ul className="text-custom-gray-100 flex gap-2">
+            <ul className="text-custom-gray-100 flex gap-4">
               <li className="flex items-center gap-1">
-                <UsersRound className="h-4 w-4" /> 0/0명
+                <UsersRound className="h-4 w-4" /> {group.current_headcount}/
+                {group.max_headcount}명
               </li>
               <li className="flex items-center gap-1">
-                <Calendar className="h-4 w-4" /> 2024. 2. 1. ~ 2024. 4. 30.
+                <Calendar className="h-4 w-4" />
+                {formatDotDate(group.start_at)} ~ {formatDotDate(group.end_at)}
               </li>
               <li>
-                <Badge>진행중</Badge>
+                <StudyStatusBadge status={group.status} />
               </li>
             </ul>
           </div>
