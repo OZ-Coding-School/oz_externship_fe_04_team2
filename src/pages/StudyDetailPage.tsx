@@ -61,7 +61,7 @@ export function StudyDetailPage() {
 
         {/* 우측 사이드 정보 */}
         <div className="flex w-full flex-col gap-6 lg:w-[384px]">
-          <StudyDetailInfo />
+          <StudyDetailInfo group={group} />
           <StudyLectureList />
           <StudyMemberList />
         </div>
