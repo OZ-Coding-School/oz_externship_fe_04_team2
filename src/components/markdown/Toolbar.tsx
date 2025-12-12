@@ -19,7 +19,7 @@ export function Toolbar({ insertMarkdown }: ToolbarProps) {
           size="icon"
           onClick={() => insertMarkdown(before, after)}
         >
-          <Icon size={20} />
+          <Icon size={18} />
         </Button>
       ))}
       <ToolbarDropdownHeading insertMarkdown={insertMarkdown} />
