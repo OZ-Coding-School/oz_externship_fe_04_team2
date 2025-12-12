@@ -52,6 +52,7 @@ export function StudyGroupPage() {
           badgeColor="bg-success-100 text-success-700"
           searchTerm={searchTerm}
           items={ongoingStudies}
+          variant="onGoing"
         >
           {ongoingStudies.map((study) => (
             <StudyCard key={study.id} study={study} />
@@ -64,6 +65,7 @@ export function StudyGroupPage() {
           badgeColor="bg-custom-gray-100 text-custom-gray-600"
           searchTerm={searchTerm}
           items={pendingStudies}
+          variant="pending"
         >
           {pendingStudies.map((study) => (
             <StudyCard key={study.id} study={study} />
@@ -76,6 +78,7 @@ export function StudyGroupPage() {
           badgeColor="bg-danger-100 text-danger-600"
           searchTerm={searchTerm}
           items={endedStudies}
+          variant="ended"
         >
           {endedStudies.map((study) => (
             <StudyCard key={study.id} study={study} />
