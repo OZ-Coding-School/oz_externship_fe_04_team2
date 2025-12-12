@@ -1,4 +1,7 @@
 import { cn } from '@/lib'
+import { NoData, NoSearchResult } from '@/components/fallback-ui'
+import React from 'react'
+import type { StudyGroupResponseType } from '@/types'
 
 interface StudySectionProps {
   name: string
@@ -7,6 +10,8 @@ interface StudySectionProps {
   badgeColor?: string
   children: React.ReactNode
   className?: string
+  searchTerm: string
+  items: StudyGroupResponseType[]
 }
 
 export function StudySection({
@@ -16,7 +21,12 @@ export function StudySection({
   badgeColor = 'bg-primary-100 text-primary-700',
   children,
   className,
+  searchTerm,
+  items,
 }: StudySectionProps) {
+  const isSearching = searchTerm.trim().length > 0
+  const isEmpty = items.length === 0
+
   return (
     <section className={cn('flex flex-col gap-6', className)}>
       <div className="flex items-start justify-between">
@@ -31,9 +41,15 @@ export function StudySection({
         </span>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {children}
-      </div>
+      {isSearching && isEmpty ? (
+        <NoSearchResult />
+      ) : !isSearching && isEmpty ? (
+        <NoData />
+      ) : (
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {children}
+        </div>
+      )}
     </section>
   )
 }
