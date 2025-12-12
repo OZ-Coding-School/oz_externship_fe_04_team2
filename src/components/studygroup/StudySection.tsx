@@ -1,5 +1,5 @@
 import { cn } from '@/lib'
-import { NoData, NoSearchResult } from '@/components/fallback-ui'
+import { NoSearchResult } from '@/components/fallback-ui'
 import React from 'react'
 import type { StudyGroupResponseType } from '@/types'
 
@@ -12,6 +12,7 @@ interface StudySectionProps {
   className?: string
   searchTerm: string
   items: StudyGroupResponseType[]
+  variant: 'onGoing' | 'pending' | 'ended'
 }
 
 export function StudySection({
@@ -23,6 +24,7 @@ export function StudySection({
   className,
   searchTerm,
   items,
+  variant,
 }: StudySectionProps) {
   const isSearching = searchTerm.trim().length > 0
   const isEmpty = items.length === 0
@@ -42,9 +44,17 @@ export function StudySection({
       </div>
 
       {isSearching && isEmpty ? (
-        <NoSearchResult />
+        <NoSearchResult variant={variant} />
       ) : !isSearching && isEmpty ? (
-        <NoData />
+        <NoSearchResult
+          variant={variant}
+          title={`${name}가 없습니다`}
+          description={
+            variant === 'onGoing'
+              ? '스터디를 만들어보세요!'
+              : '아직 스터디가 등록되지 않았습니다.'
+          }
+        />
       ) : (
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {children}
