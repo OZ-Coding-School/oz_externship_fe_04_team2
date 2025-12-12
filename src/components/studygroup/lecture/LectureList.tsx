@@ -44,7 +44,7 @@ export function LectureList({
 
   if (isLoading) return <Loading />
   if (error) return <NotFound />
-  if (filteredData.length === 0) return <NoSearchResult />
+  if (filteredData.length === 0) return <NoSearchResult variant="lecture" />
 
   return (
     <div className="flex flex-col gap-4">
