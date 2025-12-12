@@ -15,6 +15,9 @@ export function StudyDetailPage() {
   const numericGroupId = Number(groupId)
   const navigate = useNavigate()
 
+  // 임시: 로그인 유저 id라고 가정
+  const currentUserId = 1
+
   const { data: group } = useStudyGroupDetail(numericGroupId)
   const { mutate: leaveStudyGroup } = useLeaveStudyGroup()
 
@@ -63,7 +66,12 @@ export function StudyDetailPage() {
         <div className="flex w-full flex-col gap-6 lg:w-[384px]">
           <StudyDetailInfo group={group} />
           <StudyLectureList lectures={group.lectures} />
-          <StudyMemberList />
+          <StudyMemberList
+            groupId={numericGroupId}
+            members={group.members}
+            leaderId={group.members.find((m) => m.is_leader)?.id}
+            currentUserId={currentUserId}
+          />
         </div>
       </div>
     </div>
