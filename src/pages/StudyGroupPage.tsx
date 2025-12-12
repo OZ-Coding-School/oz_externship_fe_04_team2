@@ -7,19 +7,25 @@ import {
 } from '@/components/studygroup'
 import { useStudyGroupStore } from '@/store'
 import { Plus } from 'lucide-react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 
 export function StudyGroupPage() {
   const { studies, selectedStudy, modal, fetchStudies } = useStudyGroupStore()
 
+  const [searchTerm, setSearchTerm] = useState('')
+
   useEffect(() => {
     fetchStudies()
   }, [fetchStudies])
 
-  const ongoingStudies = studies.filter((s) => s.status === 'ONGOING')
-  const pendingStudies = studies.filter((s) => s.status === 'PENDING')
-  const endedStudies = studies.filter((s) => s.status === 'ENDED')
+  const filteredStudies = studies.filter((s) =>
+    s.name.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
+  const ongoingStudies = filteredStudies.filter((s) => s.status === 'ONGOING')
+  const pendingStudies = filteredStudies.filter((s) => s.status === 'PENDING')
+  const endedStudies = filteredStudies.filter((s) => s.status === 'ENDED')
 
   return (
     <div className="flex flex-col gap-8 p-8">
@@ -37,44 +43,44 @@ export function StudyGroupPage() {
           </Button>
         </Link>
       </header>
-      <StudyGroupSearchInput />
+      <StudyGroupSearchInput value={searchTerm} onChange={setSearchTerm} />
       <section className="flex flex-col gap-8">
-        {ongoingStudies.length > 0 && (
-          <StudySection
-            name="진행중인 스터디"
-            description="현재 활발히 진행되고 있는 스터디 그룹들"
-            badgeText={`${ongoingStudies.length}개 진행중`}
-            badgeColor="bg-success-100 text-success-700"
-          >
-            {ongoingStudies.map((study) => (
-              <StudyCard key={study.id} study={study} />
-            ))}
-          </StudySection>
-        )}
-        {pendingStudies.length > 0 && (
-          <StudySection
-            name="대기중 스터디"
-            description="스터디 기간이 시작되지 않은 스터디 그룹들"
-            badgeText={`${pendingStudies.length}개 대기중`}
-            badgeColor="bg-custom-gray-100 text-custom-gray-600"
-          >
-            {pendingStudies.map((study) => (
-              <StudyCard key={study.id} study={study} />
-            ))}
-          </StudySection>
-        )}
-        {endedStudies.length > 0 && (
-          <StudySection
-            name="완료된 스터디"
-            description="성공적으로 마무리된 스터디 그룹들"
-            badgeText={`${endedStudies.length}개 종료됨`}
-            badgeColor="bg-danger-100 text-danger-600"
-          >
-            {endedStudies.map((study) => (
-              <StudyCard key={study.id} study={study} />
-            ))}
-          </StudySection>
-        )}
+        <StudySection
+          name="진행중인 스터디"
+          description="현재 활발히 진행되고 있는 스터디 그룹들"
+          badgeText={`${ongoingStudies.length}개 진행중`}
+          badgeColor="bg-success-100 text-success-700"
+          searchTerm={searchTerm}
+          items={ongoingStudies}
+        >
+          {ongoingStudies.map((study) => (
+            <StudyCard key={study.id} study={study} />
+          ))}
+        </StudySection>
+        <StudySection
+          name="대기중 스터디"
+          description="스터디 기간이 시작되지 않은 스터디 그룹들"
+          badgeText={`${pendingStudies.length}개 대기중`}
+          badgeColor="bg-custom-gray-100 text-custom-gray-600"
+          searchTerm={searchTerm}
+          items={pendingStudies}
+        >
+          {pendingStudies.map((study) => (
+            <StudyCard key={study.id} study={study} />
+          ))}
+        </StudySection>
+        <StudySection
+          name="완료된 스터디"
+          description="성공적으로 마무리된 스터디 그룹들"
+          badgeText={`${endedStudies.length}개 종료됨`}
+          badgeColor="bg-danger-100 text-danger-600"
+          searchTerm={searchTerm}
+          items={endedStudies}
+        >
+          {endedStudies.map((study) => (
+            <StudyCard key={study.id} study={study} />
+          ))}
+        </StudySection>
       </section>
       {selectedStudy && modal === 'list' && <ReviewListModal />}
       {selectedStudy && modal === 'edit' && <ReviewModal />}

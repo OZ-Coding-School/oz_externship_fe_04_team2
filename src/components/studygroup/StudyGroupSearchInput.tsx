@@ -1,22 +1,14 @@
-import { useDebounce } from '@/hooks'
-import { useSearchStore } from '@/store'
 import { SearchIcon } from 'lucide-react'
-import { useEffect } from 'react'
-import { useLocation, useNavigate } from 'react-router'
 
-export function StudyGroupSearchInput() {
-  const { searchTerm, setSearchTerm } = useSearchStore()
-  const navigate = useNavigate()
-  const location = useLocation()
+interface StudyGroupSearchInputProps {
+  value: string
+  onChange: (value: string) => void
+}
 
-  const debouncedSearchTerm = useDebounce(searchTerm, 500)
-
-  useEffect(() => {
-    if (debouncedSearchTerm && location.search !== `?${debouncedSearchTerm}`) {
-      navigate(`/search?q=${debouncedSearchTerm}`)
-    }
-  }, [debouncedSearchTerm, navigate, location.search])
-
+export function StudyGroupSearchInput({
+  value,
+  onChange,
+}: StudyGroupSearchInputProps) {
   return (
     <div className="relative flex max-w-md">
       <SearchIcon
@@ -27,8 +19,8 @@ export function StudyGroupSearchInput() {
         type="text"
         className="remove-focus-outline border-custom-gray-300 flex h-10 flex-1 rounded-lg border pl-9"
         placeholder="스터디 그룹 검색..."
-        onChange={(e) => setSearchTerm(e.target.value)}
-        value={searchTerm}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
       />
     </div>
   )
