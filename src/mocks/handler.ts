@@ -5,7 +5,7 @@ import {
   noteHandlers,
   reviewHandlers,
   scheduleHandlers,
-  studygroupHandler,
+  studygroupHandlers,
   userInformationHandler,
 } from '@/mocks/handlers'
 import { studygroupDetailHandlers } from '@/mocks/handlers/studygroup-details-handler'
@@ -22,7 +22,7 @@ export const handlers = [
   ...noteHandlers,
   ...reviewHandlers,
   ...scheduleHandlers,
-  ...studygroupHandler,
+  ...studygroupHandlers,
   ...studygroupDetailHandlers,
   ...userInformationHandler,
 ]
