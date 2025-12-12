@@ -5,8 +5,8 @@ export const mockStudyList: StudyGroupResponseType[] = [
     id: 1,
     name: 'React 실무 프로젝트 스터디',
     is_leader: true,
-    start_at: '2025년 10월 1일',
-    end_at: '2025년 12월 30일',
+    start_at: '2025-10-01',
+    end_at: '2025-12-30',
     max_headcount: 10,
     current_headcount: 8,
     profile_img_url:
@@ -22,8 +22,8 @@ export const mockStudyList: StudyGroupResponseType[] = [
     id: 2,
     name: 'Spring Boot 기초반',
     is_leader: false,
-    start_at: '2025년 12월 11일',
-    end_at: '2026년 2월 28일',
+    start_at: '2025-12-11',
+    end_at: '2026-02-28',
     max_headcount: 6,
     current_headcount: 4,
     profile_img_url:
@@ -36,8 +36,8 @@ export const mockStudyList: StudyGroupResponseType[] = [
     id: 3,
     name: 'Vue.js 마스터 스터디',
     is_leader: false,
-    start_at: '2024년 8월 1일',
-    end_at: '2024년 11월 30일',
+    start_at: '2024-08-01',
+    end_at: '2024-11-30',
     max_headcount: 8,
     current_headcount: 6,
     profile_img_url:
@@ -50,8 +50,8 @@ export const mockStudyList: StudyGroupResponseType[] = [
     id: 4,
     name: 'TypeScript 심화 스터디',
     is_leader: false,
-    start_at: '2025년 5월 1일',
-    end_at: '2025년 7월 15일',
+    start_at: '2025-05-01',
+    end_at: '2025-07-15',
     max_headcount: 6,
     current_headcount: 5,
     profile_img_url:

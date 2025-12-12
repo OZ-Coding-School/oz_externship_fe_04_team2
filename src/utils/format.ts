@@ -1,4 +1,5 @@
 import { eachMinuteOfInterval, format } from 'date-fns'
+import { ko } from 'date-fns/locale'
 
 // 채팅방 목록 UI 날짜 - 0월 00일
 export function formatChatListDate(isoString: string) {
@@ -41,4 +42,9 @@ export function formatMinutesToHHMM(minutes: number): string {
   const paddedMinutes = String(mins).padStart(2, '0')
 
   return `${paddedHours}:${paddedMinutes}`
+}
+
+// 0000.0.0
+export function formatDotDate(dateStr: string) {
+  return format(new Date(dateStr), 'yyyy. M. d.', { locale: ko })
 }

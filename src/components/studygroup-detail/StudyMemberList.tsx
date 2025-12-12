@@ -1,42 +1,100 @@
-import { Badge, Card } from '@/components/common'
+import { Badge, Button, Card } from '@/components/common'
+import {
+  useDelegateStudyGroupLeader,
+  useKickStudyGroupMember,
+} from '@/hooks/study-group'
+import { showToast } from '@/lib'
+import type { StudyGroupMemberType } from '@/types'
 import { Plus, UserRound, X } from 'lucide-react'
 
-export function StudyMemberList() {
+interface StudyMemberListProps {
+  groupId: number
+  members: StudyGroupMemberType[]
+  leaderId?: number
+  currentUserId: number
+}
+
+export function StudyMemberList({
+  groupId,
+  members,
+  leaderId,
+  currentUserId,
+}: StudyMemberListProps) {
+  const { mutate: delegateLeader } = useDelegateStudyGroupLeader(groupId)
+  const { mutate: kickMember } = useKickStudyGroupMember(groupId)
+
+  const isCurrentUserLeader = currentUserId === leaderId
+
+  const handleDelegateLeader = (memberId: number) => {
+    delegateLeader(memberId, {
+      onSuccess: () =>
+        showToast.success('리더 위임 완료', '리더 권한이 위임되었습니다.'),
+      onError: () =>
+        showToast.warning('리더 위임 실패', '잠시 후 다시 시도해주세요.'),
+    })
+  }
+
+  const handleKickMember = (memberId: number) => {
+    kickMember(memberId, {
+      onSuccess: () => showToast.success('추방 완료', '멤버를 추방했습니다.'),
+      onError: () =>
+        showToast.warning(
+          '추방 실패',
+          '권한이 없거나 대상을 찾을 수 없습니다.'
+        ),
+    })
+  }
+
   return (
     <Card>
       <div className="flex items-center justify-between pb-4">
         <p className="text-lg font-semibold">멤버 목록</p>
-        <span className="text-custom-gray-500 text-sm">8명</span>
+        <span className="text-custom-gray-500 text-sm">{members.length}명</span>
       </div>
 
       <ul className="flex max-h-[384px] flex-col gap-3 overflow-y-auto">
-        <li className="group flex justify-between">
-          <div className="flex items-center gap-3">
-            <span className="bg-primary-100 centralize h-10 w-10 rounded-full">
-              <UserRound className="text-primary-600 h-5 w-5" />
-            </span>
-            <span>김개발</span>
-            <Badge className="h-6 rounded-sm">리더</Badge>
-          </div>
+        {members.map((member) => {
+          const isLeader = member.is_leader
+          const isSelf = member.id === currentUserId
 
-          {/* 리더 액션 버튼 */}
-          <div className="hidden items-center gap-3 text-sm group-hover:flex">
-            <button
-              type="button"
-              title="리더 위임"
-              className="text-primary-600 centralize bg-primary-100 h-7 w-7 rounded-full"
-            >
-              <Plus className="h-5 w-5" />
-            </button>
-            <button
-              type="button"
-              title="김개발님을 추방"
-              className="text-danger-600 centralize h-7 w-7 rounded-full bg-[#FEF2F2]"
-            >
-              <X className="h-5 w-5" />
-            </button>
-          </div>
-        </li>
+          // 리더만 버튼 보임 + 본인은 제외
+          const canManageMember = isCurrentUserLeader && !isSelf
+
+          return (
+            <li key={member.id} className="group flex justify-between">
+              <div className="flex items-center gap-3">
+                <span className="bg-primary-100 centralize h-10 w-10 rounded-full">
+                  <UserRound className="text-primary-600 h-5 w-5" />
+                </span>
+                <span>{member.nickname}</span>
+                {isLeader && <Badge className="h-6 rounded-sm">리더</Badge>}
+              </div>
+
+              {/* 리더 액션 버튼 */}
+              {canManageMember && (
+                <div className="hidden items-center gap-3 text-sm group-hover:flex">
+                  <Button
+                    variant="ghost"
+                    title="리더 위임"
+                    onClick={() => handleDelegateLeader(member.id)}
+                    className="bg-primary-100 hover:bg-primary-200 active:bg-primary-300 h-7 w-7 rounded-full p-0"
+                  >
+                    <Plus className="text-primary-600 h-5 w-5" />
+                  </Button>
+
+                  <Button
+                    variant="ghost"
+                    title={`${member.nickname}을 추방`}
+                    onClick={() => handleKickMember(member.id)}
+                    className="h-7 w-7 rounded-full bg-red-50 p-0 hover:bg-red-100 active:bg-red-200"
+                  >
+                    <X className="text-danger-600 h-5 w-5" />
+                  </Button>
+                </div>
+              )}
+            </li>
+          )
+        })}
       </ul>
     </Card>
   )
