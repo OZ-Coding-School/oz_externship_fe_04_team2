@@ -1,22 +1,34 @@
 import { ImagePlus, X } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button, BaseUploader } from '@/components/common'
 
-export function ImageUploader() {
+interface ImageUploaderProps {
+  value: string
+  onChange: (url: string) => void
+}
+
+export function ImageUploader({ value, onChange }: ImageUploaderProps) {
   const [preview, setPreview] = useState<string | null>(null)
+
+  useEffect(() => {
+    setPreview(value || null)
+  }, [value])
 
   const onDrop = (files: File[]) => {
     const file = files[0]
     if (!file) return
 
     const url = URL.createObjectURL(file)
+
     setPreview(url)
+    onChange(url)
   }
 
   const removeImage = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
     if (preview) URL.revokeObjectURL(preview)
     setPreview(null)
+    onChange('')
   }
 
   return (
