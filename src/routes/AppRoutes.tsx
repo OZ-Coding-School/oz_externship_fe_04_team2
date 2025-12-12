@@ -1,3 +1,4 @@
+import { NotFound } from '@/components/fallback-ui'
 import { Layout } from '@/components/layout'
 import {
   CreateStudyGroupPage,
@@ -29,6 +30,7 @@ export function AppRoutes() {
           path="study-groups/:groupId/notes/:noteId/edit"
           element={<EditStudyNotePage />}
         />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   )
