@@ -12,7 +12,7 @@ export const Loading = () => {
             데이터를 불러오고 있습니다
           </p>
           <p className="text-custom-gray-700 mb-6 text-[16px]">
-            첫 항목을 추가해 보세요
+            잠시만 기다려주세요...
           </p>
         </div>
       </div>
