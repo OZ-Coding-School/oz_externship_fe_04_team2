@@ -1,11 +1,11 @@
 import { NotFound } from '@/components/fallback-ui'
 import { Layout } from '@/components/layout'
 import {
-  CreateStudyGroupPage,
   CreateStudyNotePage,
   DetailStudyNotePage,
   EditStudyNotePage,
   StudyDetailPage,
+  StudyGroupFormPage,
   StudyGroupPage,
 } from '@/pages'
 
@@ -16,8 +16,9 @@ export function AppRoutes() {
     <Routes>
       <Route element={<Layout />}>
         <Route index element={<StudyGroupPage />} />
-        <Route path="/create" element={<CreateStudyGroupPage />} />
+        <Route path="/create" element={<StudyGroupFormPage />} />
         <Route path="/:groupId" element={<StudyDetailPage />} />
+        <Route path="/:groupId/edit" element={<StudyGroupFormPage />} />
         <Route
           path="/:groupId/notes/create"
           element={<CreateStudyNotePage />}
