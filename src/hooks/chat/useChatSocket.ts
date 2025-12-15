@@ -9,7 +9,8 @@ interface UseChatSocketOptions {
   groupId: number
   accessToken?: string | null
 }
-enum SocketStatus {
+
+export enum SocketStatus {
   CONNECTING = 'connecting',
   OPEN = 'open',
   CLOSED = 'closed',
@@ -23,7 +24,7 @@ export function useChatSocket({ groupId, accessToken }: UseChatSocketOptions) {
   const [messages, setMessages] = useState<ChatMessage[]>([])
 
   useEffect(() => {
-    if (!accessToken) return
+    if (!accessToken || !groupId) return
 
     setStatus(SocketStatus.CONNECTING)
 
