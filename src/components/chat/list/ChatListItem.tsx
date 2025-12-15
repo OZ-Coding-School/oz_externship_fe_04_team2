@@ -1,18 +1,12 @@
-import { cn } from '@/lib'
 import type { ChatRoomListItem } from '@/types'
 import { formatMonthDay } from '@/utils'
 
 interface ChatListItemProps {
   chatRoom: ChatRoomListItem
-  isActive?: boolean
   onClick?: (roomId: number) => void
 }
 
-export function ChatListItem({
-  chatRoom,
-  isActive = false,
-  onClick,
-}: ChatListItemProps) {
+export function ChatListItem({ chatRoom, onClick }: ChatListItemProps) {
   const latestMessage = chatRoom.last_message
 
   const previewMessage = latestMessage
@@ -28,10 +22,7 @@ export function ChatListItem({
       <button
         type="button"
         onClick={() => onClick?.(chatRoom.id)}
-        className={cn(
-          'flex w-full flex-col gap-1 p-3 pb-4',
-          isActive && 'text-custom-gray-900'
-        )}
+        className="flex w-full flex-col gap-1 p-3 pb-4"
       >
         <div className="flex items-center justify-between">
           <span className="text-custom-gray-900 group-hover:text-primary-600 text-sm transition-colors duration-150">

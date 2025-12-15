@@ -1,6 +1,5 @@
 import { ChatHeader, ChatList } from '@/components/chat'
 import type { ChatRoomListItem } from '@/types'
-import { useState } from 'react'
 
 interface ChatListPanelProps {
   rooms: ChatRoomListItem[]
@@ -13,10 +12,7 @@ export function ChatListPanel({
   onClose,
   onSelectRoom,
 }: ChatListPanelProps) {
-  const [activeRoomId, setActiveRoomId] = useState<number | null>(null)
-
   const handleSelectRoom = (roomId: number) => {
-    setActiveRoomId(roomId)
     onSelectRoom(roomId)
   }
 
@@ -32,11 +28,7 @@ export function ChatListPanel({
         </div>
       ) : (
         <div className="scroll-hide flex-1 overflow-y-auto">
-          <ChatList
-            rooms={rooms}
-            activeRoomId={activeRoomId}
-            onSelectRoom={handleSelectRoom}
-          />
+          <ChatList rooms={rooms} onSelectRoom={handleSelectRoom} />
         </div>
       )}
     </div>
