@@ -13,11 +13,11 @@ export function StudyNoteList({ groupId }: StudyNoteListProps) {
   const { data } = useStudyNotes(groupId)
 
   const handleCreate = () => {
-    navigate(`/study-groups/${groupId}/notes/create`)
+    navigate(`/${groupId}/notes/create`)
   }
 
   const handleNoteDetail = (noteId: number) => {
-    navigate(`/study-groups/${groupId}/notes/${noteId}`)
+    navigate(`/${groupId}/notes/${noteId}`)
   }
 
   const notes = data?.results ?? []
