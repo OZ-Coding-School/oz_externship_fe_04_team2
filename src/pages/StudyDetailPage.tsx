@@ -24,7 +24,7 @@ export function StudyDetailPage() {
   if (!group) return null
 
   const handleClickEdit = () => {
-    navigate(`/study-groups/${numericGroupId}/edit`)
+    navigate(`/${numericGroupId}/edit`)
   }
 
   const handleClickLeave = () => {
@@ -34,7 +34,7 @@ export function StudyDetailPage() {
           '스터디 나가기 완료',
           '스터디에서 성공적으로 나갔습니다.'
         )
-        navigate('/study-groups')
+        navigate('/')
       },
       onError: () => {
         // 에러 메시지 분기 처리 필요
