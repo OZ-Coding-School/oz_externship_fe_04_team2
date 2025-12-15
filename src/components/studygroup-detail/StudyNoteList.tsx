@@ -1,7 +1,7 @@
 import { Button, Card } from '@/components/common'
 import { LecturePagination } from '@/components/studygroup/lecture'
 import { useStudyNotes } from '@/hooks/study-note'
-import { format } from 'date-fns'
+import { formatDateTime } from '@/utils'
 import { Pencil, UserRound } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
@@ -64,7 +64,7 @@ export function StudyNoteList({ groupId }: StudyNoteListProps) {
                         {note.title}
                       </p>
                       <span className="text-custom-gray-500 text-sm">
-                        {format(new Date(note.created_at), 'yyyy. MM. dd.')}
+                        {formatDateTime(note.created_at)}
                       </span>
                     </div>
                     <div className="flex items-center gap-3 py-[2px]">
