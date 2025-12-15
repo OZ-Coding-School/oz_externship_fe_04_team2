@@ -1,9 +1,9 @@
 import { ChatBadge, ChatListPanel, ChatRoomPanel } from '@/components/chat'
 import {
+  SocketStatus,
   useBodyScrollLock,
-  useChatMessages,
-  useChatParticipants,
   useChatRooms,
+  useChatSocket,
 } from '@/hooks'
 import { useChatStore } from '@/store'
 import { MessageCircle, X } from 'lucide-react'
@@ -22,9 +22,13 @@ export function ChatWidget() {
   useBodyScrollLock(isOpen)
 
   const { chatRooms } = useChatRooms()
-  // const chatRooms: ChatRoomListItem[] = [] // test
-  const { messages } = useChatMessages(selectedGroupId)
-  const { participants } = useChatParticipants(selectedGroupId)
+
+  // 추후 로그인 연동
+  const mockAccessToken = 'MOCK_TOKEN'
+  const { status, participants, messages, sendMessage } = useChatSocket({
+    groupId: selectedGroupId ?? 0,
+    accessToken: mockAccessToken,
+  })
 
   // 클릭한 채팅방 찾기
   const selectedRoom =
@@ -56,12 +60,12 @@ export function ChatWidget() {
   const canRenderRoom =
     currentView === 'room' && selectedRoom && currentUserId !== null
 
-  // 메세지 전송 핸들러 (추후 웹 소켓 연동 예정)
+  // 메세지 전송 핸들러
   const handleSendMessage = (message: string) => {
-    return console.log(message) // eslint-disable-line no-console
+    sendMessage(message)
   }
 
-  // 미읽음 메세지 (기획 업데이트 시 반영 예정)
+  // 미읽음 메세지
   const unreadCount = 0
 
   return (
@@ -78,7 +82,7 @@ export function ChatWidget() {
           )}
 
           {/* 채팅방 View */}
-          {canRenderRoom && (
+          {canRenderRoom && status === SocketStatus.OPEN && (
             <ChatRoomPanel
               roomName={selectedRoom.name}
               participants={participants}

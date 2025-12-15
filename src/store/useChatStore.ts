@@ -23,15 +23,16 @@ export const useChatStore = create<ChatState>((set) => ({
   // 채팅 위젯 열기/닫기
   toggleOpen() {
     set((state) => {
-      const next = !state.isOpen
-      if (!next) {
-        return {
-          isOpen: next,
-          currentView: 'list',
-          selectedGroupId: null,
-        }
-      }
-      return { isOpen: next }
+      const nextIsOpen = !state.isOpen
+      return nextIsOpen
+        ? {
+            isOpen: true,
+          }
+        : {
+            isOpen: false,
+            currentView: 'list',
+            selectedGroupId: null,
+          }
     })
   },
 
