@@ -2,12 +2,13 @@ import { useBodyScrollLock } from '@/hooks'
 import {
   ScheduleFormModeType,
   type CreateStudyScheduleRequestType,
-  type ScheduleFormValuesType,
 } from '@/types'
 import { ScheduleForm } from '@/components/studygroup-detail/modal/ScheduleForm'
 import { Modal } from '@/components/common'
 import { useCreateStudySchedule } from '@/hooks/study-schedule'
 import { format } from 'date-fns'
+import { mockScheduleParticipants } from '@/mocks/data'
+import type { StudyScheduleFormData } from '@/schema'
 
 interface ScheduleCreateModalProps {
   isOpen: boolean
@@ -24,7 +25,7 @@ export function ScheduleCreateModal({
 
   const { mutate } = useCreateStudySchedule(groupId)
 
-  const defaultValues: ScheduleFormValuesType = {
+  const defaultValues: StudyScheduleFormData = {
     title: '',
     objective: '',
     date: null,
@@ -33,7 +34,7 @@ export function ScheduleCreateModal({
     participants: [],
   }
 
-  const handleSubmit = (data: ScheduleFormValuesType) => {
+  const handleSubmit = (data: StudyScheduleFormData) => {
     const payload: CreateStudyScheduleRequestType = {
       title: data.title,
       objective: data.objective,
@@ -60,6 +61,7 @@ export function ScheduleCreateModal({
       <ScheduleForm
         mode={ScheduleFormModeType.CREATE}
         defaultValues={defaultValues}
+        members={mockScheduleParticipants}
         onSubmit={handleSubmit}
         onCancel={onClose}
       />
