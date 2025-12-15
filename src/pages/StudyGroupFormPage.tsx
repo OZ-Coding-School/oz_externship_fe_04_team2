@@ -108,7 +108,7 @@ export function StudyGroupFormPage() {
             취소
           </Button>
           <Button variant="primary" className="px-8" type="submit">
-            스터디 그룹 만들기
+            {isEdit ? '수정 완료' : '스터디 그룹 만들기'}
           </Button>
         </div>
       </form>
