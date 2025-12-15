@@ -4,6 +4,7 @@ export const mockChatList: ChatRoomListItem[] = [
   {
     id: 1,
     name: 'React 실무 프로젝트 스터디',
+    unread_message: 2,
     last_message: {
       id: 11,
       sender: { id: 1, nickname: '김개발' },
@@ -15,11 +16,13 @@ export const mockChatList: ChatRoomListItem[] = [
   {
     id: 2,
     name: 'Python 데이터 분석 스터디',
+    unread_message: 2,
     last_message: null,
   },
   {
     id: 3,
     name: 'AWS 클라우드 아키텍처 스터디',
+    unread_message: 2,
     last_message: {
       id: 12,
       sender: { id: 2, nickname: '박클라우드' },
@@ -31,6 +34,7 @@ export const mockChatList: ChatRoomListItem[] = [
   {
     id: 4,
     name: 'Node.js 백엔드 개발팀',
+    unread_message: 2,
     last_message: {
       id: 13,
       sender: { id: 3, nickname: '최서버' },
@@ -42,6 +46,7 @@ export const mockChatList: ChatRoomListItem[] = [
   {
     id: 5,
     name: '오즈 익스턴십 - 13기',
+    unread_message: 2,
     last_message: {
       id: 20,
       sender: { id: 3, nickname: '최서버' },
