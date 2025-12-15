@@ -1,6 +1,7 @@
 import { Button, Modal } from '@/components/common'
 import { StarRating } from '@/components/review'
 import { useStudyGroupStore } from '@/store'
+import { formatDotDate } from '@/utils'
 
 export function ReviewListModal() {
   const {
@@ -22,9 +23,9 @@ export function ReviewListModal() {
       isOpen={modal === 'list'}
       onClose={closeModal}
       title="스터디 리뷰"
-      wrapperClassName="max-w-[600px] h-[80vh] bg-white rounded-xl"
-      innerClassName="items-stretch justify-start p-0 gap-0 overflow-hidden"
-      titleClassName="flex items-center justify-between px-6 pt-6 pb-2"
+      wrapperClassName="max-w-[600px] bg-white p-0 m-4"
+      innerClassName="items-stretch justify-start p-0 gap-0 overflow-hidden mb-0"
+      titleClassName="flex items-center justify-between px-6 pt-6 pb-2 mb-0"
     >
       <div className="border-custom-gray-100 px-6 pb-6">
         <p className="text-custom-gray-500 text-xs">{selectedStudy.name}</p>
@@ -64,7 +65,7 @@ export function ReviewListModal() {
                   )}
                 </div>
                 <span className="text-custom-gray-400 text-xs">
-                  {review.created_at}
+                  {review.created_at ? formatDotDate(review.created_at) : ''}
                 </span>
               </div>
               <p className="text-custom-gray-700 text-sm leading-relaxed">
@@ -74,7 +75,7 @@ export function ReviewListModal() {
           ))}
         </div>
       </div>
-      <div className="border-custom-gray-100 border-t p-4">
+      <div className="border-custom-gray-100 border-t p-6">
         <Button
           variant="primary"
           className="w-full font-bold"

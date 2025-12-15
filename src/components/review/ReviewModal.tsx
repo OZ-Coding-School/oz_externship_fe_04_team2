@@ -46,8 +46,8 @@ export function ReviewModal() {
       isOpen={modal === 'edit'}
       onClose={closeModal}
       title="리뷰 작성"
-      wrapperClassName="h-auto max-w-[600px] bg-white rounded-xl"
-      innerClassName="justify-start items-stretch p-6 gap-4"
+      wrapperClassName="h-auto max-w-[600px] bg-white rounded-xl p-0 m-4"
+      innerClassName="justify-start items-stretch p-8 gap-4 mb-0"
       titleClassName="justify-between flex items-center px-6 pt-6 mb-0"
     >
       <div className="pb-4">
@@ -91,7 +91,7 @@ export function ReviewModal() {
         <Button
           variant="primary"
           className="flex-1"
-          disabled={rating === 0 || content.length === 0}
+          disabled={content.length === 0}
           onClick={handleSubmit}
         >
           {selectedReview ? '수정 완료' : '작성 완료'}
