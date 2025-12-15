@@ -1,6 +1,7 @@
 import { Badge, Button, Modal } from '@/components/common'
 import { useBodyScrollLock } from '@/hooks'
 import type { StudyScheduleDetailType } from '@/types'
+import { formatDateTime } from '@/utils'
 import { Calendar, Clock3, UserRound } from 'lucide-react'
 
 interface ScheduleDetailModalProps {
@@ -76,19 +77,25 @@ export function ScheduleDetailModal({
           참여자 목록 ({participantCount}명)
         </p>
         <ul className="border-custom-gray-200 flex max-h-[192px] min-h-24 flex-col gap-2 overflow-y-auto rounded-lg border p-4">
-          <li className="flex items-center gap-3">
-            <span className="bg-primary-100 centralize h-8 w-8 rounded-full">
-              <UserRound className="text-primary-600 h-[14px] w-[14px]" />
-            </span>
-            <span className="text-sm">김개발</span>
-            <Badge className="h-6 rounded-sm">리더</Badge>
-          </li>
+          {participants.map((member) => (
+            <li key={member.id} className="flex items-center gap-3">
+              <span className="bg-primary-100 centralize h-8 w-8 rounded-full">
+                <UserRound className="text-primary-600 h-[14px] w-[14px]" />
+              </span>
+              <span className="text-sm">{member.nickname}</span>
+              {member.is_leader && (
+                <Badge className="bg-primary-100 text-primary-800 h-6 rounded-sm px-2">
+                  리더
+                </Badge>
+              )}
+            </li>
+          ))}
         </ul>
       </div>
 
       <div className="border-custom-gray-200 flex w-full items-center justify-between gap-3 border-t pt-6">
         <span className="text-custom-gray-500 text-xs">
-          생성일: {schedule.created_at}
+          생성일: {formatDateTime(schedule.created_at)}
         </span>
         <div className="flex gap-3">
           <Button variant="primary" type="button" onClick={handleClickEdit}>

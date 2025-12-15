@@ -1,6 +1,6 @@
 import { cn } from '@/lib'
 import type { ChatRoomListItem } from '@/types'
-import { formatChatListDate } from '@/utils'
+import { formatMonthDay } from '@/utils'
 
 interface ChatListItemProps {
   chatRoom: ChatRoomListItem
@@ -20,7 +20,7 @@ export function ChatListItem({
     : `(대화가 없습니다. 대화를 시작해보세요.)`
 
   const dateLabel = latestMessage
-    ? formatChatListDate(latestMessage.created_at)
+    ? formatMonthDay(latestMessage.created_at)
     : ''
 
   return (

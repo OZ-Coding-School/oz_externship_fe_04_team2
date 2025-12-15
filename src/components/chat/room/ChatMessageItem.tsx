@@ -1,6 +1,6 @@
 import { CHAT_BUBBLE } from '@/constants'
 import type { ChatMessage } from '@/types'
-import { formatChatTime } from '@/utils'
+import { formatTimeHHmm } from '@/utils'
 
 interface ChatMessageItemProps {
   message: ChatMessage
@@ -12,7 +12,7 @@ export function ChatMessageItem({
   currentUserId,
 }: ChatMessageItemProps) {
   const isOutgoing = message.sender.id === currentUserId
-  const timeLabel = formatChatTime(message.created_at)
+  const timeLabel = formatTimeHHmm(message.created_at)
 
   // 내 메시지
   if (isOutgoing) {

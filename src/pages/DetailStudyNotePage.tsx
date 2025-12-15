@@ -7,7 +7,7 @@ import {
 } from '@/components/studygroup-note'
 import { StudyNoteToggle } from '@/components/studygroup-note/StudyNoteToggle'
 import { useDeleteStudyNote, useStudyNoteDetail } from '@/hooks/study-note'
-import { format } from 'date-fns'
+import { formatDateTime } from '@/utils'
 import { Bot, Paperclip, UserRound } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
@@ -23,13 +23,13 @@ export function DetailStudyNotePage() {
   const toggleSummary = () => setIsSummaryOpen((prev) => !prev)
 
   const handleEdit = () => {
-    navigate(`/study-groups/${groupId}/notes/${noteId}/edit`)
+    navigate(`/${groupId}/notes/${noteId}/edit`)
   }
 
   const handleDelete = () => {
     deleteNote(Number(noteId), {
       onSuccess: () => {
-        navigate(`/study-groups/${groupId}`)
+        navigate(`/${groupId}`)
       },
     })
   }
@@ -51,7 +51,7 @@ export function DetailStudyNotePage() {
               </Button>
               <Button
                 variant="danger"
-                className="text-danger-800 h-8 bg-[#FEE2E2]"
+                className="text-danger-800 h-8 bg-red-100 hover:bg-red-200 active:bg-red-300"
                 onClick={handleDelete}
               >
                 삭제하기
@@ -64,10 +64,7 @@ export function DetailStudyNotePage() {
             </span>
             <span>{data.author.nickname}</span>
             <span>&bull;</span>
-            <span>
-              작성일:{' '}
-              {format(new Date(data.created_at), 'yyyy. MM. dd. a h:mm')}
-            </span>
+            <span>작성일: {formatDateTime(data.updated_at)}</span>
           </p>
         </header>
 
