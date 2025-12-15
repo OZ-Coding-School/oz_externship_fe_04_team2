@@ -17,17 +17,17 @@ export function AppRoutes() {
       <Route element={<Layout />}>
         <Route index element={<StudyGroupPage />} />
         <Route path="/create" element={<CreateStudyGroupPage />} />
-        <Route path="study-groups/:groupId" element={<StudyDetailPage />} />
+        <Route path="/:groupId" element={<StudyDetailPage />} />
         <Route
-          path="study-groups/:groupId/notes/create"
+          path="/:groupId/notes/create"
           element={<CreateStudyNotePage />}
         />
         <Route
-          path="study-groups/:groupId/notes/:noteId"
+          path="/:groupId/notes/:noteId"
           element={<DetailStudyNotePage />}
         />
         <Route
-          path="study-groups/:groupId/notes/:noteId/edit"
+          path="/:groupId/notes/:noteId/edit"
           element={<EditStudyNotePage />}
         />
         <Route path="*" element={<NotFound />} />
