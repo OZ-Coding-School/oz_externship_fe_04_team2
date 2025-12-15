@@ -9,7 +9,7 @@ export function BackToStudyGroupButton() {
   return (
     <Button
       variant="ghost"
-      onClick={() => navigate(`/study-groups/${groupId}`)}
+      onClick={() => navigate(`/${groupId}`)}
       className="w-1/2 justify-start"
     >
       <ArrowLeft className="pr-2" />

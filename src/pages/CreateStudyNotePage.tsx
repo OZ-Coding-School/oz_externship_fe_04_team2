@@ -39,7 +39,7 @@ export function CreateStudyNotePage() {
 
     createNote(payload, {
       onSuccess: () => {
-        navigate(`/study-groups/${groupId}`)
+        navigate(`/${groupId}`)
       },
     })
   }

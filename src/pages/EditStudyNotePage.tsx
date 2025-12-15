@@ -45,7 +45,7 @@ export function EditStudyNotePage() {
 
     updateNote(payload, {
       onSuccess: () => {
-        navigate(`/study-groups/${groupId}/notes/${noteId}`)
+        navigate(`/${groupId}/notes/${noteId}`)
       },
     })
   }
