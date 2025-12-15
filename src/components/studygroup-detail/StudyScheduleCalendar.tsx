@@ -9,6 +9,7 @@ import {
   useDeleteStudySchedule,
   useStudySchedules,
 } from '@/hooks/study-schedule'
+import { mockScheduleParticipants } from '@/mocks/data'
 import type { StudyScheduleDetailType } from '@/types'
 import { Plus } from 'lucide-react'
 import { useState } from 'react'
@@ -94,6 +95,7 @@ export function StudyScheduleCalendar({ groupId }: StudyScheduleCalendarProps) {
         isOpen={isCreateOpen}
         onClose={handleCloseCreateModal}
         groupId={groupId}
+        members={mockScheduleParticipants}
       />
 
       {selectedSchedule && (
@@ -113,6 +115,7 @@ export function StudyScheduleCalendar({ groupId }: StudyScheduleCalendarProps) {
           schedule={selectedSchedule}
           onSave={handleSaveEditedSchedule}
           groupId={groupId}
+          members={mockScheduleParticipants}
         />
       )}
     </section>

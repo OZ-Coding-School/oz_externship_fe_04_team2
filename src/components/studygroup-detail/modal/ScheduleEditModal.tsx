@@ -2,9 +2,10 @@ import { Modal } from '@/components/common'
 import { ScheduleForm } from '@/components/studygroup-detail/modal/ScheduleForm'
 import { useBodyScrollLock } from '@/hooks'
 import { useUpdateStudySchedule } from '@/hooks/study-schedule'
+import type { StudyScheduleFormData } from '@/schema'
 import {
   ScheduleFormModeType,
-  type ScheduleFormValuesType,
+  type StudyGroupMemberType,
   type StudyScheduleDetailType,
   type UpdateStudyScheduleRequestType,
 } from '@/types'
@@ -16,6 +17,7 @@ interface ScheduleEditModalProps {
   onSave: (updated: StudyScheduleDetailType) => void
   schedule: StudyScheduleDetailType
   groupId: number
+  members: StudyGroupMemberType[]
 }
 
 export function ScheduleEditModal({
@@ -24,12 +26,13 @@ export function ScheduleEditModal({
   onSave,
   schedule,
   groupId,
+  members,
 }: ScheduleEditModalProps) {
   useBodyScrollLock(isOpen)
 
   const { mutate } = useUpdateStudySchedule(groupId, schedule.id)
 
-  const defaultValues: ScheduleFormValuesType = {
+  const defaultValues: StudyScheduleFormData = {
     title: schedule.title,
     objective: schedule.objective,
     date: schedule.session_date ? parseISO(schedule.session_date) : null,
@@ -38,13 +41,11 @@ export function ScheduleEditModal({
     participants: schedule.participants.map((participant) => participant.id),
   }
 
-  const handleSubmit = (data: ScheduleFormValuesType) => {
+  const handleSubmit = (data: StudyScheduleFormData) => {
     const payload: UpdateStudyScheduleRequestType = {
       title: data.title,
       objective: data.objective,
-      session_date: data.date
-        ? format(data.date, 'yyyy-MM-dd')
-        : schedule.session_date,
+      session_date: format(data.date!, 'yyyy-MM-dd'),
       start_time: data.start_time,
       end_time: data.end_time,
       participants: data.participants,
@@ -69,6 +70,7 @@ export function ScheduleEditModal({
     >
       <ScheduleForm
         mode={ScheduleFormModeType.EDIT}
+        members={members}
         defaultValues={defaultValues}
         onSubmit={handleSubmit}
         onCancel={onClose}
