@@ -6,6 +6,7 @@ import {
   useChatSocket,
 } from '@/hooks'
 import { useChatStore } from '@/store'
+import AuthStateStore from '@/store/authStateStore'
 import { MessageCircle, X } from 'lucide-react'
 
 export function ChatWidget() {
@@ -22,19 +23,25 @@ export function ChatWidget() {
   useBodyScrollLock(isOpen)
 
   const { chatRooms } = useChatRooms()
-
-  // 추후 로그인 연동
-  const mockAccessToken = 'MOCK_TOKEN'
-  const { status, participants, messages, sendMessage } = useChatSocket({
-    groupId: selectedGroupId ?? 0,
-    accessToken: mockAccessToken,
-  })
+  const accessToken = AuthStateStore((state) => state.accessToken)
 
   // 클릭한 채팅방 찾기
   const selectedRoom =
     selectedGroupId != null
       ? chatRooms.find((room) => room.id === selectedGroupId)
       : null
+
+  const isRoomView = currentView === 'room' && !!selectedRoom
+  const isLoggedIn = !!accessToken && currentUserId !== null
+
+  const socketEnabled = isOpen && isRoomView && isLoggedIn
+  const canRenderRoom = isRoomView && isLoggedIn
+
+  const { status, participants, messages, sendMessage } = useChatSocket({
+    groupId: selectedGroupId ?? 0,
+    accessToken,
+    enabled: socketEnabled,
+  })
 
   // 위젯 버튼 클릭
   const handleClickWidget = () => {
@@ -46,23 +53,9 @@ export function ChatWidget() {
     openGroup(groupId)
   }
 
-  // 채팅방에서 리스트로 돌아가기
-  const handleBackToList = () => {
-    openList()
-  }
-
   // 패널 닫기
   const handleClosePanel = () => {
     toggleOpen()
-  }
-
-  // 채팅방 화면을 렌더링할 수 있는 조건
-  const canRenderRoom =
-    currentView === 'room' && selectedRoom && currentUserId !== null
-
-  // 메세지 전송 핸들러
-  const handleSendMessage = (message: string) => {
-    sendMessage(message)
   }
 
   // 미읽음 메세지
@@ -81,16 +74,28 @@ export function ChatWidget() {
             />
           )}
 
+          {currentView === 'room' && selectedRoom && !accessToken && (
+            <div className="text-custom-gray-600 flex h-full items-center justify-center p-4 text-sm">
+              로그인 후 채팅을 이용할 수 있어요.
+            </div>
+          )}
+
+          {socketEnabled && status === SocketStatus.CONNECTING && (
+            <div className="text-custom-gray-600 flex h-full items-center justify-center p-4 text-sm">
+              채팅방에 연결 중...
+            </div>
+          )}
+
           {/* 채팅방 View */}
           {canRenderRoom && status === SocketStatus.OPEN && (
             <ChatRoomPanel
               roomName={selectedRoom.name}
               participants={participants}
-              messages={messages || []}
-              currentUserId={currentUserId}
-              onClose={handleClosePanel}
-              onSend={handleSendMessage}
-              onBack={handleBackToList}
+              messages={messages}
+              currentUserId={currentUserId!}
+              onClose={toggleOpen}
+              onSend={sendMessage}
+              onBack={openList}
             />
           )}
         </div>
