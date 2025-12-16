@@ -12,24 +12,12 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 
 export function StudyGroupPage() {
-  const { studies, selectedStudy, modal, fetchStudies } = useStudyGroupStore()
-
-  const [isLoading, setIsLoading] = useState(true)
+  const { studies, selectedStudy, modal, fetchStudies, isLoading } =
+    useStudyGroupStore()
   const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        setIsLoading(true)
-        await fetchStudies()
-      } catch (error) {
-        console.error('Failed to fetch studies', error)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    loadData()
+    fetchStudies()
   }, [fetchStudies])
 
   const filteredStudies = studies.filter((s) =>
