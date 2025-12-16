@@ -1,3 +1,5 @@
+export * from './ErrorLayout'
 export * from './Loading'
 export * from './NoSearchData'
 export * from './NotFound'
+export * from './PageError'
