@@ -84,7 +84,7 @@ export function ScheduleDetailModal({
               </span>
               <span className="text-sm">{member.nickname}</span>
               {member.is_leader && (
-                <Badge className="bg-primary-100 text-primary-800 h-6 rounded-sm px-2">
+                <Badge variant="primary" className="h-6 rounded-sm px-2">
                   리더
                 </Badge>
               )}
