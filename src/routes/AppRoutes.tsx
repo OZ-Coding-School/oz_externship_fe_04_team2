@@ -1,4 +1,4 @@
-import { NotFound } from '@/components/fallback-ui'
+import { NotFound, PageError } from '@/components/fallback-ui'
 import { Layout } from '@/components/layout'
 import {
   CreateStudyNotePage,
@@ -8,13 +8,27 @@ import {
   StudyGroupFormPage,
   StudyGroupPage,
 } from '@/pages'
+import { ErrorBoundary } from 'react-error-boundary'
 
 import { Route, Routes } from 'react-router'
 
 export function AppRoutes() {
   return (
     <Routes>
-      <Route element={<Layout />}>
+      <Route
+        element={
+          <ErrorBoundary
+            fallbackRender={({ error, resetErrorBoundary }) => (
+              <PageError
+                error={error}
+                resetErrorBoundary={resetErrorBoundary}
+              />
+            )}
+          >
+            <Layout />
+          </ErrorBoundary>
+        }
+      >
         <Route index element={<StudyGroupPage />} />
         <Route path="/create" element={<StudyGroupFormPage />} />
         <Route path="/:groupId" element={<StudyDetailPage />} />
