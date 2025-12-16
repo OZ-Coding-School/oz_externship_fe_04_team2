@@ -19,7 +19,14 @@ async function enableMocking() {
 
 const root = createRoot(document.getElementById('root')!)
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      throwOnError: true,
+      retry: 1,
+    },
+  },
+})
 
 enableMocking().then(() => {
   root.render(
