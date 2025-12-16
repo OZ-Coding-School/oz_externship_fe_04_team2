@@ -1,11 +1,17 @@
-import type { StudyCardProps } from '@/components/studygroup'
+import type { StudyGroupLectureType } from '@/types'
 import { Book, Calendar } from 'lucide-react'
+
+interface StudyCardContentProps {
+  name: string
+  dateRange: string
+  lectures: StudyGroupLectureType[]
+}
 
 export function StudyCardContent({
   name,
   dateRange,
   lectures,
-}: Pick<StudyCardProps, 'name' | 'dateRange' | 'lectures'>) {
+}: StudyCardContentProps) {
   return (
     <div className="flex-1">
       <h3 className="text-custom-gray-900 mb-3 line-clamp-1 text-lg font-bold">
@@ -22,7 +28,7 @@ export function StudyCardContent({
           <span>스터디 강의 ({lectures.length})</span>
         </div>
         <div className="space-y-0.5 pl-5.5">
-          {lectures.map((lecture, idx) => (
+          {lectures.map((lecture: StudyGroupLectureType, idx: number) => (
             <div key={idx}>
               <p className="line-clamp-1 font-medium">{lecture.title}</p>
               <p className="line-clamp-1">{lecture.instructor}</p>
