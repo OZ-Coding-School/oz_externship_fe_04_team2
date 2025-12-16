@@ -1,6 +1,12 @@
-import { CHAT_BUBBLE } from '@/constants'
 import type { ChatMessage } from '@/types'
 import { formatTimeHHmm } from '@/utils'
+
+const CHAT_BUBBLE = {
+  outgoing:
+    'bg-primary-500 text-custom-gray-50 rounded-lg whitespace-pre-wrap rounded-br-xs px-3 py-2 text-sm',
+  incoming:
+    'bg-custom-gray-100 text-custom-gray-900 whitespace-pre-wrap rounded-lg rounded-bl-xs px-3 py-2 text-sm',
+} as const
 
 interface ChatMessageItemProps {
   message: ChatMessage
