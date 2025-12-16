@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from 'react'
 interface UseChatSocketOptions {
   groupId: number
   accessToken?: string | null
+  enabled?: boolean
 }
 
 export enum SocketStatus {
@@ -17,14 +18,18 @@ export enum SocketStatus {
   ERROR = 'error',
 }
 
-export function useChatSocket({ groupId, accessToken }: UseChatSocketOptions) {
+export function useChatSocket({
+  groupId,
+  accessToken,
+  enabled = true,
+}: UseChatSocketOptions) {
   const socketRef = useRef<WebSocket | null>(null)
   const [status, setStatus] = useState<SocketStatus>(SocketStatus.CLOSED)
   const [participants, setParticipants] = useState<ChatParticipant[]>([])
   const [messages, setMessages] = useState<ChatMessage[]>([])
 
   useEffect(() => {
-    if (!accessToken || !groupId) return
+    if (!accessToken || !groupId || !enabled) return
 
     setStatus(SocketStatus.CONNECTING)
 
@@ -77,7 +82,7 @@ export function useChatSocket({ groupId, accessToken }: UseChatSocketOptions) {
       socket.close()
       socketRef.current = null
     }
-  }, [groupId, accessToken])
+  }, [groupId, accessToken, enabled])
 
   // 클라이언트 → 서버 메시지 전송
   const sendMessage = (content: string) => {
