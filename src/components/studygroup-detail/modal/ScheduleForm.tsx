@@ -157,7 +157,12 @@ export function ScheduleForm({
                         onChange={toggle}
                       />
                       {member.is_leader && (
-                        <Badge variant="default">리더</Badge>
+                        <Badge
+                          variant="primary"
+                          className="h-6 rounded-sm px-2"
+                        >
+                          리더
+                        </Badge>
                       )}
                     </li>
                   )

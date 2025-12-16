@@ -67,7 +67,11 @@ export function StudyMemberList({
                   <UserRound className="text-primary-600 h-5 w-5" />
                 </span>
                 <span>{member.nickname}</span>
-                {isLeader && <Badge className="h-6 rounded-sm">리더</Badge>}
+                {isLeader && (
+                  <Badge variant="primary" className="h-6 rounded-sm px-2">
+                    리더
+                  </Badge>
+                )}
               </div>
 
               {/* 리더 액션 버튼 */}
