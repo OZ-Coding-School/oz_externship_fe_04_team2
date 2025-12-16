@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import type { StudyGroupResponseType, StudyGroupReviewType } from '@/types'
-import { API_PATHS } from '@/constants'
+import { getStudyGroups, getStudyReviews } from '@/api'
+import type { ApiError } from '@/utils'
 
 interface StudyGroupState {
   studies: StudyGroupResponseType[]
@@ -9,6 +10,8 @@ interface StudyGroupState {
   reviews: StudyGroupReviewType[]
   selectedReview: StudyGroupReviewType | null
   reviewStats: { average: number; total: number }
+  isLoading: boolean
+  error: ApiError | null
   fetchStudies: () => Promise<void>
   openReviewList: (study: StudyGroupResponseType) => Promise<void>
   openReviewCreate: (study: StudyGroupResponseType) => void
@@ -26,28 +29,35 @@ export const useStudyGroupStore = create<StudyGroupState>((set) => ({
   reviews: [],
   selectedReview: null,
   reviewStats: { average: 0, total: 0 },
+  isLoading: false,
+  error: null,
 
   fetchStudies: async () => {
+    set({ isLoading: true, error: null })
     try {
-      const res = await fetch(API_PATHS.STUDYGROUP.LIST)
-      const data: StudyGroupResponseType[] = await res.json()
+      const data = await getStudyGroups()
       set({ studies: data })
-    } catch (err) {
-      console.error('스터디 그룹 불러오기 실패', err)
+    } catch (e) {
+      set({ error: e as ApiError })
+      throw e
+    } finally {
+      set({ isLoading: false })
     }
   },
 
   openReviewList: async (study) => {
-    set({ selectedStudy: study, modal: 'list' })
+    set({ selectedStudy: study, modal: 'list', isLoading: true })
     try {
-      const res = await fetch(API_PATHS.REVIEW.LIST(study.id))
-      const data = await res.json()
+      const data = await getStudyReviews(study.id)
       set({
         reviews: data.reviews,
         reviewStats: { average: data.average_rating, total: data.total_count },
       })
-    } catch (err) {
-      console.error('리뷰 불러오기 실패', err)
+    } catch (e) {
+      set({ error: e as ApiError })
+      throw e
+    } finally {
+      set({ isLoading: false })
     }
   },
 

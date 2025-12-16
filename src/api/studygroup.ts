@@ -2,9 +2,24 @@ import { axiosInstance } from '@/api/axios'
 import { API_PATHS } from '@/constants'
 import type {
   StudyGroupDetailType,
+  StudyGroupResponseType,
+  StudyGroupReviewType,
   StudyGroupSuccessResponseType,
   UpdateStudyGroupRequestType,
 } from '@/types'
+import { apiFetch } from '@/utils'
+
+export async function getStudyGroups() {
+  return apiFetch<StudyGroupResponseType[]>(API_PATHS.STUDYGROUP.LIST)
+}
+
+export async function getStudyReviews(studyId: number) {
+  return apiFetch<{
+    reviews: StudyGroupReviewType[]
+    average_rating: number
+    total_count: number
+  }>(API_PATHS.REVIEW.LIST(studyId))
+}
 
 // 스터디 그룹 상세 조회
 export const getStudyGroupDetail = async (groupId: number | string) => {
