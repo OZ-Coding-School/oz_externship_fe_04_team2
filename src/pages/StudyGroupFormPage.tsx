@@ -11,6 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { API_PATHS } from '@/constants'
 import { useNavigate, useParams } from 'react-router'
 import { useEffect } from 'react'
+import { toast } from 'react-toastify'
 
 export function StudyGroupFormPage() {
   const navigate = useNavigate()
@@ -78,7 +79,7 @@ export function StudyGroupFormPage() {
       navigate('/')
     } catch (err) {
       console.error(err)
-      alert(
+      toast.error(
         isEdit
           ? '에러 발생! 스터디 그룹 수정에 실패했습니다.'
           : '에러 발생! 스터디 그룹 생성에 실패했습니다.'
