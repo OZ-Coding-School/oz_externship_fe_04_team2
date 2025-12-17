@@ -1,5 +1,5 @@
 export * from './useChatInput'
-export * from './useChatMessages'
+export * from './useInfiniteChatMessages'
 export * from './useChatParticipants'
 export * from './useChatRooms'
 export * from './useChatSocket'
