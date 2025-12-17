@@ -1,6 +1,7 @@
 export * from './axios'
 export * from './chat'
 export * from './lecture'
+export * from './review'
 export * from './schedule'
 export * from './studygroup'
 export * from './userInformation'

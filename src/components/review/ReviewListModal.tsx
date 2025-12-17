@@ -1,20 +1,30 @@
 import { Button, Modal } from '@/components/common'
 import { StarRating } from '@/components/review'
+import { useStudyReviews } from '@/hooks/review/useStudyReviews'
 import { useStudyGroupStore } from '@/store'
 import { formatDotDate } from '@/utils'
+import { Loading } from '../fallback-ui'
 
 export function ReviewListModal() {
-  const {
-    selectedStudy,
-    reviews,
-    reviewStats,
-    modal,
-    openReviewCreate,
-    openReviewEdit,
-    closeModal,
-  } = useStudyGroupStore()
+  const { selectedStudy, modal, openReviewCreate, openReviewEdit, closeModal } =
+    useStudyGroupStore()
+  const { data, isLoading } = useStudyReviews(selectedStudy!.id ?? 0)
 
   if (!selectedStudy) return null
+
+  if (isLoading) {
+    return (
+      <Modal isOpen={modal === 'list'} onClose={closeModal} title="스터디 리뷰">
+        <Loading />
+      </Modal>
+    )
+  }
+
+  const reviews = data?.reviews ?? []
+  const reviewStats = {
+    average: data?.average_rating ?? 0,
+    total: data?.total_count ?? 0,
+  }
 
   const myReview = reviews.find((r) => r.is_mine)
 

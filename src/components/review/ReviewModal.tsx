@@ -2,14 +2,16 @@ import { useEffect, useState } from 'react'
 import { Button, Modal } from '@/components/common'
 import { StarRating } from '@/components/review'
 import { useStudyGroupStore } from '@/store'
-import { API_PATHS } from '@/constants'
+import { useReviewMutation } from '@/hooks/review'
 
 export function ReviewModal() {
-  const { selectedStudy, selectedReview, modal, closeModal, openReviewList } =
+  const { selectedStudy, selectedReview, modal, closeModal } =
     useStudyGroupStore()
 
   const [rating, setRating] = useState(0)
   const [content, setContent] = useState('')
+
+  const mutation = useReviewMutation(selectedStudy!.id)
 
   useEffect(() => {
     if (modal !== 'edit') return
@@ -24,21 +26,19 @@ export function ReviewModal() {
 
   if (!selectedStudy) return null
 
-  const handleSubmit = async () => {
-    const isEdit = Boolean(selectedReview)
-    const url = isEdit
-      ? API_PATHS.REVIEW.DETAIL(selectedStudy.id, selectedReview!.id)
-      : API_PATHS.REVIEW.LIST(selectedStudy.id)
-    const method = isEdit ? 'PATCH' : 'POST'
-
-    await fetch(url, {
-      method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ star_rating: rating, content }),
-    })
-
-    closeModal()
-    openReviewList(selectedStudy)
+  const handleSubmit = () => {
+    mutation.mutate(
+      {
+        reviewId: selectedReview?.id,
+        star_rating: rating,
+        content,
+      },
+      {
+        onSuccess: () => {
+          closeModal()
+        },
+      }
+    )
   }
 
   return (
@@ -91,10 +91,14 @@ export function ReviewModal() {
         <Button
           variant="primary"
           className="flex-1"
-          disabled={content.length === 0}
+          disabled={content.length === 0 || mutation.isPending}
           onClick={handleSubmit}
         >
-          {selectedReview ? '수정 완료' : '작성 완료'}
+          {mutation.isPending
+            ? '저장 중...'
+            : selectedReview
+              ? '수정 완료'
+              : '작성 완료'}
         </Button>
       </div>
     </Modal>
