@@ -1,5 +1,4 @@
 import { Layout } from '@/components/layout'
-import { useApiError } from '@/hooks'
 import {
   CreateStudyNotePage,
   DetailStudyNotePage,
@@ -11,12 +10,22 @@ import {
   StudyGroupPage,
   UnknownErrorPage,
 } from '@/pages'
-import { ErrorBoundary } from 'react-error-boundary'
+import { ApiError } from '@/utils'
+import { ErrorBoundary, type FallbackProps } from 'react-error-boundary'
 import { Route, Routes } from 'react-router'
 
-function ErrorFallback({ error }: { error: Error }) {
-  useApiError(error)
+function getErrorStatus(error: unknown): number | null {
+  if (error instanceof ApiError) return error.status
   return null
+}
+
+function ErrorFallback({ error }: FallbackProps) {
+  const status = getErrorStatus(error)
+
+  if (status === 404) return <NotFoundPage />
+  if (status === 500) return <ServerErrorPage />
+
+  return <UnknownErrorPage />
 }
 
 export function AppRoutes() {
