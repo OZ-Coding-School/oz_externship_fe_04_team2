@@ -30,7 +30,7 @@ export function ChatRoomPanel({
   ).length
 
   return (
-    <>
+    <div className="flex h-full flex-col">
       <ChatHeader
         title={roomName}
         onlineCount={onlineCount}
@@ -41,6 +41,6 @@ export function ChatRoomPanel({
       <ChatParticipants members={participants} />
       <ChatMessageList messages={messages} currentUserId={currentUserId} />
       <ChatRoomInput onSend={onSend} />
-    </>
+    </div>
   )
 }
