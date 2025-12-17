@@ -1,48 +1,36 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
 import { ApiError } from '@/utils'
 
-export type ApiErrorAction =
-  | { type: 'redirect'; to: string }
-  | { type: 'back' }
-  | { type: 'render' }
+const LOGIN_URL = 'https://account.ozcoding.site/login'
 
 export function useApiError(error: unknown) {
   const navigate = useNavigate()
-
-  const action = useMemo<ApiErrorAction>(() => {
-    if (!(error instanceof ApiError)) {
-      return { type: 'render' }
-    }
-
-    if (error.status === 401) {
-      return { type: 'redirect', to: '/login' }
-    }
-
-    if (error.status === 403) {
-      return { type: 'back' }
-    }
-
-    return { type: 'render' }
-  }, [error])
 
   useEffect(() => {
     if (!(error instanceof ApiError)) return
 
     if (error.status === 401) {
       toast.error('로그인이 필요합니다')
-      navigate('/login', { replace: true })
+      window.location.replace(LOGIN_URL)
+      return
     }
 
     if (error.status === 403) {
       toast.error('접근 권한이 없습니다')
       navigate(-1)
     }
-  }, [error, navigate])
 
-  return {
-    isRenderable: action.type === 'render',
-    status: error instanceof ApiError ? error.status : null,
-  }
+    if (error.status === 404) {
+      navigate('/error/404', { replace: true })
+      return
+    }
+
+    if (error.status >= 500) {
+      navigate('/error/500', { replace: true })
+    }
+
+    navigate('/error', { replace: true })
+  }, [error, navigate])
 }

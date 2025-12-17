@@ -1,30 +1,30 @@
-import { NotFound, PageError } from '@/components/fallback-ui'
 import { Layout } from '@/components/layout'
+import { useApiError } from '@/hooks'
 import {
   CreateStudyNotePage,
   DetailStudyNotePage,
   EditStudyNotePage,
+  NotFoundPage,
+  ServerErrorPage,
   StudyDetailPage,
   StudyGroupFormPage,
   StudyGroupPage,
+  UnknownErrorPage,
 } from '@/pages'
 import { ErrorBoundary } from 'react-error-boundary'
-
 import { Route, Routes } from 'react-router'
+
+function ErrorFallback({ error }: { error: Error }) {
+  useApiError(error)
+  return null
+}
 
 export function AppRoutes() {
   return (
     <Routes>
       <Route
         element={
-          <ErrorBoundary
-            fallbackRender={({ error, resetErrorBoundary }) => (
-              <PageError
-                error={error}
-                resetErrorBoundary={resetErrorBoundary}
-              />
-            )}
-          >
+          <ErrorBoundary fallbackRender={ErrorFallback}>
             <Layout />
           </ErrorBoundary>
         }
@@ -45,7 +45,11 @@ export function AppRoutes() {
           path="/:groupId/notes/:noteId/edit"
           element={<EditStudyNotePage />}
         />
-        <Route path="*" element={<NotFound />} />
+        <Route path="/error">
+          <Route path="/error/404" element={<NotFoundPage />} />
+          <Route path="/error/500" element={<ServerErrorPage />} />
+          <Route index element={<UnknownErrorPage />} />
+        </Route>
       </Route>
     </Routes>
   )
