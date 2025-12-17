@@ -17,10 +17,8 @@ export function useInfiniteChatMessages(groupId: number | string) {
         cursor: pageParam,
         page_size: 20,
       }),
-    // 히스토리 로드
     getPreviousPageParam: (firstPage) => getCursor(firstPage.previous),
-    // 타입 방지
-    getNextPageParam: () => undefined,
+    getNextPageParam: (lastPage) => getCursor(lastPage.next),
   })
 
   const messages: ChatMessage[] =
