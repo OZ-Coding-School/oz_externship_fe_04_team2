@@ -26,19 +26,21 @@ export function StudyCardThumbnail({
       />
       <span
         className={cn(
-          'absolute top-3 left-3 rounded-full px-2 py-1 text-xs font-bold text-white',
+          'absolute top-3 left-3 rounded-full px-2 py-1 text-xs font-medium text-white',
           statusColor
         )}
       >
         {statusBadge}
       </span>
       {roleBadge && (
-        <span className="bg-primary-400 absolute top-3 right-3 rounded-full px-2 py-1 text-xs font-bold text-white">
+        <span className="bg-primary-400 absolute top-3 right-3 rounded-full px-2 py-1 text-xs font-medium text-white">
           {roleBadge}
         </span>
       )}
       <div className="text-custom-gray-900 absolute bottom-3 left-3 flex items-center gap-1 rounded-full bg-white/60 px-3 py-1 backdrop-blur-sm">
-        <span>{memberCount}</span>
+        <span className="text-custom-gray-900 text-sm font-medium">
+          {memberCount}
+        </span>
       </div>
     </div>
   )
