@@ -35,7 +35,7 @@ export async function updateLastReadMessage(
   memberId: number | string
 ): Promise<{ detail: string }> {
   const response = await axiosInstance.post<{ detail: string }>(
-    API_PATHS.CHAT.READ(groupId, memberId)
+    API_PATHS.CHAT.MEMBER_READ(groupId, memberId)
   )
   return response.data
 }

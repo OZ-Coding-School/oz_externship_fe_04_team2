@@ -7,10 +7,17 @@ export const API_PATHS = {
   },
   CHAT: {
     ROOMS: '/api/v1/chatrooms',
+    ROOM: (groupId: number | string) => `/api/v1/chatrooms/${groupId}`,
     MESSAGES: (group_id: number | string) =>
       `/api/v1/chatrooms/${group_id}/messages`,
-    READ: (group_id: number | string, member_id: number | string) =>
+    CREATE_MESSAGE: (groupId: number | string) =>
+      `/api/v1/chatrooms/${groupId}/messages/create`,
+    MEMBER_READ: (group_id: number | string, member_id: number | string) =>
       `/api/v1/chatrooms/${group_id}/members/${member_id}/read`,
+    ROOM_READ: (groupId: number | string) =>
+      `/api/v1/chatrooms/${groupId}/read`,
+    MESSAGE_DETAIL: (messageId: number | string) =>
+      `/api/v1/messages/${messageId}`,
   },
   REVIEW: {
     MSW_LIST: '/api/v1/study-groups/:groupId/reviews',
