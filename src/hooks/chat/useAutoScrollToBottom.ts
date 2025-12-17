@@ -6,7 +6,7 @@ interface AutoScrollToBottomOptions {
   behavior?: ScrollBehavior
 }
 
-// 메시지 개수 변경 시 메시지 영역을 하단으로 자동 스크롤하는 훅
+// 메시지 변경 시 하단 자동 스크롤 훅 (초기 1회는 무조건 하단 + 조건부)
 export function useAutoScrollToBottom(
   messageCount: number,
   options: AutoScrollToBottomOptions = {}
@@ -15,6 +15,7 @@ export function useAutoScrollToBottom(
 
   const containerRef = useRef<HTMLDivElement>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
+  const isFirstScroll = useRef(true)
 
   // 현재 스크롤 위치가 하단 근처인지 판단
   const isAtBottom = useCallback(() => {
@@ -34,8 +35,17 @@ export function useAutoScrollToBottom(
     [behavior]
   )
 
-  // 메시지 변경 시 하단 자동 스크롤
   useEffect(() => {
+    if (messageCount === 0) return
+
+    // 첫 데이터 로드 시에는 즉시 하단 이동
+    if (isFirstScroll.current) {
+      scrollToBottom('auto')
+      isFirstScroll.current = false
+      return
+    }
+
+    // 이후엔 사용자가 하단 근처일 때만 자동 스크롤
     if (onlyIfAtBottom && !isAtBottom()) return
     scrollToBottom()
   }, [messageCount, onlyIfAtBottom, isAtBottom, scrollToBottom])
