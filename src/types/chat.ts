@@ -42,6 +42,7 @@ export interface ChatMessage {
   }
   content: string
   created_at: string
+  is_read: boolean
 }
 
 export interface ChatParticipant {

@@ -11,6 +11,7 @@ export const mockChatMessages: Record<number, ChatMessage[]> = {
       },
       content: '안녕하세요! 스터디 시작해볼까요?',
       created_at: '2025-01-15T09:00:00',
+      is_read: true,
     },
     {
       id: 2,
@@ -21,6 +22,7 @@ export const mockChatMessages: Record<number, ChatMessage[]> = {
       },
       content: '네, 좋습니다! 오늘 진도는 어디까지 할 예정인가요?',
       created_at: '2025-01-15T09:05:00',
+      is_read: true,
     },
     {
       id: 3,
@@ -31,6 +33,7 @@ export const mockChatMessages: Record<number, ChatMessage[]> = {
       },
       content: 'React hooks 부분까지 해보려고 합니다',
       created_at: '2025-01-15T09:10:00',
+      is_read: true,
     },
     {
       id: 4,
@@ -41,6 +44,7 @@ export const mockChatMessages: Record<number, ChatMessage[]> = {
       },
       content: '좋네요! 저도 준비해왔습니다',
       created_at: '2025-01-15T09:15:00',
+      is_read: true,
     },
     {
       id: 5,
@@ -51,6 +55,7 @@ export const mockChatMessages: Record<number, ChatMessage[]> = {
       },
       content: '그럼 시작해볼까요? 화면 공유 준비됐나요?',
       created_at: '2025-01-15T09:20:00',
+      is_read: true,
     },
     {
       id: 6,
@@ -61,6 +66,7 @@ export const mockChatMessages: Record<number, ChatMessage[]> = {
       },
       content: '네, 준비 완료입니다!',
       created_at: '2025-01-15T09:22:00',
+      is_read: true,
     },
     {
       id: 7,
@@ -71,6 +77,7 @@ export const mockChatMessages: Record<number, ChatMessage[]> = {
       },
       content: '내일 미팅 시간 변경 가능하신가요?',
       created_at: '2025-01-15T14:30:00',
+      is_read: true,
     },
   ],
   2: [],
