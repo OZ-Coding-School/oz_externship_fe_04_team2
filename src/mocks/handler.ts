@@ -1,12 +1,12 @@
 import { MSW_BASE_URL } from '@/constants'
 import {
+  authHandlers,
   chatHandlers,
   lectureHandlers,
   noteHandlers,
   reviewHandlers,
   scheduleHandlers,
   studygroupHandlers,
-  userInformationHandler,
 } from '@/mocks/handlers'
 import { studygroupDetailHandlers } from '@/mocks/handlers/studygroup-details-handler'
 import { http, HttpResponse } from 'msw'
@@ -24,5 +24,5 @@ export const handlers = [
   ...scheduleHandlers,
   ...studygroupHandlers,
   ...studygroupDetailHandlers,
-  ...userInformationHandler,
+  ...authHandlers,
 ]
