@@ -6,6 +6,9 @@ export const API_PATHS = {
     GET: '/api/v1/accounts/me',
     REFRESH_TOKEN: '/api/v1/accounts/token/refresh',
   },
+  LOGOUT: {
+    POST: '/api/v1/accounts/logout',
+  },
   CHAT: {
     ROOMS: '/api/v1/chatrooms',
     ROOM: (groupId: number | string) => `/api/v1/chatrooms/${groupId}`,
@@ -30,6 +33,7 @@ export const API_PATHS = {
   },
   STUDYGROUP: {
     LIST: `/api/v1/study-groups`,
+    CREATE: `/api/v1/study-groups`,
     LECTURES: `api/v1/lectures`,
     DETAIL: (groupId: number | string) => `/api/v1/study-groups/${groupId}`,
     DELEGATE_LEADER: (groupId: number | string) =>
