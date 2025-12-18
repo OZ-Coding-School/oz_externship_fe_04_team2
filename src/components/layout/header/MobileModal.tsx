@@ -9,6 +9,7 @@ import {
   Users,
   XIcon,
 } from 'lucide-react'
+import { EXTERNAL_LINKS } from '@/constants'
 
 interface MobileModalProps {
   setIsModalOpen: (value: boolean) => void
@@ -17,6 +18,7 @@ interface MobileModalProps {
 export function MobileModal({ setIsModalOpen }: MobileModalProps) {
   const loginState = LoginStateStore((state) => state.loginState)
   const { data } = useUserData()
+
   return (
     <div className="fixed top-0 left-0 z-10 h-screen w-[263px] bg-white pt-4 md:hidden">
       <div className="border-custom-gray-200 border-b border-solid">
@@ -34,17 +36,17 @@ export function MobileModal({ setIsModalOpen }: MobileModalProps) {
         </span>
         <div className="flex h-[48px] items-center gap-3">
           <BookIcon className="text-custom-gray-600 h-5 w-5" />
-          <a href="">강의 목록</a>
+          <a href={EXTERNAL_LINKS.LECTURES}>강의 목록</a>
           {/* 강의목록 페이지로 렌더링 */}
         </div>
         <div className="flex h-[48px] items-center gap-3">
           <Users className="text-custom-gray-600 h-5 w-5" />
-          <a href="">스터디 그룹</a>
+          <a href="/">스터디 그룹</a>
           {/* 로그인 화면으로 렌더링 */}
         </div>
         <div className="flex h-[48px] items-center gap-3">
           <MegaphoneIcon className="text-custom-gray-600 h-5 w-5" />
-          <a href="">구인 광고</a>
+          <a href={EXTERNAL_LINKS.RECRUITMENT}>구인 광고</a>
           {/* 구인광고 페이지로 렌더링 */}
         </div>
       </div>
@@ -68,12 +70,14 @@ export function MobileModal({ setIsModalOpen }: MobileModalProps) {
               {/* 추후 api 연동으로 이름 및 이메일 불러오게 */}
             </div>
           </div>
-          <button className="bg-primary-100 centralize cursor-pointer gap-[13px] rounded-lg px-4 py-2">
-            <UserRound className="text-primary-600 h-5 w-5" />
-            <span className="text- text-primary-600 text-base font-medium">
-              마이페이지
-            </span>
-          </button>
+          <a href={EXTERNAL_LINKS.MY_PAGE}>
+            <button className="bg-primary-100 centralize cursor-pointer gap-[13px] rounded-lg px-4 py-2">
+              <UserRound className="text-primary-600 h-5 w-5" />
+              <span className="text- text-primary-600 text-base font-medium">
+                마이페이지
+              </span>
+            </button>
+          </a>
           <button className="bg-custom-gray-100 centralize cursor-pointer gap-[13px] rounded-lg px-4 py-2">
             <LogOutIcon className="text-custom-gray-600 h-5 w-5" />
             <span className="text-custom-gray-700 text-base font-medium">

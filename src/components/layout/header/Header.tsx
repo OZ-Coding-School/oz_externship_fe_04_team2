@@ -3,7 +3,7 @@ import { LoginStateStore } from '@/store'
 import { Guest, MobileModal, User } from '@/components/layout'
 import { Menu } from 'lucide-react'
 import { useNavigate } from 'react-router'
-import { ROUTE_PATHS } from '@/constants'
+import { EXTERNAL_LINKS } from '@/constants'
 
 interface HeaderProps {
   isSideBarOpen: boolean
@@ -27,12 +27,12 @@ export function Header({ isSideBarOpen, setIsSideBarOpen }: HeaderProps) {
             src={logoImg}
             alt="logoImg"
             className="h-8 w-8 cursor-pointer"
-            onClick={() => navigate(ROUTE_PATHS.HOME)}
+            onClick={() => navigate(EXTERNAL_LINKS.MAIN_PAGE)}
           />
         </div>
         <div
           className="hidden md:flex md:cursor-pointer md:items-center md:gap-2"
-          onClick={() => navigate(ROUTE_PATHS.HOME)}
+          onClick={() => navigate(EXTERNAL_LINKS.MAIN_PAGE)}
         >
           <img src={logoImg} alt="logoImg" className="flex h-8 w-8" />
           <h2 className="text-primary-500 text-2xl font-bold">StudyHub</h2>

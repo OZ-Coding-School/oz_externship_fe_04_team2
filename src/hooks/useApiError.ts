@@ -2,8 +2,7 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { toast } from 'react-toastify'
 import { ApiError } from '@/utils'
-
-const LOGIN_URL = 'https://account.ozcoding.site/login'
+import { EXTERNAL_LINKS } from '@/constants'
 
 export function useApiError(error: unknown) {
   const navigate = useNavigate()
@@ -13,7 +12,7 @@ export function useApiError(error: unknown) {
 
     if (error.status === 401) {
       toast.error('로그인이 필요합니다')
-      window.location.replace(LOGIN_URL)
+      window.location.replace(EXTERNAL_LINKS.LOGIN)
     }
 
     if (error.status === 403) {
