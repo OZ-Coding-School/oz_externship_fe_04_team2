@@ -4,6 +4,7 @@ export const API_PATHS = {
   USER: {
     // 유저 정보를 가져오는 api
     GET: '/api/v1/accounts/me',
+    REFRESH_TOKEN: '/api/v1/accounts/token/refresh',
   },
   CHAT: {
     ROOMS: '/api/v1/chatrooms',
