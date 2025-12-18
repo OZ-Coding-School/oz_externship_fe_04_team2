@@ -5,6 +5,7 @@ import {
   useChatRooms,
   useChatSocket,
 } from '@/hooks'
+import { mockChatMessages } from '@/mocks/data'
 import { useChatStore } from '@/store'
 import AuthStateStore from '@/store/authStateStore'
 import { MessageCircle, X } from 'lucide-react'
@@ -17,7 +18,6 @@ export function ChatWidget() {
     toggleOpen,
     openGroup,
     openList,
-    currentUserId,
   } = useChatStore()
 
   useBodyScrollLock(isOpen)
@@ -32,12 +32,31 @@ export function ChatWidget() {
       : null
 
   const isRoomView = currentView === 'room' && !!selectedRoom
-  const isLoggedIn = !!accessToken && currentUserId !== null
 
-  const socketEnabled = isOpen && isRoomView && isLoggedIn
+  // 테스트용
+  const isLoggedIn = true
+  const currentUserId = 1
+
+  const mockParticipants = selectedGroupId
+    ? Array.from(
+        new Map(
+          (mockChatMessages[selectedGroupId] ?? []).map((msg) => [
+            msg.sender.id,
+            {
+              id: msg.sender.id,
+              nickname: msg.sender.nickname,
+              profile_img_url: msg.sender.profile_img_url,
+              is_online: true,
+            },
+          ])
+        ).values()
+      )
+    : []
+
+  const socketEnabled = false
   const canRenderRoom = isRoomView && isLoggedIn
 
-  const { status, participants, messages, sendMessage } = useChatSocket({
+  const { status, sendMessage } = useChatSocket({
     groupId: selectedGroupId ?? 0,
     accessToken,
     enabled: socketEnabled,
@@ -87,12 +106,12 @@ export function ChatWidget() {
           )}
 
           {/* 채팅방 View */}
-          {canRenderRoom && status === SocketStatus.OPEN && (
+          {canRenderRoom && selectedRoom && (
             <ChatRoomPanel
+              groupId={selectedGroupId!}
               roomName={selectedRoom.name}
-              participants={participants}
-              messages={messages}
-              currentUserId={currentUserId!}
+              participants={mockParticipants}
+              currentUserId={currentUserId}
               onClose={toggleOpen}
               onSend={sendMessage}
               onBack={openList}

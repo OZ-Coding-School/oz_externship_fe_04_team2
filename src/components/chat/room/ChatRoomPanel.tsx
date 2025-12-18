@@ -4,12 +4,13 @@ import {
   ChatParticipants,
   ChatRoomInput,
 } from '@/components/chat'
-import type { ChatMessage, ChatParticipant } from '@/types'
+import { useInfiniteChatMessages } from '@/hooks'
+import type { ChatParticipant } from '@/types'
 
 interface ChatRoomPanelProps {
+  groupId: number
   roomName: string
   participants: ChatParticipant[]
-  messages: ChatMessage[]
   currentUserId: number
   onClose: () => void
   onSend: (message: string) => void
@@ -17,14 +18,17 @@ interface ChatRoomPanelProps {
 }
 
 export function ChatRoomPanel({
+  groupId,
   roomName,
   participants,
-  messages,
   currentUserId,
   onClose,
   onSend,
   onBack,
 }: ChatRoomPanelProps) {
+  const { messages, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteChatMessages(groupId)
+
   const onlineCount = participants.filter(
     (participant) => participant.is_online
   ).length
@@ -39,7 +43,13 @@ export function ChatRoomPanel({
         showBackButton
       />
       <ChatParticipants members={participants} />
-      <ChatMessageList messages={messages} currentUserId={currentUserId} />
+      <ChatMessageList
+        messages={messages}
+        currentUserId={currentUserId}
+        onLoadMore={fetchNextPage}
+        hasMore={hasNextPage}
+        isLoadingMore={isFetchingNextPage}
+      />
       <ChatRoomInput onSend={onSend} />
     </div>
   )

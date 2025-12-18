@@ -14,13 +14,22 @@ export const getChatListHandler = http.get(API_PATHS.CHAT.ROOMS, () => {
 // 특정 채팅방 메시지 목록
 export const getChatMessagesHandler = http.get(
   API_PATHS.CHAT.MESSAGES(':groupId'),
-  ({ params }) => {
+  ({ params, request }) => {
     const groupId = Number(params.groupId)
+    const url = new URL(request.url)
+    const cursor = url.searchParams.get('cursor')
+    const pageSize = Number(url.searchParams.get('page_size')) || 10
+
+    const allMessages = mockChatMessages[groupId] ?? []
+    const end = cursor ? Number(cursor) : allMessages.length
+    const start = Math.max(0, end - pageSize)
 
     return HttpResponse.json({
-      next: null,
+      next: start
+        ? `http://localhost/api/v1/chatrooms/${groupId}/messages?cursor=${start}`
+        : null,
       previous: null,
-      results: mockChatMessages[groupId] ?? [],
+      results: allMessages.slice(start, end),
     })
   }
 )

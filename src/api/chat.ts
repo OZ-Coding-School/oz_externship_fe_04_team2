@@ -3,7 +3,6 @@ import { API_PATHS } from '@/constants'
 import type { ChatMessageResponse, ChatRoomListResponse } from '@/types/chat'
 
 // 채팅방 목록 조회
-// GET /api/v1/chatrooms
 export async function fetchChatRooms(params?: {
   cursor?: string
   page_size?: number
@@ -15,8 +14,13 @@ export async function fetchChatRooms(params?: {
   return response.data
 }
 
+// 채팅방 정보 조회
+export async function fetchChatRoom(groupId: number | string) {
+  const response = await axiosInstance.get(API_PATHS.CHAT.ROOM(groupId))
+  return response.data
+}
+
 // 특정 채팅방의 메시지 내역
-// GET /api/v1/chatrooms/{group_id}/messages
 export async function fetchChatMessages(
   groupId: number | string,
   params?: { cursor?: string; page_size?: number }
@@ -28,14 +32,39 @@ export async function fetchChatMessages(
   return response.data
 }
 
-// 마지막으로 읽은 메시지 기록 업데이트
-// POST /api/v1/chatroom/{group_id}/members/{member_id}/read
+// 메시지 생성
+export async function createChatMessage(
+  groupId: number | string,
+  content: string
+) {
+  const response = await axiosInstance.post(
+    API_PATHS.CHAT.CREATE_MESSAGE(groupId),
+    { content }
+  )
+  return response.data
+}
+
+// 멤버별 읽음 처리
 export async function updateLastReadMessage(
   groupId: number | string,
   memberId: number | string
 ): Promise<{ detail: string }> {
   const response = await axiosInstance.post<{ detail: string }>(
-    API_PATHS.CHAT.READ(groupId, memberId)
+    API_PATHS.CHAT.MEMBER_READ(groupId, memberId)
+  )
+  return response.data
+}
+
+// 채팅방 읽음 처리 (내 읽음)
+export async function markChatRoomAsRead(groupId: number | string) {
+  const response = await axiosInstance.post(API_PATHS.CHAT.ROOM_READ(groupId))
+  return response.data
+}
+
+// 메시지 상세 조회
+export async function fetchChatMessageDetail(messageId: number | string) {
+  const response = await axiosInstance.get(
+    API_PATHS.CHAT.MESSAGE_DETAIL(messageId)
   )
   return response.data
 }
