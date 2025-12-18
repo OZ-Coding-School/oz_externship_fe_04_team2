@@ -44,13 +44,16 @@ axiosInstance.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${newToken}`
 
         return axiosInstance(originalRequest)
-      } catch {
+      } catch (refreshError) {
         // 갱신 실패 시 토큰 제거
         AuthStateStore.getState().clearAuth()
         LoginStateStore.getState().setLoginState('GUEST')
-        window.location.href = EXTERNAL_LINKS.LOGIN
 
-        return Promise.reject(error)
+        // 개발환경에서는 리다이렉트 안 함
+        if (!IS_DEV) {
+          window.location.href = EXTERNAL_LINKS.LOGIN
+        }
+        return Promise.reject(refreshError)
       }
     }
 

@@ -1,8 +1,10 @@
 import { API_BASE_URL, API_PATHS } from '@/constants'
 import axios from 'axios'
 
+const IS_DEV = import.meta.env.MODE === 'development'
+
 const refreshClient = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: IS_DEV ? '' : API_BASE_URL,
   withCredentials: true,
   headers: { 'Content-Type': 'application/json' },
 })
