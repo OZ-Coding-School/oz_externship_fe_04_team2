@@ -17,12 +17,15 @@ export function useInfiniteChatMessages(groupId: number | string) {
         cursor: pageParam,
         page_size: 20,
       }),
-    getPreviousPageParam: (firstPage) => getCursor(firstPage.previous),
+    // next가 과거 (위로 스크롤)
     getNextPageParam: (lastPage) => getCursor(lastPage.next),
   })
 
   const messages: ChatMessage[] =
-    query.data?.pages.flatMap((page) => page.results) ?? []
+    query.data?.pages
+      ?.slice()
+      .reverse()
+      .flatMap((page) => page.results) ?? []
 
   return {
     ...query,
