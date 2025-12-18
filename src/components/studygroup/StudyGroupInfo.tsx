@@ -2,24 +2,15 @@ import { Input } from '@/components/common'
 import { MarkdownEditor } from '@/components/markdown'
 import { ImageUploader } from '@/components/studygroup'
 import type { StudyGroupForm } from '@/schema'
-import {
-  Controller,
-  type UseFormRegister,
-  type Control,
-  type FieldErrors,
-} from 'react-hook-form'
+import { Controller, useFormContext } from 'react-hook-form'
 
-interface StudyGroupInfoProps {
-  register: UseFormRegister<StudyGroupForm>
-  control: Control<StudyGroupForm>
-  errors: FieldErrors<StudyGroupForm>
-}
+export function StudyGroupInfo() {
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = useFormContext<StudyGroupForm>()
 
-export function StudyGroupInfo({
-  register,
-  control,
-  errors,
-}: StudyGroupInfoProps) {
   return (
     <section className="border-custom-gray-200 flex w-full flex-col gap-6 rounded-xl border bg-white p-8">
       <h1 className="text-xl font-bold">기본 정보</h1>

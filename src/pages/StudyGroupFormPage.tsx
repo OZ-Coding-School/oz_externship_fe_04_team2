@@ -5,13 +5,16 @@ import {
   StudyGroupLectures,
   StudyGroupMemberSlider,
 } from '@/components/studygroup'
-import { studyGroupSchema, type StudyGroupForm } from '@/schema'
-import { FormProvider, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { API_PATHS } from '@/constants'
-import { useNavigate, useParams } from 'react-router'
+import {
+  useCreateStudyGroup,
+  useStudyGroupDetail,
+  useUpdateStudyGroup,
+} from '@/hooks/study-group'
+import { studyGroupSchema, type StudyGroupForm } from '@/schema'
 import { useEffect } from 'react'
-import { toast } from 'react-toastify'
+import { FormProvider, useForm } from 'react-hook-form'
+import { useNavigate, useParams } from 'react-router'
 
 export function StudyGroupFormPage() {
   const navigate = useNavigate()
@@ -31,59 +34,35 @@ export function StudyGroupFormPage() {
     },
   })
 
+  const { reset } = methods
+
+  const { data: detail } = useStudyGroupDetail(groupId!)
+
   useEffect(() => {
-    if (!isEdit) return
+    if (!detail) return
 
-    const fetchDetail = async () => {
-      const res = await fetch(`${API_PATHS.STUDYGROUP.DETAIL(groupId!)}`)
-      const data = await res.json()
+    reset({
+      name: detail.name,
+      introduction: detail.introduction,
+      start_at: detail.start_at,
+      end_at: detail.end_at,
+      max_headcount: detail.max_headcount,
+      profile_img_url: detail.profile_img_url ?? undefined,
+      lectures: detail.lectures.map((lecture) => lecture.id),
+    })
+  }, [detail, reset])
 
-      methods.reset({
-        name: data.name,
-        introduction: data.introduction,
-        start_at: data.start_at,
-        end_at: data.end_at,
-        max_headcount: data.max_headcount,
-        profile_img_url: data.profile_img_url,
-        lectures: data.lectures,
-      })
-    }
+  const { mutate: createStudy, isPending: isCreating } = useCreateStudyGroup()
 
-    fetchDetail()
-  }, [isEdit, groupId, methods])
+  const { mutate: updateStudy, isPending: isUpdating } = useUpdateStudyGroup(
+    groupId!
+  )
 
-  const {
-    handleSubmit,
-    control,
-    register,
-    formState: { errors },
-  } = methods
-
-  const onSubmit = handleSubmit(async (data) => {
-    try {
-      const res = await fetch(
-        isEdit
-          ? API_PATHS.STUDYGROUP.DETAIL(groupId!)
-          : API_PATHS.STUDYGROUP.LIST,
-        {
-          method: isEdit ? 'PATCH' : 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data),
-        }
-      )
-
-      if (!res.ok) {
-        throw new Error('스터디 그룹 생성 실패')
-      }
-
-      navigate('/')
-    } catch (err) {
-      console.error(err)
-      toast.error(
-        isEdit
-          ? '에러 발생! 스터디 그룹 수정에 실패했습니다.'
-          : '에러 발생! 스터디 그룹 생성에 실패했습니다.'
-      )
+  const onSubmit = methods.handleSubmit((formData) => {
+    if (isEdit) {
+      updateStudy(formData)
+    } else {
+      createStudy(formData)
     }
   })
 
@@ -101,14 +80,19 @@ export function StudyGroupFormPage() {
               : '함께 공부할 멤버들과 스터디 그룹을 시작해보세요'
           }
         />
-        <StudyGroupInfo register={register} control={control} errors={errors} />
-        <StudyGroupMemberSlider control={control} errors={errors} />
-        <StudyGroupLectures control={control} errors={errors} />
+        <StudyGroupInfo />
+        <StudyGroupMemberSlider />
+        <StudyGroupLectures />
         <div className="flex w-full justify-end gap-4">
           <Button variant="outline" onClick={() => navigate(-1)}>
             취소
           </Button>
-          <Button variant="primary" className="px-8" type="submit">
+          <Button
+            variant="primary"
+            className="px-8"
+            type="submit"
+            disabled={isCreating || isUpdating}
+          >
             {isEdit ? '수정 완료' : '스터디 그룹 만들기'}
           </Button>
         </div>

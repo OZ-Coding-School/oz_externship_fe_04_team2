@@ -3,23 +3,14 @@ import { Button, RangeSlider } from '@/components/common'
 import { Calendar, Users } from 'lucide-react'
 import { DatePickerModal } from '@/components/date-picker'
 import type { StudyGroupForm } from '@/schema'
-import {
-  Controller,
-  useFormContext,
-  useWatch,
-  type Control,
-  type FieldErrors,
-} from 'react-hook-form'
+import { Controller, useFormContext, useWatch } from 'react-hook-form'
 
-interface StudyGroupMemberSliderProps {
-  control: Control<StudyGroupForm>
-  errors: FieldErrors<StudyGroupForm>
-}
-export function StudyGroupMemberSlider({
-  control,
-  errors,
-}: StudyGroupMemberSliderProps) {
-  const { setValue } = useFormContext()
+export function StudyGroupMemberSlider() {
+  const {
+    control,
+    setValue,
+    formState: { errors },
+  } = useFormContext<StudyGroupForm>()
 
   const startDate = useWatch({ control, name: 'start_at' })
   const endDate = useWatch({ control, name: 'end_at' })
