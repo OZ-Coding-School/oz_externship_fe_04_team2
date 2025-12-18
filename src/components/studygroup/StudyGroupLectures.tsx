@@ -1,24 +1,21 @@
-import { Book, Plus, X } from 'lucide-react'
 import { Button } from '@/components/common'
-import { useState } from 'react'
-import { useLectures } from '@/hooks/useLectures'
-import type { StudyGroupLectureSelectionType } from '@/types'
-import type { StudyGroupForm } from '@/schema'
 import {
   LectureSelectionModal,
   SelectableLectureCard,
 } from '@/components/studygroup'
-import { Controller, type Control, type FieldErrors } from 'react-hook-form'
+import { useLectures } from '@/hooks/useLectures'
+import type { StudyGroupForm } from '@/schema'
+import type { StudyGroupLectureSelectionType } from '@/types'
+import { Book, Plus, X } from 'lucide-react'
+import { useState } from 'react'
+import { Controller, useFormContext } from 'react-hook-form'
 
-interface StudyGroupLecturesProps {
-  control: Control<StudyGroupForm>
-  errors: FieldErrors<StudyGroupForm>
-}
+export function StudyGroupLectures() {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext<StudyGroupForm>()
 
-export function StudyGroupLectures({
-  control,
-  errors,
-}: StudyGroupLecturesProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { data: allLectures } = useLectures()
 
