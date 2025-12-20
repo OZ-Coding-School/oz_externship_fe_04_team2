@@ -49,3 +49,9 @@ export function formatMinutesToHHMM(minutes: number): string {
   const paddedMinutes = String(mins).padStart(2, '0')
   return `${paddedHours}:${paddedMinutes}`
 }
+
+// HH:mm to minutes
+export function timeToMinutes(time: string) {
+  const [h, m] = time.split(':').map(Number)
+  return h * 60 + m
+}
