@@ -56,7 +56,7 @@ export function ScheduleCreateModal({
       isOpen={isOpen}
       onClose={onClose}
       title="새 스케줄 추가"
-      wrapperClassName="w-screen rounded-none sm:rounded-xl sm:w-[70vw] sm:max-w-[673px] h-screen h-dvh sm:h-auto sm:max-h-[80vh] p-0 m-0"
+      wrapperClassName="w-screen rounded-none sm:rounded-xl lg:max-w-[673px] sm:max-w-[520px] md:max-w-[600px] h-dvh sm:h-auto max-h-none p-0 m-0 md:max-h-[80vh] sm:w-full sm:mx-6 sm:my-10"
       innerClassName="mb-0 p-6 justify-start"
       titleClassName="p-6 border-b border-custom-gray-200"
     >
