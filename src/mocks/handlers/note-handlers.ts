@@ -1,3 +1,4 @@
+import { MSW_BASE_URL } from '@/constants'
 import {
   mockNoteAuthors,
   mockNotes,
@@ -24,7 +25,7 @@ const getNextFileId = () => fileIdCounter++
 
 // 노트 목록 조회
 export const getStudyNotesHandler = http.get(
-  '/api/v1/study-groups/:groupId/notes',
+  `${MSW_BASE_URL}/api/v1/study-groups/:groupId/notes`,
   ({ params, request }) => {
     const { groupId } = params
     const url = new URL(request.url)
@@ -71,7 +72,7 @@ export const getStudyNotesHandler = http.get(
 
 // 노트 상세 조회
 export const getStudyNoteDetailHandler = http.get(
-  '/api/v1/study-groups/:groupId/notes/:noteId',
+  `${MSW_BASE_URL}/api/v1/study-groups/:groupId/notes/:noteId`,
   ({ params }) => {
     const { groupId, noteId } = params
     const groupIdNumber = Number(groupId)
@@ -96,7 +97,7 @@ export const getStudyNoteDetailHandler = http.get(
 
 // 노트 생성
 export const createStudyNoteHandler = http.post(
-  '/api/v1/study-groups/:groupId/notes',
+  `${MSW_BASE_URL}/api/v1/study-groups/:groupId/notes`,
   async ({ request, params }) => {
     const { groupId } = params
     const body = (await request.json()) as CreateStudyNoteRequestType
@@ -135,7 +136,7 @@ export const createStudyNoteHandler = http.post(
 
 // 노트 수정
 export const updateStudyNoteHandler = http.patch(
-  '/api/v1/study-groups/:groupId/notes/:noteId',
+  `${MSW_BASE_URL}/api/v1/study-groups/:groupId/notes/:noteId`,
   async ({ request, params }) => {
     const { groupId, noteId } = params
     const groupIdNumber = Number(groupId)
@@ -188,7 +189,7 @@ export const updateStudyNoteHandler = http.patch(
 
 // 노트 삭제
 export const deleteStudyNoteHandler = http.delete(
-  '/api/v1/study-groups/:groupId/notes/:noteId',
+  `${MSW_BASE_URL}/api/v1/study-groups/:groupId/notes/:noteId`,
   ({ params }) => {
     const { groupId, noteId } = params
     const groupIdNumber = Number(groupId)
