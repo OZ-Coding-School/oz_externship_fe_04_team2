@@ -1,13 +1,11 @@
 import { refreshAccessToken } from '@/api/auth/login'
-import { API_BASE_URL, EXTERNAL_LINKS } from '@/constants'
+import { API_BASE_URL } from '@/constants'
 import { LoginStateStore } from '@/store'
 import AuthStateStore from '@/store/authStateStore'
 import axios from 'axios'
 
-const IS_DEV = import.meta.env.MODE === 'development'
-
 export const axiosInstance = axios.create({
-  baseURL: IS_DEV ? '' : API_BASE_URL,
+  baseURL: API_BASE_URL,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
@@ -49,10 +47,6 @@ axiosInstance.interceptors.response.use(
         AuthStateStore.getState().clearAuth()
         LoginStateStore.getState().setLoginState('GUEST')
 
-        // 개발환경에서는 리다이렉트 안 함
-        if (!IS_DEV) {
-          window.location.href = EXTERNAL_LINKS.LOGIN
-        }
         return Promise.reject(refreshError)
       }
     }

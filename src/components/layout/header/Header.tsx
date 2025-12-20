@@ -3,6 +3,8 @@ import { LoginStateStore } from '@/store'
 import { Guest, MobileModal, User } from '@/components/layout'
 import { Menu } from 'lucide-react'
 import { EXTERNAL_LINKS } from '@/constants'
+import AuthStateStore from '@/store/authStateStore'
+import { devLogin } from '@/api/auth/devLogin'
 
 interface HeaderProps {
   isSideBarOpen: boolean
@@ -13,6 +15,23 @@ export function Header({ isSideBarOpen, setIsSideBarOpen }: HeaderProps) {
   const loginState = LoginStateStore((state) => state.loginState)
   const handleSideBar = () => {
     setIsSideBarOpen(!isSideBarOpen)
+  }
+
+  // API 연결 시 임시 버튼
+  const accessToken = AuthStateStore((state) => state.accessToken)
+
+  const handleDevLogin = async () => {
+    const token = await devLogin(
+      import.meta.env.VITE_DEV_EMAIL!,
+      import.meta.env.VITE_DEV_PASSWORD!
+    )
+    AuthStateStore.getState().setAccessToken(token)
+    LoginStateStore.getState().setLoginState('USER')
+  }
+
+  const handleDevLogout = () => {
+    AuthStateStore.getState().clearAuth()
+    LoginStateStore.getState().setLoginState('GUEST')
   }
 
   return (
@@ -35,6 +54,15 @@ export function Header({ isSideBarOpen, setIsSideBarOpen }: HeaderProps) {
             <h2 className="text-primary-500 text-2xl font-bold">StudyHub</h2>
           </div>
         </a>
+        {/* dev 전용 로그인 버튼 */}
+        {import.meta.env.DEV && (
+          <button
+            onClick={accessToken ? handleDevLogout : handleDevLogin}
+            className="rounded bg-red-500 px-2 py-1 text-xs text-white"
+          >
+            {accessToken ? 'DEVLOGOUT' : 'DEVLOGIN'}
+          </button>
+        )}
         {/* 로그인 하지 않았을때의 UI */}
         {loginState === 'GUEST' && <Guest />}
         {/* 로그인 했을때 UI */}
