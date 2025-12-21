@@ -20,10 +20,10 @@ export function BaseUploader({
 }: BaseUploaderProps) {
   const handleDrop = useCallback(
     (accepted: File[], rejected: FileRejection[]) => {
-      onDrop(accepted)
       if (rejected.length > 0 && onDropRejected) {
         onDropRejected(rejected)
       }
+      onDrop(accepted)
     },
     [onDrop, onDropRejected]
   )
