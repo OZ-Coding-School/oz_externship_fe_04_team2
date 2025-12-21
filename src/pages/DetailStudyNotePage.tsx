@@ -7,6 +7,7 @@ import {
 } from '@/components/studygroup-note'
 import { StudyNoteToggle } from '@/components/studygroup-note/StudyNoteToggle'
 import { useDeleteStudyNote, useStudyNoteDetail } from '@/hooks/study-note'
+import { showToast } from '@/lib'
 import { formatDateTime } from '@/utils'
 import { Bot, Paperclip, UserRound } from 'lucide-react'
 import { useState } from 'react'
@@ -29,11 +30,14 @@ export function DetailStudyNotePage() {
   const handleDelete = () => {
     deleteNote(Number(noteId), {
       onSuccess: () => {
+        showToast.success('삭제 완료', '스터디 기록이 삭제되었습니다.')
         navigate(`/${groupId}`)
+      },
+      onError: () => {
+        showToast.error('삭제 실패', '스터디 기록 삭제에 실패했습니다.')
       },
     })
   }
-
   if (!data) return null
 
   return (
