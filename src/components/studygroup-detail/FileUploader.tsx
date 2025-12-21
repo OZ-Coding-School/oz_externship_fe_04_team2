@@ -5,6 +5,8 @@ import { showToast } from '@/lib'
 import type { FileUploadItemType } from '@/types'
 import type { FileRejection } from 'react-dropzone'
 
+const MAX_BYTES = 10 * 1024 * 1024
+
 interface FileUploaderProps {
   value: FileUploadItemType[]
   onChange: (files: FileUploadItemType[]) => void
@@ -12,6 +14,17 @@ interface FileUploaderProps {
 
 export function FileUploader({ value, onChange }: FileUploaderProps) {
   const onDrop = (incoming: File[]) => {
+    const currentSize = value.reduce((sum, f) => sum + (f.file?.size ?? 0), 0)
+    const incomingSize = incoming.reduce((sum, f) => sum + f.size, 0)
+
+    if (currentSize + incomingSize > MAX_BYTES) {
+      showToast.warning(
+        '용량 초과',
+        '첨부 파일 총 용량은 10MB를 넘길 수 없습니다.'
+      )
+      return
+    }
+
     const mapped: FileUploadItemType[] = incoming.map((file) => ({
       file,
       preview_url: URL.createObjectURL(file),
@@ -41,7 +54,7 @@ export function FileUploader({ value, onChange }: FileUploaderProps) {
 
   return (
     <BaseUploader
-      maxSize={10 * 1024 * 1024}
+      maxSize={MAX_BYTES}
       multiple
       onDrop={onDrop}
       onDropRejected={onDropRejected}
