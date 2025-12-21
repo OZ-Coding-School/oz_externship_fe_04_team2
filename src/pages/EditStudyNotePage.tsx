@@ -3,56 +3,101 @@ import { MarkdownEditor } from '@/components/markdown'
 import { FileUploader } from '@/components/studygroup-detail'
 import { StudyNoteBreadcrumb } from '@/components/studygroup-note'
 import { useStudyNoteDetail, useUpdateStudyNote } from '@/hooks/study-note'
-import type { UpdateStudyNoteRequestType } from '@/types'
+import useFileUpload from '@/hooks/study-note/useFileUpload'
+import { showToast } from '@/lib'
+import type { FileUploadItemType, UpdateStudyNoteRequestType } from '@/types'
+import { useMutation } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
-import { toast } from 'react-toastify'
 
 export function EditStudyNotePage() {
   const { groupId, noteId } = useParams<{ groupId: string; noteId: string }>()
   const navigate = useNavigate()
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+  const [files, setFiles] = useState<FileUploadItemType[]>([])
 
   const isInvalidParams = !groupId || !noteId
 
+  const { uploadFiles } = useFileUpload()
+
+  const uploadMutation = useMutation({
+    mutationFn: uploadFiles,
+  })
+
+  const { data } = useStudyNoteDetail(groupId ?? '', noteId ?? '')
+  const { mutateAsync: updateNoteAsync, isPending: isUpdating } =
+    useUpdateStudyNote(groupId ?? '', noteId ?? '')
+
   useEffect(() => {
     if (isInvalidParams) {
-      toast.error('잘못된 접근입니다.')
+      showToast.error('접근 오류', '잘못된 접근입니다.')
       navigate(-1)
     }
   }, [isInvalidParams, navigate])
-
-  const { data } = useStudyNoteDetail(groupId ?? '', noteId ?? '')
-  const { mutate: updateNote } = useUpdateStudyNote(groupId ?? '', noteId ?? '')
 
   // 기존 데이터로 폼 초기화
   useEffect(() => {
     if (data) {
       setTitle(data.title)
       setContent(data.content ?? '')
+
+      const existingFiles: FileUploadItemType[] = data.files.map((file) => ({
+        file_name: file.file_name,
+        preview_url: file.file_url,
+        s3_url: file.file_url,
+        type: '',
+      }))
+
+      setFiles(existingFiles)
     }
   }, [data])
 
   if (isInvalidParams) return null
 
-  const handleSubmit = () => {
-    // files는 아직 연동되지 않음
-    const payload: UpdateStudyNoteRequestType = {
-      title,
-      content,
-    }
+  const handleSubmit = async () => {
+    if (uploadMutation.isPending || isUpdating) return
 
-    updateNote(payload, {
-      onSuccess: () => {
-        navigate(`/${groupId}/notes/${noteId}`)
-      },
-    })
+    try {
+      // 파일 S3에 업로드 (새 파일만 업로드)
+      const uploadedFiles = await uploadMutation.mutateAsync(files)
+
+      // 업로드 실패한 파일 체크
+      const failedFiles = uploadedFiles.filter((f) => f.error)
+      if (failedFiles.length > 0) {
+        const fileNames = failedFiles.map((f) => f.file_name).join(', ')
+        showToast.error('업로드 실패', `${fileNames} 업로드에 실패했습니다.`)
+        return
+      }
+
+      const apiFiles = uploadedFiles
+        .filter((f) => f.s3_url != null)
+        .map((f) => ({
+          file_name: f.file_name,
+          file_url: f.s3_url!,
+        }))
+
+      const payload: UpdateStudyNoteRequestType = {
+        title,
+        content,
+        files: apiFiles,
+        images: [],
+      }
+
+      await updateNoteAsync(payload)
+
+      showToast.success('수정 완료', '스터디 기록이 수정되었습니다.')
+      navigate(`/${groupId}/notes/${noteId}`)
+    } catch {
+      showToast.error('수정 실패', '수정에 실패했습니다.')
+    }
   }
 
   const handleCancel = () => {
     navigate(-1)
   }
+
+  const isSubmitting = uploadMutation.isPending || isUpdating
 
   return (
     <div className="flex flex-col p-8">
@@ -85,16 +130,25 @@ export function EditStudyNotePage() {
           <label className="text-custom-gray-700 text-sm font-medium">
             첨부 파일
           </label>
-          <FileUploader />
+          <FileUploader value={files} onChange={setFiles} />
         </div>
       </div>
 
       <div className="flex w-full justify-between gap-4 pt-6">
-        <Button variant="outline" onClick={handleCancel}>
+        <Button
+          variant="outline"
+          onClick={handleCancel}
+          disabled={isSubmitting}
+        >
           취소
         </Button>
-        <Button variant="primary" className="px-8" onClick={handleSubmit}>
-          수정 사항 저장
+        <Button
+          variant="primary"
+          className="px-8"
+          onClick={handleSubmit}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? '저장 중' : '수정 사항 저장'}
         </Button>
       </div>
     </div>
