@@ -23,7 +23,8 @@ export function StudyMemberList({
   const { mutate: delegateLeader } = useDelegateStudyGroupLeader(groupId)
   const { mutate: kickMember } = useKickStudyGroupMember(groupId)
 
-  const isCurrentUserLeader = currentUserId === leaderId
+  const isCurrentUserLeader =
+    currentUserId !== undefined && currentUserId === leaderId
 
   const handleDelegateLeader = (memberId: number) => {
     delegateLeader(memberId, {
@@ -55,7 +56,8 @@ export function StudyMemberList({
       <ul className="flex max-h-[384px] flex-col gap-3 overflow-y-auto">
         {members.map((member) => {
           const isLeader = member.is_leader
-          const isSelf = member.id === currentUserId
+          const isSelf =
+            currentUserId !== undefined && member.id === currentUserId
 
           // 리더만 버튼 보임 + 본인은 제외
           const canManageMember = isCurrentUserLeader && !isSelf

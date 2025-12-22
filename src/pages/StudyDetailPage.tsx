@@ -1,3 +1,4 @@
+import { Loading } from '@/components/fallback-ui'
 import {
   StudyDetailHero,
   StudyDetailInfo,
@@ -6,6 +7,7 @@ import {
   StudyNoteList,
   StudyScheduleCalendar,
 } from '@/components/studygroup-detail'
+import { useUserData } from '@/hooks'
 import { useLeaveStudyGroup, useStudyGroupDetail } from '@/hooks/study-group'
 import { showToast } from '@/lib'
 import { useNavigate, useParams } from 'react-router'
@@ -15,13 +17,18 @@ export function StudyDetailPage() {
   const numericGroupId = Number(groupId)
   const navigate = useNavigate()
 
-  // 임시: 로그인 유저 id라고 가정
-  const currentUserId = 1
+  const { data: userData, isLoading: isUserLoading } = useUserData()
+  const currentUserId = userData?.id
 
-  const { data: group } = useStudyGroupDetail(numericGroupId)
+  const { data: group, isLoading: isGroupLoading } =
+    useStudyGroupDetail(numericGroupId)
   const { mutate: leaveStudyGroup } = useLeaveStudyGroup()
 
-  if (!group) return null
+  if (isUserLoading || isGroupLoading) {
+    return <Loading />
+  }
+
+  if (!group || !currentUserId) return null
 
   const handleClickEdit = () => {
     navigate(`/${numericGroupId}/edit`)
@@ -58,7 +65,10 @@ export function StudyDetailPage() {
       {/* 좌측 메인 콘텐츠 */}
       <div className="flex flex-col gap-8 lg:flex-row">
         <div className="flex flex-1 flex-col gap-6">
-          <StudyScheduleCalendar groupId={numericGroupId} />
+          <StudyScheduleCalendar
+            groupId={numericGroupId}
+            members={group.members}
+          />
           <StudyNoteList groupId={numericGroupId} />
         </div>
 
