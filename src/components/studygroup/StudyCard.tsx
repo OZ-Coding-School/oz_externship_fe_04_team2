@@ -5,6 +5,7 @@ import {
 } from '@/components/studygroup'
 import { useStudyGroupStore } from '@/store'
 import type { StudyGroupResponseType, StudyGroupReviewType } from '@/types'
+import { formatYearMonthDay } from '@/utils'
 
 export interface StudyCardProps {
   study: StudyGroupResponseType
@@ -41,7 +42,7 @@ export function StudyCard({ study }: StudyCardProps) {
       <div className="flex flex-1 flex-col p-5">
         <StudyCardContent
           name={study.name}
-          dateRange={`${study.start_at} ~ ${study.end_at}`}
+          dateRange={`${formatYearMonthDay(study.start_at)} ~ ${formatYearMonthDay(study.end_at)}`}
           lectures={study.lectures}
         />
         <StudyCardFooter

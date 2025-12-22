@@ -1,6 +1,11 @@
 import { eachMinuteOfInterval, format } from 'date-fns'
 import { ko } from 'date-fns/locale'
 
+// yyyy년 M월 d일
+export function formatYearMonthDay(dateStr: string) {
+  return format(new Date(dateStr), 'yyyy년 M월 d일', { locale: ko })
+}
+
 // M월 d일
 export function formatMonthDay(dateStr: string) {
   return format(new Date(dateStr), 'M월 d일', { locale: ko })
