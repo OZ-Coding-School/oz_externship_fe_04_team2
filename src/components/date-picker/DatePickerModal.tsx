@@ -12,6 +12,7 @@ import './date-picker.css'
 
 interface DatePickerModalProps {
   isOpen: boolean
+  disabled?: { before: Date }
   selected?: Date
   onClose: () => void
   onChange: (date: Date | undefined) => void
@@ -20,8 +21,9 @@ interface DatePickerModalProps {
 
 export function DatePickerModal({
   isOpen,
-  onClose,
+  disabled,
   selected,
+  onClose,
   onChange,
   onConfirm,
 }: DatePickerModalProps) {
@@ -46,7 +48,7 @@ export function DatePickerModal({
         navLayout="around"
         selected={selected}
         onSelect={onChange}
-        disabled={{ before: new Date() }}
+        disabled={disabled}
         showOutsideDays
         components={{
           CaptionLabel: (captionProps) => (
