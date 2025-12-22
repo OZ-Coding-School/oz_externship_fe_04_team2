@@ -1,9 +1,15 @@
+/* layout */
 .rbc-month-view {
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   overflow: hidden;
 }
 
+.rbc-month-row {
+  overflow: visible;
+}
+
+/* date cell */
 .rbc-header {
   font-size: 14px;
   font-weight: 500;
@@ -17,6 +23,19 @@
   border-left: 1px solid #e5e7eb;
 }
 
+.rbc-date-cell {
+  text-align: left;
+  padding: 6px 8px;
+}
+
+.rbc-button-link {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #111827;
+}
+
+/* date states */
 .rbc-today {
   background-color: #ffffff;
 }
@@ -32,6 +51,7 @@
   color: transparent;
 }
 
+/* grid cells  */
 .rbc-day-bg {
   padding: 8px;
 }
@@ -40,22 +60,15 @@
   border-left: 1px solid #e5e7eb;
 }
 
-.rbc-button-link {
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 20px;
-  color: #111827;
-}
-
 .rbc-month-row + .rbc-month-row {
   border-top: 1px solid #e5e7eb;
 }
 
-.rbc-date-cell {
-  text-align: left;
-  padding: 6px 8px;
+.rbc-row-segment {
+  padding-inline: 8px;
 }
 
+/* events */
 .rbc-event {
   font-size: 12px;
   line-height: 16px;
@@ -65,6 +78,72 @@
   color: #854d0e;
 }
 
-.rbc-row-segment {
-  padding-inline: 8px;
+.rbc-event-content {
+  display: flex;
+  gap: 4px;
+}
+
+.rbc-event-content > span:last-child {
+  display: none;
+}
+
+/* 더보기 버튼 */
+.rbc-show-more {
+  font-size: 12px;
+  font-weight: 400;
+  color: #6b7280;
+}
+
+.rbc-show-more:hover,
+.rbc-show-more:focus {
+  color: #4b5563;
+}
+
+/* sm 이하 (640px 미만) */
+@media (max-width: 639px) {
+  .rbc-show-more-text {
+    color: transparent;
+  }
+
+  .rbc-show-more-text::before {
+    content: attr(data-count);
+    color: #6b7280;
+  }
+}
+
+/* overlay */
+.rbc-overlay {
+  min-width: 120px;
+  display: grid;
+  gap: 2px;
+  border-radius: 4px;
+}
+
+.rbc-overlay-header {
+  font-size: 14px;
+  padding: 4px 10px;
+}
+
+.rbc-overlay .rbc-event-content {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  white-space: normal;
+}
+
+.rbc-overlay .rbc-event-content > span:first-child {
+  max-width: 140px;
+  white-space: normal;
+  overflow: hidden;
+  line-clamp: 2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+}
+
+.rbc-overlay .rbc-event-content > span:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }

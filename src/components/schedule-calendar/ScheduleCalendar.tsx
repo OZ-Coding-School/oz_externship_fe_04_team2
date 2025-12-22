@@ -32,7 +32,11 @@ export function ScheduleCalendar({
   onScheduleClick,
 }: ScheduleCalendarProps) {
   const [month, setMonth] = useState(new Date())
-  const formats = { monthHeaderFormat: 'yyyy년 MM월' }
+  const formats = {
+    monthHeaderFormat: 'yyyy년 MM월',
+    dayHeaderFormat: 'MM월 dd일 eeee',
+    popupHeaderFormat: 'MM월 dd일 eeee',
+  }
 
   // react-big-calendar는 start/end가 Date 객체인 이벤트 배열 요구
   const toEvent = (schedule: StudyScheduleListItemType): ScheduleEvent => {
@@ -80,7 +84,14 @@ export function ScheduleCalendar({
           toolbar: CustomToolbar,
           event: ScheduleEventItem,
         }}
-        showAllEvents
+        popup
+        messages={{
+          showMore: (total) => (
+            <span className="rbc-show-more-text" data-count={`+${total}`}>
+              +{total} more
+            </span>
+          ),
+        }}
         onSelectEvent={handleSelectScheduleDetail}
       />
     </div>

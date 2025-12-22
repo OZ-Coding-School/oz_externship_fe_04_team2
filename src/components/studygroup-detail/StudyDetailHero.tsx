@@ -20,8 +20,10 @@ export function StudyDetailHero({
       <div className="relative aspect-[16/9] w-full md:h-[480px] lg:h-[608px]">
         {/* 배경 이미지 */}
         <img
-          // 스터디 그룹 대표 이미지 없을 경우 디폴트 이미지 필요
-          src={group.profile_img_url ?? ''}
+          src={
+            group.profile_img_url ??
+            'https://blog.kakaocdn.net/dna/bEACaU/btqU4Ynqyia/AAAAAAAAAAAAAAAAAAAAAFm6i4gzRgD9jKhrzYnFl7XIeG9IHtcy2tsNjqvDaI3v/img.jpg?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1767193199&allow_ip=&allow_referer=&signature=Hw2YRFFdo6VSKLw5ReC4IIJEkm0%3D'
+          }
           alt={group.name}
           className="absolute inset-0 h-full w-full object-cover"
         />

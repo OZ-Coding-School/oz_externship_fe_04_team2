@@ -1,11 +1,15 @@
 import type { ScheduleEvent } from '@/components/schedule-calendar'
+import { Clock3 } from 'lucide-react'
 import type { EventProps } from 'react-big-calendar'
 
 export function ScheduleEventItem({ event }: EventProps<ScheduleEvent>) {
   return (
     <>
-      <p>{event.title}</p>
-      <p className="text-primary-800/75 font-normal">{event.timeLabel}</p>
+      <span>{event.title}</span>
+      <span className="text-primary-800/75">
+        <Clock3 size={12} />
+        {event.timeLabel}
+      </span>
     </>
   )
 }

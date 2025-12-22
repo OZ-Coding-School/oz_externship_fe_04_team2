@@ -9,16 +9,19 @@ import {
   useDeleteStudySchedule,
   useStudySchedules,
 } from '@/hooks/study-schedule'
-import { mockScheduleParticipants } from '@/mocks/data'
-import type { StudyScheduleDetailType } from '@/types'
+import type { StudyGroupMemberType, StudyScheduleDetailType } from '@/types'
 import { Plus } from 'lucide-react'
 import { useState } from 'react'
 
 interface StudyScheduleCalendarProps {
   groupId: number
+  members: StudyGroupMemberType[]
 }
 
-export function StudyScheduleCalendar({ groupId }: StudyScheduleCalendarProps) {
+export function StudyScheduleCalendar({
+  groupId,
+  members,
+}: StudyScheduleCalendarProps) {
   const [isCreateOpen, setIsCreateOpen] = useState(false)
   const [isDetailOpen, setIsDetailOpen] = useState(false)
   const [isEditOpen, setIsEditOpen] = useState(false)
@@ -95,7 +98,7 @@ export function StudyScheduleCalendar({ groupId }: StudyScheduleCalendarProps) {
         isOpen={isCreateOpen}
         onClose={handleCloseCreateModal}
         groupId={groupId}
-        members={mockScheduleParticipants}
+        members={members}
       />
 
       {selectedSchedule && (
@@ -115,7 +118,7 @@ export function StudyScheduleCalendar({ groupId }: StudyScheduleCalendarProps) {
           schedule={selectedSchedule}
           onSave={handleSaveEditedSchedule}
           groupId={groupId}
-          members={mockScheduleParticipants}
+          members={members}
         />
       )}
     </section>

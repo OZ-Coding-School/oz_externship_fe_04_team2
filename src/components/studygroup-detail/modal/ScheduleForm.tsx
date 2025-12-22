@@ -9,8 +9,9 @@ import {
 import { DatePickerInput } from '@/components/date-picker/DatePickerInput'
 import { studyScheduleFormSchema, type StudyScheduleFormData } from '@/schema'
 import { ScheduleFormModeType, type StudyGroupMemberType } from '@/types'
-import { createTimeOptions } from '@/utils'
+import { createTimeOptions, timeToMinutes } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useEffect, useMemo } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
 // 10분 단위 시간 옵션
@@ -35,6 +36,8 @@ export function ScheduleForm({
     register,
     handleSubmit,
     control,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<StudyScheduleFormData>({
     defaultValues,
@@ -43,6 +46,23 @@ export function ScheduleForm({
 
   const submitLabel =
     mode === ScheduleFormModeType.CREATE ? '추가하기' : '수정하기'
+
+  const startTime = watch('start_time')
+  const endTime = watch('end_time')
+
+  const endTimeOptions = useMemo(() => {
+    if (!startTime) return TIME_OPTIONS
+    return TIME_OPTIONS.filter(
+      (opt) => timeToMinutes(opt.value) > timeToMinutes(startTime)
+    )
+  }, [startTime])
+
+  useEffect(() => {
+    if (!startTime || !endTime) return
+    if (timeToMinutes(endTime) <= timeToMinutes(startTime)) {
+      setValue('end_time', '')
+    }
+  }, [startTime, endTime, setValue])
 
   return (
     <form
@@ -114,10 +134,11 @@ export function ScheduleForm({
             name="end_time"
             render={({ field }) => (
               <Dropdown
-                options={TIME_OPTIONS}
+                options={endTimeOptions}
                 value={field.value}
                 onChange={field.onChange}
-                placeholder="00:00"
+                placeholder={startTime ? '00:00' : '시작 시간 선택'}
+                disabled={!startTime}
               />
             )}
           />
