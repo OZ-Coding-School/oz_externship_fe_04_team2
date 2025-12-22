@@ -132,6 +132,11 @@ export function StudyGroupMemberSlider() {
       </section>
       <DatePickerModal
         isOpen={isModalOpen}
+        disabled={
+          activeField === 'end' && startDate
+            ? { before: new Date(startDate) }
+            : { before: new Date() }
+        }
         selected={
           activeField === 'start'
             ? startDate
@@ -149,10 +154,12 @@ export function StudyGroupMemberSlider() {
         }}
         onChange={(date) => {
           if (!activeField) return
-          setValue(
-            activeField === 'start' ? 'start_at' : 'end_at',
-            date?.toISOString() ?? ''
-          )
+          if (activeField === 'start') {
+            setValue('start_at', date?.toISOString() ?? '')
+            setValue('end_at', '')
+          } else {
+            setValue('end_at', date?.toISOString() ?? '')
+          }
         }}
         onConfirm={() => {
           setIsModalOpen(false)
