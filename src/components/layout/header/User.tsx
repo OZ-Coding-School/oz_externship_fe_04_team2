@@ -46,7 +46,7 @@ export function User() {
         <div className="bg-primary-100 centralize h-8 w-8 rounded-full">
           <UserRound className="text-primary-600 h-5 w-5" />
         </div>
-        <div className="text-primary-600 text-base">{data[0]?.name}</div>
+        <div className="text-primary-600 text-base">{data?.name}</div>
         {isUserModalOpen ? (
           <ChevronUp className="hidden md:block md:h-[17px] md:w-[17px]" />
         ) : (
