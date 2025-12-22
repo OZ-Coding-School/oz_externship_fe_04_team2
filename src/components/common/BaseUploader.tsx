@@ -6,6 +6,7 @@ interface BaseUploaderProps {
   maxSize?: number
   multiple?: boolean
   onDrop: (files: File[]) => void
+  onDropRejected?: (rejections: FileRejection[]) => void
   children?: React.ReactNode
 }
 
@@ -14,13 +15,17 @@ export function BaseUploader({
   maxSize = 5 * 1024 * 1024,
   multiple = false,
   onDrop,
+  onDropRejected,
   children,
 }: BaseUploaderProps) {
   const handleDrop = useCallback(
-    (accepted: File[], _rejected: FileRejection[]) => {
+    (accepted: File[], rejected: FileRejection[]) => {
+      if (rejected.length > 0 && onDropRejected) {
+        onDropRejected(rejected)
+      }
       onDrop(accepted)
     },
-    [onDrop]
+    [onDrop, onDropRejected]
   )
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({

@@ -1,48 +1,76 @@
 import { Upload, X } from 'lucide-react'
-import { useState } from 'react'
 import { Button, BaseUploader } from '@/components/common'
 import { FilePreview } from '@/components/studygroup-detail'
+import { showToast } from '@/lib'
+import type { FileUploadItemType } from '@/types'
+import type { FileRejection } from 'react-dropzone'
 
-type UploadedFile = {
-  url: string
-  type: string
-  name: string
+const MAX_BYTES = 10 * 1024 * 1024
+
+interface FileUploaderProps {
+  value: FileUploadItemType[]
+  onChange: (files: FileUploadItemType[]) => void
 }
 
-export function FileUploader() {
-  const [files, setFiles] = useState<UploadedFile[]>([])
-
+export function FileUploader({ value, onChange }: FileUploaderProps) {
   const onDrop = (incoming: File[]) => {
-    const mapped = incoming.map((file) => ({
-      url: URL.createObjectURL(file),
-      type: file.type,
-      name: file.name,
-    }))
+    const currentSize = value.reduce((sum, f) => sum + (f.file?.size ?? 0), 0)
+    const incomingSize = incoming.reduce((sum, f) => sum + f.size, 0)
 
-    setFiles((prev) => [...prev, ...mapped])
+    if (currentSize + incomingSize > MAX_BYTES) {
+      showToast.warning(
+        '용량 초과',
+        '첨부 파일 총 용량은 10MB를 넘길 수 없습니다.'
+      )
+      return
+    }
+
+    const mapped: FileUploadItemType[] = incoming.map((file) => ({
+      file,
+      preview_url: URL.createObjectURL(file),
+      type: file.type,
+      file_name: file.name,
+    }))
+    onChange([...value, ...mapped])
   }
 
-  const removeFile = (file: UploadedFile) => {
-    URL.revokeObjectURL(file.url)
+  const onDropRejected = (rejections: FileRejection[]) => {
+    const oversizedFiles = rejections.filter((rejection) =>
+      rejection.errors.some((e) => e.code === 'file-too-large')
+    )
 
-    setFiles((prev) => prev.filter((f) => f.url !== file.url))
+    if (oversizedFiles.length > 0) {
+      const names = oversizedFiles
+        .map((rejection) => rejection.file.name)
+        .join(', ')
+      showToast.warning('파일 크기 초과', `${names} 파일이 10MB를 초과합니다.`)
+    }
+  }
+
+  const removeFile = (file: FileUploadItemType) => {
+    URL.revokeObjectURL(file.preview_url)
+    onChange(value.filter((f) => f.preview_url !== file.preview_url))
   }
 
   return (
     <BaseUploader
-      // accept={{ '*/*': [] }}
-      maxSize={10 * 1024 * 1024}
+      maxSize={MAX_BYTES}
       multiple
       onDrop={onDrop}
+      onDropRejected={onDropRejected}
     >
-      {files.length > 0 ? (
+      {value.length > 0 ? (
         <div className="grid w-full auto-rows-auto grid-cols-3 gap-2">
-          {files.map((file) => (
+          {value.map((file) => (
             <div
-              key={file.url}
+              key={file.preview_url}
               className="relative w-full overflow-hidden rounded-lg bg-white"
             >
-              <FilePreview url={file.url} type={file.type} name={file.name} />
+              <FilePreview
+                url={file.preview_url}
+                type={file.type}
+                name={file.file_name}
+              />
               <Button
                 variant="ghost"
                 className="text-custom-gray-400 absolute top-2 right-2"

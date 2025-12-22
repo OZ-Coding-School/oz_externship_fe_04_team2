@@ -3,50 +3,85 @@ import { MarkdownEditor } from '@/components/markdown'
 import { FileUploader } from '@/components/studygroup-detail'
 import { StudyNoteBreadcrumb } from '@/components/studygroup-note'
 import { useCreateStudyNote } from '@/hooks/study-note'
-import type { CreateStudyNoteRequestType } from '@/types'
+import useFileUpload from '@/hooks/study-note/useFileUpload'
+import { showToast } from '@/lib'
+import type { CreateStudyNoteRequestType, FileUploadItemType } from '@/types'
+import { useMutation } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
-import { toast } from 'react-toastify'
 
 export function CreateStudyNotePage() {
   const { groupId } = useParams<{ groupId: string }>()
   const navigate = useNavigate()
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+  const [files, setFiles] = useState<FileUploadItemType[]>([])
 
   const isInvalidParams = !groupId
 
+  const { uploadFiles } = useFileUpload()
+
+  const uploadMutation = useMutation({
+    mutationFn: uploadFiles,
+  })
+
+  const { mutateAsync: createNoteAsync, isPending: isCreating } =
+    useCreateStudyNote(groupId ?? '')
+
   useEffect(() => {
     if (isInvalidParams) {
-      toast.error('잘못된 접근입니다.')
+      showToast.error('접근 오류', '잘못된 접근입니다.')
       navigate(-1)
     }
   }, [isInvalidParams, navigate])
 
-  const { mutate: createNote } = useCreateStudyNote(groupId ?? '')
-
   if (isInvalidParams) return null
 
-  const handleSubmit = () => {
-    // files는 FileUploader와 연동되지 않음
-    // API 형태에 맞추기 위해 빈 값으로 payload 생성
-    const payload: CreateStudyNoteRequestType = {
-      title,
-      content,
-      files: [],
-      images: [],
-    }
+  const handleSubmit = async () => {
+    if (uploadMutation.isPending || isCreating) return
 
-    createNote(payload, {
-      onSuccess: () => {
-        navigate(`/${groupId}`)
-      },
-    })
+    try {
+      // 파일 업로드
+      const uploadedFiles = await uploadMutation.mutateAsync(files)
+
+      // 업로드 실패
+      const failedFiles = uploadedFiles.filter((file) => file.error)
+      if (failedFiles.length > 0) {
+        const fileNames = failedFiles.map((file) => file.file_name).join(', ')
+        showToast.error('업로드 실패', `${fileNames} 업로드에 실패했습니다.`)
+        return
+      }
+
+      // API payload
+      const apiFiles = uploadedFiles
+        .filter((f) => f.s3_url != null)
+        .map((f) => ({
+          file_name: f.file_name,
+          file_url: f.s3_url!,
+        }))
+
+      const payload: CreateStudyNoteRequestType = {
+        title,
+        content,
+        files: apiFiles,
+        images: [],
+      }
+
+      await createNoteAsync(payload)
+
+      showToast.success('저장 완료', '스터디 기록이 저장되었습니다.')
+      navigate(`/${groupId}`)
+    } catch (error) {
+      console.error('노트 생성', error)
+      showToast.error('저장 실패', '저장에 실패했습니다.')
+    }
   }
 
   const handleCancel = () => {
     navigate(-1)
   }
+
+  const isSubmitting = uploadMutation.isPending || isCreating
 
   return (
     <div className="flex flex-col p-8">
@@ -79,16 +114,25 @@ export function CreateStudyNotePage() {
           <label className="text-custom-gray-700 text-sm font-medium">
             첨부 파일
           </label>
-          <FileUploader />
+          <FileUploader value={files} onChange={setFiles} />
         </div>
       </div>
 
       <div className="flex w-full justify-between gap-4 pt-6">
-        <Button variant="outline" onClick={handleCancel}>
+        <Button
+          variant="outline"
+          onClick={handleCancel}
+          disabled={isSubmitting}
+        >
           취소
         </Button>
-        <Button variant="primary" className="px-8" onClick={handleSubmit}>
-          기록 저장
+        <Button
+          variant="primary"
+          className="px-8"
+          onClick={handleSubmit}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? '저장 중' : '기록 저장'}
         </Button>
       </div>
     </div>

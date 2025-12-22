@@ -2,7 +2,6 @@ export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 export const API_PATHS = {
   USER: {
-    // 유저 정보를 가져오는 api
     GET: '/api/v1/accounts/me',
     LOGIN: '/api/v1/accounts/login',
     REFRESH_TOKEN: '/api/v1/accounts/token/refresh',
@@ -54,5 +53,9 @@ export const API_PATHS = {
     LIST: (groupId: number | string) => `/api/v1/study-groups/${groupId}/notes`,
     DETAIL: (groupId: number | string, noteId: number | string) =>
       `/api/v1/study-groups/${groupId}/notes/${noteId}`,
+  },
+  S3: {
+    PRESIGNED_URL: '/api/v1/s3-presigned-url',
+    DELETE_FILE: '/api/v1/s3-file',
   },
 } as const
