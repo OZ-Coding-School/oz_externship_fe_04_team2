@@ -5,27 +5,29 @@ on:
       - develop
 jobs:
   sync:
-    name: Sync forked repo
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout develop
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.ACCESS_TOKEN }}
           fetch-depth: 0
           ref: develop
 
-      - name: Add remote-url
+      - name: Configure git author
         run: |
-          git remote add forked-repo https://miloupark:${{ secrets.EMAIL }}@github.com/oz_externship_fe_04_team2
-          git config user.name miloupark
-          git config user.email ${{ secrets.EMAIL }}
+          git config user.name "miloupark"
+          git config user.email "${{ secrets.EMAIL }}"
+
+      - name: Add remote-url (token auth)
+        run: |
+          git remote add forked-repo "https://x-access-token:${{ secrets.ACCESS_TOKEN }}@github.com/miloupark/oz_externship_fe_04_team2.git"
 
       - name: Push changes to forked-repo
         run: |
-          git push -f forked-repo develop
+          git push --force-with-lease forked-repo develop
 
       - name: Clean up
+        if: always()
         run: |
           git remote remove forked-repo
