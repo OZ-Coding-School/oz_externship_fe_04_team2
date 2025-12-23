@@ -19,13 +19,10 @@ export async function getStudyGroups() {
 
 // 스터디 그룹 리뷰 조회
 export async function getStudyReviews(studyId: number) {
-  const { data } = await axiosInstance.get<{
-    reviews: StudyGroupReviewType[]
-    average_rating: number
-    total_count: number
-  }>(API_PATHS.REVIEW.LIST(studyId))
-
-  return data
+  const res = await axiosInstance<StudyGroupReviewType[]>(
+    API_PATHS.REVIEW.LIST(studyId)
+  )
+  return res.data
 }
 
 // 스터디 그룹 생성
