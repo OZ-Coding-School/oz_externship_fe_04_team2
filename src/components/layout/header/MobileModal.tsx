@@ -55,17 +55,17 @@ export function MobileModal({ setIsModalOpen }: MobileModalProps) {
         <div className="border-custom-gray-200 absolute bottom-[70px] flex h-[117px] w-full flex-col gap-3 border-t border-solid p-4">
           <div className="flex items-center gap-3">
             <img
-              src={data[0]?.profile_img_url}
+              src={data?.profile_img_url}
               alt="profile_img"
               className="h-15 w-15 rounded-full"
             />
             {/* 추후 api 연동으로 이미지 불러오게 */}
             <div className="flex flex-col">
               <span className="text-custom-gray-900 text-base font-semibold">
-                {data[0]?.name}
+                {data?.name}
               </span>
               <span className="text-custom-gray-600 text-base font-normal">
-                {data[0]?.email}
+                {data?.email}
               </span>
               {/* 추후 api 연동으로 이름 및 이메일 불러오게 */}
             </div>
