@@ -22,6 +22,16 @@ export const useUpdateStudyGroup = (groupId: string | number) => {
       queryClient.invalidateQueries({
         queryKey: ['study-groups'],
       })
+
+      showToast.success('수정 성공!', '스터디 그룹이 생성되었습니다')
+    },
+
+    onError: (error) => {
+      if (error instanceof ApiError) {
+        showToast.error('실패!', error.message)
+      } else {
+        showToast.error('스터디 수정 실패!', '스터디 수정에 실패했습니다')
+      }
     },
   })
 }

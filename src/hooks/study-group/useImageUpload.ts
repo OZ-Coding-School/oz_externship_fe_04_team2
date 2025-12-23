@@ -1,4 +1,5 @@
 import { getPresignedUrl, uploadToS3 } from '@/api'
+import { showToast } from '@/lib'
 
 interface UploadImageResult {
   imageUrl?: string
@@ -22,6 +23,7 @@ export function useImageUpload() {
       return { imageUrl: file_url }
     } catch (error) {
       console.error('uploadImage', error)
+      showToast.error('업로드 실패', '이미지 업로드에 실패했습니다.')
       return { error: '이미지 업로드에 실패했습니다.' }
     }
   }
