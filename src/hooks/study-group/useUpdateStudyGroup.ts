@@ -23,7 +23,7 @@ export const useUpdateStudyGroup = (groupId: string | number) => {
         queryKey: ['study-groups'],
       })
 
-      showToast.success('수정 성공!', '스터디 그룹이 생성되었습니다')
+      showToast.success('수정 성공!', '스터디 그룹이 수정되었습니다')
     },
 
     onError: (error) => {
