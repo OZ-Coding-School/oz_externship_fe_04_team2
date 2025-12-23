@@ -37,10 +37,13 @@ export function ScheduleCalendar({
   // react-big-calendar는 start/end가 Date 객체인 이벤트 배열 요구
   const toEvent = (schedule: StudyScheduleListItemType): ScheduleEvent => {
     const dateStr = schedule.session_date.substring(0, 10)
+    const startTime = schedule.start_time.substring(0, 5)
+    const endTime = schedule.end_time.substring(0, 5)
+
     return {
       id: schedule.id,
       title: schedule.title,
-      timeLabel: `${schedule.start_time} ~ ${schedule.end_time}`,
+      timeLabel: `${startTime} ~ ${endTime}`,
       start: parseISO(`${dateStr}T${schedule.start_time}`),
       end: parseISO(`${dateStr}T${schedule.end_time}`),
     }
