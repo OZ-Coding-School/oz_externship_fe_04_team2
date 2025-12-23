@@ -30,6 +30,7 @@ export function StudyGroupFormPage() {
       end_at: '',
       max_headcount: 2,
       profile_img_url: '',
+      profile_image_file: undefined,
       lectures: [],
     },
   })
