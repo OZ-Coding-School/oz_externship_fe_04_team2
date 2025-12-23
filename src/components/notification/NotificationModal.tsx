@@ -77,7 +77,7 @@ export default function NotificationModal({
       className="fixed inset-x-0 bottom-0 z-50 h-[70dvh] w-full overflow-hidden rounded-t-2xl border border-gray-200 bg-white pb-[45px] shadow-[0_-10px_30px_rgba(0,0,0,0.14)] md:absolute md:inset-auto md:top-10 md:right-0 md:h-[475px] md:w-[384px] md:rounded-lg md:shadow-xl"
     >
       <div className="bg-custom-gray-200 mx-auto mt-2 h-1.5 w-12 rounded-full md:hidden" />
-      <div className="flex-between border-custom-gray-100 h-15 border-b px-4">
+      <div className="border-custom-gray-100 flex h-15 w-full justify-between border-b px-4">
         <div className="flex items-center gap-2">
           <h5>알림</h5>
         </div>
