@@ -10,13 +10,21 @@ import {
   XIcon,
 } from 'lucide-react'
 import { EXTERNAL_LINKS } from '@/constants'
+import { showToast } from '@/lib'
+import { useNavigate } from 'react-router'
+import { logout } from '@/api'
+import AuthStateStore from '@/store/authStateStore'
 
 interface MobileModalProps {
   setIsModalOpen: (value: boolean) => void
 }
 
 export function MobileModal({ setIsModalOpen }: MobileModalProps) {
+  const navigate = useNavigate()
+
   const loginState = LoginStateStore((state) => state.loginState)
+  const setLoginState = LoginStateStore((state) => state.setLoginState)
+
   const { data } = useUserData()
 
   return (
@@ -34,19 +42,34 @@ export function MobileModal({ setIsModalOpen }: MobileModalProps) {
         <span className="text-custom-gray-400 flex h-9 items-center text-base font-semibold">
           메뉴
         </span>
-        <div className="flex h-[48px] items-center gap-3">
+        <div className="flex h-12 items-center gap-3">
           <BookIcon className="text-custom-gray-600 h-5 w-5" />
-          <a href={EXTERNAL_LINKS.LECTURES}>강의 목록</a>
+          <a href={EXTERNAL_LINKS.LECTURES} target="_blank" rel="noreferrer">
+            강의 목록
+          </a>
           {/* 강의목록 페이지로 렌더링 */}
         </div>
-        <div className="flex h-[48px] items-center gap-3">
+        <div className="flex h-12 items-center gap-3">
           <Users className="text-custom-gray-600 h-5 w-5" />
-          <a href="/">스터디 그룹</a>
+          <p
+            onClick={() => {
+              if (loginState === 'GUEST') {
+                showToast.error('실패', '로그인 후 이용할 수 있는 서비스입니다')
+                navigate(EXTERNAL_LINKS.LOGIN)
+              } else {
+                navigate('/')
+              }
+            }}
+          >
+            스터디 그룹
+          </p>
           {/* 로그인 화면으로 렌더링 */}
         </div>
-        <div className="flex h-[48px] items-center gap-3">
+        <div className="flex h-12 items-center gap-3">
           <MegaphoneIcon className="text-custom-gray-600 h-5 w-5" />
-          <a href={EXTERNAL_LINKS.RECRUITMENT}>구인 광고</a>
+          <a href={EXTERNAL_LINKS.RECRUITMENT} target="_blank" rel="noreferrer">
+            구인 광고
+          </a>
           {/* 구인광고 페이지로 렌더링 */}
         </div>
       </div>
@@ -71,14 +94,28 @@ export function MobileModal({ setIsModalOpen }: MobileModalProps) {
             </div>
           </div>
           <a href={EXTERNAL_LINKS.MY_PAGE}>
-            <button className="bg-primary-100 centralize cursor-pointer gap-[13px] rounded-lg px-4 py-2">
+            <button
+              className="bg-primary-100 centralize cursor-pointer gap-[13px] rounded-lg px-4 py-2"
+              onClick={() => {
+                navigate(EXTERNAL_LINKS.MY_PAGE)
+              }}
+            >
               <UserRound className="text-primary-600 h-5 w-5" />
               <span className="text- text-primary-600 text-base font-medium">
                 마이페이지
               </span>
             </button>
           </a>
-          <button className="bg-custom-gray-100 centralize cursor-pointer gap-[13px] rounded-lg px-4 py-2">
+          <button
+            className="bg-custom-gray-100 centralize cursor-pointer gap-[13px] rounded-lg px-4 py-2"
+            onClick={async () => {
+              await logout()
+              setLoginState('GUEST')
+              AuthStateStore.getState().setAccessToken(null)
+              setIsModalOpen(false)
+              navigate(EXTERNAL_LINKS.MAIN_PAGE)
+            }}
+          >
             <LogOutIcon className="text-custom-gray-600 h-5 w-5" />
             <span className="text-custom-gray-700 text-base font-medium">
               로그아웃
