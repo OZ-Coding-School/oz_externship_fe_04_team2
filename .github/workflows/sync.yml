@@ -18,7 +18,7 @@ jobs:
 
       - name: Add remote-url
         run: |
-          git remote add forked-repo https://miloupark:${{ secrets.EMAIL }}@github.com//oz_externship_fe_04_team2
+          git remote add forked-repo https://miloupark:${{ secrets.EMAIL }}@github.com/oz_externship_fe_04_team2
           git config user.name miloupark
           git config user.email ${{ secrets.EMAIL }}
 
