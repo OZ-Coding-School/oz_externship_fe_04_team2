@@ -33,7 +33,7 @@ export const useUpdateStudyGroup = (groupId: string | number) => {
 
     onError: (error) => {
       if (error instanceof ApiError) {
-        showToast.error('실패!', error.message)
+        showToast.error('실패!', error.getFirstMessage())
       } else {
         showToast.error('스터디 수정 실패!', '스터디 수정에 실패했습니다')
       }
