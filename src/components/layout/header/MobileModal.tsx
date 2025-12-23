@@ -75,7 +75,7 @@ export function MobileModal({ setIsModalOpen }: MobileModalProps) {
       </div>
       {/* user 일때만 나타나게 */}
       {loginState === 'USER' && (
-        <div className="border-custom-gray-200 absolute bottom-[70px] flex h-[117px] w-full flex-col gap-3 border-t border-solid p-4">
+        <div className="border-custom-gray-200 absolute bottom-[70px] flex h-32 w-full flex-col gap-3 border-t border-solid p-4">
           <div className="flex items-center gap-3">
             <img
               src={data?.profile_img_url}
@@ -87,40 +87,37 @@ export function MobileModal({ setIsModalOpen }: MobileModalProps) {
               <span className="text-custom-gray-900 text-base font-semibold">
                 {data?.name}
               </span>
-              <span className="text-custom-gray-600 text-base font-normal">
+              <span className="text-custom-gray-600 text-sm font-normal">
                 {data?.email}
               </span>
               {/* 추후 api 연동으로 이름 및 이메일 불러오게 */}
             </div>
           </div>
           <a href={EXTERNAL_LINKS.MY_PAGE}>
-            <button
-              className="bg-primary-100 centralize cursor-pointer gap-[13px] rounded-lg px-4 py-2"
-              onClick={() => {
-                navigate(EXTERNAL_LINKS.MY_PAGE)
-              }}
-            >
+            <button className="bg-primary-100 centralize w-full cursor-pointer gap-[13px] rounded-lg px-4 py-2">
               <UserRound className="text-primary-600 h-5 w-5" />
               <span className="text- text-primary-600 text-base font-medium">
                 마이페이지
               </span>
             </button>
           </a>
-          <button
-            className="bg-custom-gray-100 centralize cursor-pointer gap-[13px] rounded-lg px-4 py-2"
-            onClick={async () => {
-              await logout()
-              setLoginState('GUEST')
-              AuthStateStore.getState().setAccessToken(null)
-              setIsModalOpen(false)
-              navigate(EXTERNAL_LINKS.MAIN_PAGE)
-            }}
-          >
-            <LogOutIcon className="text-custom-gray-600 h-5 w-5" />
-            <span className="text-custom-gray-700 text-base font-medium">
-              로그아웃
-            </span>
-          </button>
+
+          <a href={EXTERNAL_LINKS.MAIN_PAGE}>
+            <button
+              className="bg-custom-gray-100 centralize w-full cursor-pointer gap-[13px] rounded-lg px-4 py-2"
+              onClick={async () => {
+                await logout()
+                setLoginState('GUEST')
+                AuthStateStore.getState().setAccessToken(null)
+                setIsModalOpen(false)
+              }}
+            >
+              <LogOutIcon className="text-custom-gray-600 h-5 w-5" />
+              <span className="text-custom-gray-700 text-base font-medium">
+                로그아웃
+              </span>
+            </button>
+          </a>
           {/* 버튼 컴포넌트 완료되면 버튼 컴포넌트로 커스텀 + 로그아웃 시키기 */}
         </div>
       )}
