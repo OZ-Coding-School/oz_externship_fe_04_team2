@@ -22,7 +22,7 @@ export function useCreateStudyGroup() {
 
     onError: (error) => {
       if (error instanceof ApiError) {
-        showToast.error('실패!', error.message)
+        showToast.error('실패!', error.getFirstMessage())
       } else {
         showToast.error('스터디 생성 실패!', '스터디 생성에 실패했습니다')
       }

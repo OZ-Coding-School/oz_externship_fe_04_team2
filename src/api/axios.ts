@@ -55,7 +55,8 @@ axiosInstance.interceptors.response.use(
       return Promise.reject(
         new ApiError(
           status,
-          data?.error_detail || data?.message || '요청에 실패했습니다',
+          data?.message || '요청에 실패했습니다',
+          data?.error_detail,
           data
         )
       )
