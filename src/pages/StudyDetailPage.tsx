@@ -42,9 +42,9 @@ export function StudyDetailPage() {
         navigate('/')
       },
       onError: () => {
-        showToast.warning(
+        showToast.error(
           '스터디 나가기 실패',
-          '스터디 그룹을 찾을 수 없습니다.'
+          '리더는 스터디 그룹을 나갈 수 없습니다.'
         )
       },
     })
