@@ -103,7 +103,11 @@ export function User() {
           />
         </div>
         <div className="text-primary-600 text-base">{data?.name}</div>
-        {isUserModalOpen ? <ChevronUp /> : <ChevronDown />}
+        {isUserModalOpen ? (
+          <ChevronUp className="hidden md:block md:h-4 md:w-4" />
+        ) : (
+          <ChevronDown className="hidden md:block md:h-4 md:w-4" />
+        )}
         {isUserModalOpen && <UserModal />}
         {/* 추후 목업데이터로 먼저 구현예정 */}
       </div>
