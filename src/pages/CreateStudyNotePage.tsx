@@ -108,6 +108,10 @@ export function CreateStudyNotePage() {
             내용 <span className="text-red-500">*</span>
           </label>
           <MarkdownEditor value={content} onChange={setContent} />
+          <span className="text-custom-gray-500 text-xs">
+            마크다운 문법을 사용할 수 있습니다. 이미지는 드래그 앤 드롭으로
+            첨부할 수 있습니다.
+          </span>
         </div>
 
         <div>
