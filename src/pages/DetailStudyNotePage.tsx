@@ -63,9 +63,17 @@ export function DetailStudyNotePage() {
             </div>
           </div>
           <p className="text-custom-gray-600 flex items-center gap-2 text-sm">
-            <span className="bg-primary-100 centralize h-8 w-8 rounded-full">
-              <UserRound className="text-primary-600 h-5 w-5" />
-            </span>
+            {data.author.profile_img_url ? (
+              <img
+                src={data.author.profile_img_url}
+                alt={`${data.author.nickname} 프로필`}
+                className="h-8 w-8 rounded-full object-cover"
+              />
+            ) : (
+              <span className="bg-primary-100 centralize h-8 w-8 rounded-full">
+                <UserRound className="text-primary-600 h-5 w-5" />
+              </span>
+            )}
             <span>{data.author.nickname}</span>
             <span>&bull;</span>
             <span>작성일: {formatDateTime(data.updated_at)}</span>
