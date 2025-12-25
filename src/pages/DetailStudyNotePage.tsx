@@ -6,6 +6,7 @@ import {
   StudyNoteBreadcrumb,
 } from '@/components/studygroup-note'
 import { StudyNoteToggle } from '@/components/studygroup-note/StudyNoteToggle'
+import { useUserData } from '@/hooks'
 import { useDeleteStudyNote, useStudyNoteDetail } from '@/hooks/study-note'
 import { showToast } from '@/lib'
 import { formatDateTime } from '@/utils'
@@ -19,7 +20,11 @@ export function DetailStudyNotePage() {
   const navigate = useNavigate()
 
   const { data } = useStudyNoteDetail(groupId ?? '', noteId ?? '')
+  const { data: userData } = useUserData()
   const { mutate: deleteNote } = useDeleteStudyNote(groupId ?? '')
+
+  // 작성자 여부 확인
+  const isAuthor = userData && data && userData.id === data.author.id
 
   const toggleSummary = () => setIsSummaryOpen((prev) => !prev)
 
@@ -49,18 +54,24 @@ export function DetailStudyNotePage() {
             <h1 className="text-custom-gray-900 text-2xl font-bold">
               {data.title}
             </h1>
-            <div className="flex gap-2">
-              <Button variant="secondary" className="h-8" onClick={handleEdit}>
-                수정하기
-              </Button>
-              <Button
-                variant="danger"
-                className="text-danger-800 h-8 bg-red-100 hover:bg-red-200 active:bg-red-300"
-                onClick={handleDelete}
-              >
-                삭제하기
-              </Button>
-            </div>
+            {isAuthor && (
+              <div className="flex gap-2">
+                <Button
+                  variant="secondary"
+                  className="h-8"
+                  onClick={handleEdit}
+                >
+                  수정하기
+                </Button>
+                <Button
+                  variant="danger"
+                  className="text-danger-800 h-8 bg-red-100 hover:bg-red-200 active:bg-red-300"
+                  onClick={handleDelete}
+                >
+                  삭제하기
+                </Button>
+              </div>
+            )}
           </div>
           <p className="text-custom-gray-600 flex items-center gap-2 text-sm">
             {data.author.profile_img_url ? (
